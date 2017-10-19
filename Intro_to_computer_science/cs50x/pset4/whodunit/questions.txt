@@ -1,0 +1,12 @@
+1.  standard c library that contains methods and typedefs for handling integer types.
+2.  allocate exactly as much disk space in memeory for each variable used.
+3.  1, 4, 4, 2
+4.  They must be in hexadecimal, and they must be:  42 4d, corresponding to 'BM', the file type (bitmap)
+5.  bfsize is the file header size, bisize is the info header size
+6.   If biHeight is negative, the bitmap is a top-down DIB and its origin is the upper-left corner.
+7.  biBitCount
+8.  File name provided was not a valid file name in current directory.
+9.  We only need to read the files once, not multiple times.
+10. 3
+11. skips over the extra padding at end of each line in file by advancing the file pointer by the size of the padding.
+12. tells fseek to change file point relative to its current location.

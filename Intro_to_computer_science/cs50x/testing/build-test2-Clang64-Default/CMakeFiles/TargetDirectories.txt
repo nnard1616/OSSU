@@ -1,0 +1,3 @@
+/home/nathan/Documents/Programming/OSSU/cs50x/testing/build-test2-Clang64-Default/CMakeFiles/edit_cache.dir
+/home/nathan/Documents/Programming/OSSU/cs50x/testing/build-test2-Clang64-Default/CMakeFiles/rebuild_cache.dir
+/home/nathan/Documents/Programming/OSSU/cs50x/testing/build-test2-Clang64-Default/CMakeFiles/test2.dir

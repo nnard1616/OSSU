@@ -1,0 +1,6 @@
+
+vector-assoc: Lookup should succeed (=: contract violation   expected: number?   given: 'blah   argument position: 1st   other arguments...:    'blah) [error]
+vector-assoc: Uses specified library functions (Uses equal?) [incorrect answer]
+cached-assoc: Full caching implementation (cache slot 0 should be used for the 1 cache miss in a cache of size 3) [incorrect answer]
+cached-assoc: Creates a new vector of correct size filled with #f (Doesn't work with n=2) [incorrect answer]
+cached-assoc: Returns the same thing as assoc (=: contract violation   expected: number?   given: 'blah   argument position: 1st   other arguments...:    5) [error]
