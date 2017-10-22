@@ -8,23 +8,38 @@ class MyPiece < Piece
   All_My_Pieces = All_Pieces.push( rotations([[0,0],[1,0],[0,1],[1,1],[2,1]]),   #thumb
                                    rotations([[0,0],[-1,0],[1,0],[-2,0],[2,0]]), #ExLong
                                    rotations([[0,0],[1,1],[0,1]]))               #short L
+
+  
+  # your enhancements here
   def self.next_piece (board)
     MyPiece.new(All_My_Pieces.sample, board)
   end
 
-  # your enhancements here
-
+  def self.cheat_piece (board)
+    MyPiece.new([[[0,0]]], board)
+  end
 end
+
 
 class MyBoard < Board
   # your enhancements here
   def initialize (game)
     super
     @current_block = MyPiece.next_piece(self)
+    @cheating = false
+  end
+
+  def cheating?
+    @cheating
   end
 
   def next_piece
-    @current_block = MyPiece.next_piece(self)
+    if cheating?
+      @current_block = MyPiece.cheat_piece(self)
+      @cheating = false
+    else
+      @current_block = MyPiece.next_piece(self)
+    end
     @current_pos = nil
   end
 
@@ -35,6 +50,13 @@ class MyBoard < Board
     draw
   end
   
+  def lets_cheat_XD
+    if score >= 100 and !cheating?
+      @cheating = true
+      @score -= 100
+    end
+  end
+
   def store_current
     locations = @current_block.current_rotation
     displacement = @current_block.position
@@ -46,9 +68,8 @@ class MyBoard < Board
     remove_filled
     @delay = [@delay - 2, 80].max
   end
-
-
 end
+
 
 class MyTetris < Tetris
   # your enhancements here
@@ -63,6 +84,7 @@ class MyTetris < Tetris
   def key_bindings
     super
     @root.bind('u', proc {@board.rotate_180})
+    @root.bind('c', proc {@board.lets_cheat_XD}) #process to create the cheat piece
   end
 end
 
