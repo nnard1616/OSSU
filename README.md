@@ -4,3 +4,14 @@ My completed assignments and projects for courses listed under the Open Source S
 Curriculum can be found here: https://github.com/ossu/computer-science
 
 My progress can be viewed here: https://trello.com/b/61dDVl8m
+
+## Programming Languages, Parts A, B, C from University of Washington
+Part A website
+
+Part B website
+
+Part C website
+
+My Project Directory
+
+The courses are [complete](https://i.imgur.com/rsB6qA5.png), though I am still waiting on receiving my certificates.  I will upload them here as soon as I get them. (3/20/2018)
