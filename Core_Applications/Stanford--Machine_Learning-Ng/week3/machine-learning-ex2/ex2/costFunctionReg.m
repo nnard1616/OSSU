@@ -20,7 +20,6 @@ grad = zeros(size(theta));
 
 
 [J, grad] = costFunction(theta, X, y);
-theta
 J = J + (lambda/(2*m))*(theta(2:size(theta),1)'*theta(2:size(theta),1));
 adjust = [ 0; (lambda/m)*theta(2:size(theta),1)];
 grad = grad + adjust;
