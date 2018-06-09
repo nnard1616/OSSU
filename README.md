@@ -5,6 +5,12 @@ Curriculum can be found here: https://github.com/ossu/computer-science
 
 My progress can be viewed here: https://trello.com/b/61dDVl8m
 
+## Machine Learning with Andrew Ng from Stanford University
+[Course website](https://www.coursera.org/learn/machine-learning)
+[Certificate](https://www.coursera.org/account/accomplishments/certificate/7YYXLGGX3TSS)
+
+[My Project Directory](https://github.com/nnard1616/OSSU/tree/master/Core_Applications/Stanford--Machine_Learning-Ng)
+
 ## Programming Languages, Parts A, B, C from University of Washington
 [Part A website](https://www.coursera.org/learn/programming-languages), focused on Standard ML.
 [Certificate](https://www.coursera.org/account/accomplishments/certificate/HVN4FAQZC773)
