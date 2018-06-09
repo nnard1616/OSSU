@@ -7,6 +7,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 
 ## Machine Learning with Andrew Ng from Stanford University
 [Course website](https://www.coursera.org/learn/machine-learning)
+
 [Certificate](https://www.coursera.org/account/accomplishments/certificate/7YYXLGGX3TSS)
 
 [My Project Directory](https://github.com/nnard1616/OSSU/tree/master/Core_Applications/Stanford--Machine_Learning-Ng)
