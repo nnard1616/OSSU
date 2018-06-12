@@ -1,7 +1,11 @@
 [Dolphin]
 SortOrder=1
 SortRole=modificationtime
+<<<<<<< HEAD
 Timestamp=2018,6,11,21,6,47
+=======
+Timestamp=2018,6,11,0,25,21
+>>>>>>> gh-pages
 Version=4
 ViewMode=1
 
