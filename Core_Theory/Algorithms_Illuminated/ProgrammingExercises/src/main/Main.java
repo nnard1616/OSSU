@@ -21,27 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package karatsuba;
+package main;
 
-import xlong.XLong;
+import java.util.ArrayList;
+import java.util.List;
+import static part1.ch1.MergeSort.*;
 
 /**
  *
  * @author Nathan Nard
  */
-public class Karatsuba {
+public class Main {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        XLong first = new XLong("3141592653589793238462643383279502884197169399"
-                + "375105820974944592");
-        XLong second = new XLong("271828182845904523536028747135266249775724709"
-                + "3699959574966967627");
+        List<Comparable> t = new ArrayList<>();
+        Integer[] n = new Integer[] {6, 1, 2, 4, 3, 7, 8, 5};
         
-        XLong result = first.karatMultiplyBy(second);
-        System.out.println(result);
+        for (Integer i : n)
+            t.add(i);
+        
+        t = mergeSort(t);
+        
+        printList(t);
     }
+    
     
 }
