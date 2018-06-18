@@ -21,25 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main;
-
-import static part1.ch3.p2.unimodalMax;
+package part1.ch3;
 
 /**
  *
  * @author Nathan Nard
  */
-public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Integer[] test1 = new Integer[] {2,4,6,7,8,5,3,1};
+public class p1 {
+    public static int fastPower(int a, int b){
+        int ans = 1;
         
-        Comparable m = unimodalMax(test1, 0, 7);
-        System.out.println(m);
+        if ( b == 1)
+            return a;
+        else{
+            int c = a*a;
+            ans = fastPower(c,Math.floorDiv(b, 2));
+        }
+        
+        if (b % 2 == 1)
+            return a*ans;
+        else
+            return ans;
     }
-    
-    
 }
