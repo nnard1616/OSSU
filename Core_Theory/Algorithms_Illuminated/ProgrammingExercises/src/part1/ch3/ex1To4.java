@@ -27,7 +27,7 @@ package part1.ch3;
  *
  * @author Nathan Nard
  */
-public class p2 {
+public class ex1To4 {
     /**
      * Assumes 'in' array has length of power of 2 and is strictly 
      * unimodal with no consecutive terms that are equal.
@@ -95,5 +95,56 @@ public class p2 {
             result += o + " ";
         }
         System.out.println(result);
+    }
+    
+    public static int fastPower(int a, int b){
+        int ans = 1;
+        
+        if ( b == 1)
+            return a;
+        else{
+            int c = a*a;
+            ans = fastPower(c,Math.floorDiv(b, 2));
+        }
+        
+        if (b % 2 == 1)
+            return a*ans;
+        else
+            return ans;
+    }
+    
+    /**
+     * Assumes matrix m is an n by n square matrix where n is a power of 2 with
+     * no duplicates.
+     * 
+     * Parameters (i1, j1) and (i2, j2) specify top left corner and bottom 
+     * right corner of matrix m.  These are used to divide m into 4 equal
+     * sub-matrices, quadrants.
+     */
+    public static int localMin(int[][] m, int i1, int j1, int i2, int j2){
+        //base case
+        if (i1 == i2 && j1 == j2)
+            return m[i1][j1];
+        
+        //divide and recurse
+        int a = localMin(m, i1, j1, (i1+i2)/2, (j1+j2)/2);
+        int b = localMin(m, i1, (j1+j2)/2+1, (i1+i2)/2, j2);
+        
+        //clever boolean logic that will identify a local minimum
+        if (a < b){
+            int c = localMin(m, (i1+i2)/2+1, j1, i2, (j1+j2)/2);
+            
+            if (a < c)
+                return a;
+            else 
+                return c;
+        }else{
+            int d = localMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
+            
+            if (b < d)
+                return b;
+            else
+                return d;
+        }
     }
 }
