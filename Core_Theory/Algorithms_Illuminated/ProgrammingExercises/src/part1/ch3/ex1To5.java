@@ -27,7 +27,7 @@ package part1.ch3;
  *
  * @author Nathan Nard
  */
-public class ex1To4 {
+public class ex1To5 {
     /**
      * Assumes 'in' array has length of power of 2 and is strictly 
      * unimodal with no consecutive terms that are equal.

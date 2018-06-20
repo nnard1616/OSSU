@@ -24,7 +24,6 @@
 package part1.ch1;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -33,20 +32,15 @@ import java.util.ListIterator;
  * @author Nathan Nard
  */
 public class MergeSort {
-    /**
-     * Assumes list has a size that is a power of 2.
-     * @param inlist
-     * @return 
-     */
-    public static List<Comparable> mergeSort(List<Comparable> inlist){
+    
+    private int inversions = 0;
+    
+    public List<Comparable> mergeSort(List<Comparable> inlist){
         List<Comparable> result;
         
-        //base case: list with two items
-        if (inlist.size() == 2 ){
-            if (inlist.get(0).compareTo(inlist.get(1)) > 0)
-                Collections.reverse(inlist);
+        //base case: list with 0 or 1 item
+        if(inlist.size() <= 1)
             return inlist;
-        }
         
         //divide list into two
         List<Comparable> l1 = inlist.subList(0, inlist.size()/2);
@@ -67,7 +61,7 @@ public class MergeSort {
      * @param list2
      * @return 
      */
-    public static List<Comparable> merge(List<Comparable> list1, List<Comparable> list2){
+    private List<Comparable> merge(List<Comparable> list1, List<Comparable> list2){
         List<Comparable> result = new ArrayList<>();
         
         ListIterator<Comparable> itr1 = list1.listIterator();
@@ -94,10 +88,15 @@ public class MergeSort {
                 }else{
                     result.add(item2);
                     itr1.previous();
+                    inversions+=(list1.size() - itr1.nextIndex());
                 }
             }
         }
         return result;
+    }
+
+    public int getInversions() {
+        return inversions;
     }
     
     public static void printList(List<Comparable> inlist){
