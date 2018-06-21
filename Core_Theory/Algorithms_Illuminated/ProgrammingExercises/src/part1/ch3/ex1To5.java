@@ -136,15 +136,27 @@ public class ex1To5 {
             
             if (a < c)
                 return a;
-            else 
-                return c;
+            else{
+                int d = localMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
+                
+                if (c < d)
+                    return c;
+                else 
+                    return d;
+            }
         }else{
             int d = localMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
             
             if (b < d)
                 return b;
-            else
-                return d;
+            else{
+                int c = localMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
+                
+                if (c < d)
+                    return c;
+                else 
+                    return d;
+            }
         }
     }
 }
