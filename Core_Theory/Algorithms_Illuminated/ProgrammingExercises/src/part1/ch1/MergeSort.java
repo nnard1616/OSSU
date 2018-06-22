@@ -33,7 +33,7 @@ import java.util.ListIterator;
  */
 public class MergeSort {
     
-    private int inversions = 0;
+    private long inversions = 0;
     
     public List<Comparable> mergeSort(List<Comparable> inlist){
         List<Comparable> result;
@@ -95,7 +95,7 @@ public class MergeSort {
         return result;
     }
 
-    public int getInversions() {
+    public long getInversions() {
         return inversions;
     }
     

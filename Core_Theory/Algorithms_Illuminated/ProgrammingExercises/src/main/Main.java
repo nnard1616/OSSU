@@ -23,12 +23,15 @@
  */
 package main;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import part1.ch1.MergeSort;
-import static part1.ch1.MergeSort.printList;
 import static part1.ch3.ex1To5.localMin;
+import static part1.ch5.QuickSort.quickSort;
 
 /**
  *
@@ -40,19 +43,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MergeSort test = new MergeSort();
-        List<Comparable> a = new ArrayList<Comparable>();
-        a.add(1);
-        a.add(3);
-        a.add(5);
-        a.add(2);
-        a.add(4);
-        a.add(6);
-        
-        a = test.mergeSort(a);
-        
-        printList(a);
-        System.out.println(test.getInversions());
+        int[] a = new int[] {3,8,2,5,1,4,7,6};
+    
+        quickSort(a, 0, a.length-1);
                                  
         
     }
@@ -103,5 +96,23 @@ public class Main {
         System.out.println(p);
     }
     
+    public static void testMergeSort(){
+        MergeSort test = new MergeSort();
+        List<Comparable> a = new ArrayList<Comparable>();
+        Scanner scanner;
+        try{
+            scanner = new Scanner(new File("../../Algorithms-Roughgarden/Part1/week2/IntegerArray.txt"));
+            
+            while (scanner.hasNextInt())
+                a.add(scanner.nextInt());
+            
+            test.mergeSort(a);
+            
+            System.out.println(test.getInversions());
+            
+        }catch(FileNotFoundException fnfe){
+            System.out.println("no file found");
+        }
+    }
     
 }

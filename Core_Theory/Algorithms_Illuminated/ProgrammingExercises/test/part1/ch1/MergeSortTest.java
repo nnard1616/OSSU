@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static part1.ch1.MergeSort.merge;
 import static part1.ch1.MergeSort.printList;
 
 /**
@@ -51,34 +50,34 @@ public class MergeSortTest {
     /**
      * Test of merge method, of class MergeSort.
      */
-    @Test
-    public void testMerge() {
-        System.out.println("merge");
-        List<Comparable> l1 = new ArrayList<>();
-        List<Comparable> l2 = new ArrayList<>();
-        
-        l1.add(1);
-        l1.add(2);
-        l1.add(4);
-        l1.add(6);
-        
-        l2.add(3);
-        l2.add(5);
-        l2.add(7);
-        l2.add(8);
-        
-        List<Comparable> m = merge(l1, l2);
-        
-        assertEquals(1, m.get(0));
-        assertEquals(2, m.get(1));
-        assertEquals(3, m.get(2));
-        assertEquals(4, m.get(3));
-        
-        assertEquals(5, m.get(4));
-        assertEquals(6, m.get(5));
-        assertEquals(7, m.get(6));
-        assertEquals(8, m.get(7));
-        printList(m);
-    }
+//    @Test
+//    public void testMerge() {
+//        System.out.println("merge");
+//        List<Comparable> l1 = new ArrayList<>();
+//        List<Comparable> l2 = new ArrayList<>();
+//        
+//        l1.add(1);
+//        l1.add(2);
+//        l1.add(4);
+//        l1.add(6);
+//        
+//        l2.add(3);
+//        l2.add(5);
+//        l2.add(7);
+//        l2.add(8);
+//        
+//        List<Comparable> m = merge(l1, l2);
+//        
+//        assertEquals(1, m.get(0));
+//        assertEquals(2, m.get(1));
+//        assertEquals(3, m.get(2));
+//        assertEquals(4, m.get(3));
+//        
+//        assertEquals(5, m.get(4));
+//        assertEquals(6, m.get(5));
+//        assertEquals(7, m.get(6));
+//        assertEquals(8, m.get(7));
+//        printList(m);
+//    }
     
 }
