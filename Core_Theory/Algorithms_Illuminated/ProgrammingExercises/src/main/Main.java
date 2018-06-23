@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import part1.ch1.MergeSort;
-import static part1.ch3.ex1To5.localMin;
 import static part1.ch5.QuickSort.quickSort;
+import static part1.ch3.ex1To5.absoluteMin;
 
 /**
  *
@@ -43,9 +43,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int[] a = new int[] {3,8,2,5,1,4,7,6};
-    
-        quickSort(a, 0, a.length-1);
+        testLocalMin();
                                  
         
     }
@@ -59,23 +57,32 @@ public class Main {
         //                             {21,22,23,26,14, 1,12,35},
         //                             {19, 2,24,27,29,13,33,34},
         //                             {18,20,25,28,30,31,32,17}};
-        int s = 64;
-        int maxRand = 5000;
+//        int s = 64;
+//        int maxRand = 5000;
+//
+//        int[][] m = new int[s][s];
+//
+//        Random r = new Random();
+//        ArrayList<Integer> record = new ArrayList<Integer>();
+        
+        int[][] m = new int[][] {{15,34,12,13},
+                                 {30, 0, 6,14},
+                                 {99,98,97,96},
+                                 {95,94,93,92}};
+        
 
-        int[][] m = new int[s][s];
-
-        Random r = new Random();
-        int n;
-        ArrayList<Integer> record = new ArrayList<Integer>();
         String p = "";
+        int n;
+        int s = m[0].length;
 
         for (int i = 0; i < s; i++){
             for(int j = 0; j < s; j++){
-                n = r.nextInt(maxRand);
-                while(record.contains(n))
-                    n = r.nextInt(maxRand);
-                m[i][j] = n;
-                record.add(n);
+//                n = r.nextInt(maxRand);
+                n = m[i][j];
+//                while(record.contains(n))
+//                    n = r.nextInt(maxRand);
+//                m[i][j] = n;
+//                record.add(n);
 
                 String spacer = "";
                 if(n < 1000)
@@ -91,7 +98,7 @@ public class Main {
         }
 
 
-        int ans = localMin(m,0,0,7,7);
+        int ans = absoluteMin(m,0,0,s-1,s-1);
         System.out.println(ans);
         System.out.println(p);
     }

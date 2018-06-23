@@ -121,42 +121,25 @@ public class ex1To5 {
      * right corner of matrix m.  These are used to divide m into 4 equal
      * sub-matrices, quadrants.
      */
-    public static int localMin(int[][] m, int i1, int j1, int i2, int j2){
+    public static int absoluteMin(int[][] m, int i1, int j1, int i2, int j2){
         //base case
         if (i1 == i2 && j1 == j2)
             return m[i1][j1];
         
-        //divide and recurse
-        int a = localMin(m, i1, j1, (i1+i2)/2, (j1+j2)/2);
-        int b = localMin(m, i1, (j1+j2)/2+1, (i1+i2)/2, j2);
+        int[] quads = new int[4];
         
-        //clever boolean logic that will identify a local minimum
-        if (a < b){
-            int c = localMin(m, (i1+i2)/2+1, j1, i2, (j1+j2)/2);
-            
-            if (a < c)
-                return a;
-            else{
-                int d = localMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
-                
-                if (c < d)
-                    return c;
-                else 
-                    return d;
-            }
-        }else{
-            int d = localMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
-            
-            if (b < d)
-                return b;
-            else{
-                int c = localMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
-                
-                if (c < d)
-                    return c;
-                else 
-                    return d;
-            }
-        }
+        //divide and recurse
+        quads[0] = absoluteMin(m, i1, j1, (i1+i2)/2, (j1+j2)/2);
+        quads[1] = absoluteMin(m, i1, (j1+j2)/2+1, (i1+i2)/2, j2);
+        quads[2] = absoluteMin(m, (i1+i2)/2+1, j1, i2, (j1+j2)/2);
+        quads[3] = absoluteMin(m, (i1+i2)/2+1, (j1+j2)/2+1, i2, j2);
+        
+        int min = Integer.MAX_VALUE;
+        
+        for (int i: quads)
+            if (i < min)
+                min = i;
+        
+        return min;
     }
 }
