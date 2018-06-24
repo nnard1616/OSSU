@@ -23,51 +23,54 @@
  */
 package part1.ch5;
 
+import java.util.Random;
+
 /**
  *
  * @author Nathan Nard
  */
 public class QuickSort {
-    public static int[] quickSort(int[] a, int b, int e){
-        int pindex = (b+e)/2;
-        int p = a[pindex];
-        int[] result;
-        int t;
+    private static Random rand = new Random();
+    
+    public static void quickSort(int[] a, int l, int r){
+        //base case
+        if (l >= r)
+            return;
         
-        for (int i = 0; i < a.length; i++){
-            if (i < pindex){
-                if (a[i] > p){
-                    
-                    //swap
-                    t = a[i];
-                    a[i] = p;
-                    a[pindex] = t;
-                    
-                    //update pindex
-                    pindex = i;
-                    
-                    continue;
-                }
-            }
-            
-            if (i > pindex){
-                if (a[i] < p){
-                    
-                    //swap
-                    t = a[i];
-                    a[i] = p;
-                    a[pindex] = t;
-                    
-                    //update pindex
-                    pindex = i;
-                }
-            }
-        }
+        int i = choosePivot(l, r);
         
-        printArray(a);
+        swap(a, i, l);
+        
+        //partition returns index of new pivot, j
+        int j = partition(a, l, r);
         
         
-        return null;
+        quickSort(a, l, j-1);
+        quickSort(a, j+1, r);
+        
+    }
+    
+    private static int choosePivot(int l, int r){
+        return rand.nextInt(r-l+1)+l;
+    }
+    
+    private static int partition(int[] a, int l, int r){
+        int p = a[l];
+        int i = l+1;
+        
+        for (int j = l + 1; j <= r; j++)
+            if (a[j] < p)
+                swap(a, i++, j);
+        
+        swap(a, l, i-1);
+        
+        return i-1;
+    }
+    
+    private static void swap(int[] a, int i, int j){
+        int temp = a[j];
+        a[j] = a[i];
+        a[i] = temp;
     }
     
     public static void printArray(int[] a){

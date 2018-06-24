@@ -27,11 +27,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 import part1.ch1.MergeSort;
-import static part1.ch5.QuickSort.quickSort;
 import static part1.ch3.ex1To5.absoluteMin;
+import static part1.ch5.QuickSort.printArray;
+import static part1.ch5.QuickSort.quickSort;
 
 /**
  *
@@ -43,8 +43,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        testLocalMin();
-                                 
+        testQuickSort();
+//        int[] a = new int[] {8,2,4,5,7,1};
+//        
+//        quickSort(a, 0, 5);
         
     }
     
@@ -116,6 +118,25 @@ public class Main {
             test.mergeSort(a);
             
             System.out.println(test.getInversions());
+            
+        }catch(FileNotFoundException fnfe){
+            System.out.println("no file found");
+        }
+    }
+    
+    public static void testQuickSort(){
+        int[] a = new int[10000];
+        Scanner scanner;
+        try{
+            scanner = new Scanner(new File("../../Algorithms-Roughgarden/Part1/week3/QuickSort.txt"));
+            
+            int i = 0;
+            while (scanner.hasNextInt())
+                a[i++] = scanner.nextInt();
+            
+            quickSort(a, 0, 9999);
+            
+            printArray(a);
             
         }catch(FileNotFoundException fnfe){
             System.out.println("no file found");
