@@ -32,13 +32,14 @@ import java.util.Random;
 public class QuickSort {
     private static Random rand = new Random();
     
-    public static void quickSort(int[] a, int l, int r){
+    public static void quickSort(Comparable[] a, int l, int r){
         //base case
         if (l >= r)
             return;
         
         int i = choosePivot(l, r);
         
+        //switches first element with chosen pivot
         swap(a, i, l);
         
         //partition returns index of new pivot, j
@@ -54,12 +55,12 @@ public class QuickSort {
         return rand.nextInt(r-l+1)+l;
     }
     
-    private static int partition(int[] a, int l, int r){
-        int p = a[l];
+    public static int partition(Comparable[] a, int l, int r){
+        Comparable p = a[l];
         int i = l+1;
         
         for (int j = l + 1; j <= r; j++)
-            if (a[j] < p)
+            if (a[j].compareTo(p) < 0)
                 swap(a, i++, j);
         
         swap(a, l, i-1);
@@ -67,15 +68,15 @@ public class QuickSort {
         return i-1;
     }
     
-    private static void swap(int[] a, int i, int j){
-        int temp = a[j];
+    public static void swap(Object[] a, int i, int j){
+        Object temp = a[j];
         a[j] = a[i];
         a[i] = temp;
     }
     
-    public static void printArray(int[] a){
+    public static void printArray(Object[] a){
         String result = "";
-        for (int i: a){
+        for (Object i: a){
             result += i + " ";
         }
         System.out.println(result);
