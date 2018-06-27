@@ -32,6 +32,11 @@ import part1.ch1.MergeSort;
 import static part1.ch3.ex1To5.absoluteMin;
 import static part1.ch5.QuickSort.printArray;
 import static part1.ch5.QuickSort.quickSort;
+import static part1.ch5.QuickSort.swap;
+import part1.ch6.Doublet;
+import static part1.ch6.Selection.dselect;
+import static part1.ch6.Selection.rselect;
+import static part1.ch6.WeightedMedian.weightedMedian;
 
 /**
  *
@@ -43,11 +48,28 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        testQuickSort();
-//        int[] a = new int[] {8,2,4,5,7,1};
-//        
-//        quickSort(a, 0, 5);
+//        Doublet[] a = new Doublet[] { new Doublet(9, 2),
+//                                      new Doublet(8, 2),
+//                                      new Doublet(6,15),
+//                                      new Doublet(2, 7),
+//                                      new Doublet(0, 6),
+//                                      new Doublet(5, 3),
+//                                      new Doublet(4, 2),
+//                                      new Doublet(1, 8),
+//                                      new Doublet(7,10),
+//                                      new Doublet(3, 1) };
         
+//        Doublet[] a = new Doublet[] { new Doublet(2, 2),
+//                                      new Doublet(4, 0),
+//                                      new Doublet(0, 1),
+//                                      new Doublet(3, 1),
+//                                      new Doublet(1, 2)};
+//        
+//        
+//        Doublet ans = weightedMedian(a, 0, 9);
+//        
+//        System.out.println(ans);
+        testRSelect();
     }
     
     public static void testLocalMin(){
@@ -125,7 +147,7 @@ public class Main {
     }
     
     public static void testQuickSort(){
-        int[] a = new int[10000];
+        Integer[] a = new Integer[10000];
         Scanner scanner;
         try{
             scanner = new Scanner(new File("../../Algorithms-Roughgarden/Part1/week3/QuickSort.txt"));
@@ -142,5 +164,26 @@ public class Main {
             System.out.println("no file found");
         }
     }
+    public static void testDSelect(){
+        Integer[] a = new Integer[] {11,6,10,2,15,8,1,7,14,3,9,12,4,5,13,0};
+        
+        Comparable ans = dselect(a, 7);
+        
+        System.out.println(ans);
+        printArray(a);
+    }
     
+    public static void testRSelect(){
+        Integer[] a = new Integer[] {11,6,10,2,15,8,1,7,14,3,9,12,4,5,13,0};
+        
+        Comparable ans = rselect(a, 7);
+        
+        System.out.println(ans);
+        printArray(a);
+    }
+    
+    public static void reverseArray(Object[] a){
+        for (int i = 0; i < a.length/2; i++)
+            swap(a, i, a.length-i-1);
+    }
 }
