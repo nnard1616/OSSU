@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import part1.ch1.MergeSort;
 import static part1.ch3.ex1To5.absoluteMin;
@@ -37,39 +38,68 @@ import part1.ch6.Doublet;
 import static part1.ch6.Selection.dselect;
 import static part1.ch6.Selection.rselect;
 import static part1.ch6.WeightedMedian.weightedMedian;
+import part1.week4.Graph;
 
 /**
  *
  * @author Nathan Nard
  */
 public class Main {
-
+    private static Random rand = new Random();
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        Doublet[] a = new Doublet[] { new Doublet(9, 2),
-//                                      new Doublet(8, 2),
-//                                      new Doublet(6,15),
-//                                      new Doublet(2, 7),
-//                                      new Doublet(0, 6),
-//                                      new Doublet(5, 3),
-//                                      new Doublet(4, 2),
-//                                      new Doublet(1, 8),
-//                                      new Doublet(7,10),
-//                                      new Doublet(3, 1) };
+        Graph test = new Graph();
+        ArrayList<Integer> adjs;
+        Integer n;
+        Scanner lineScanner;
+        Scanner intScanner;
         
-//        Doublet[] a = new Doublet[] { new Doublet(2, 2),
-//                                      new Doublet(4, 0),
-//                                      new Doublet(0, 1),
-//                                      new Doublet(3, 1),
-//                                      new Doublet(1, 2)};
-//        
-//        
-//        Doublet ans = weightedMedian(a, 0, 9);
-//        
-//        System.out.println(ans);
-        testRSelect();
+        try{
+            lineScanner = new Scanner(new File("../../Algorithms-Roughgarden/Part1/week4/kargerMinCut.txt"));
+            
+            while (lineScanner.hasNextLine()){
+                
+                
+                adjs       = new ArrayList<>();
+                intScanner = new Scanner(lineScanner.nextLine());
+                n          = intScanner.nextInt();
+                
+                while (intScanner.hasNextInt())
+                    adjs.add(intScanner.nextInt());
+                
+                test.addNode(n, adjs);
+            }
+            
+            //determine min cut.
+            int minCut = Integer.MAX_VALUE;
+            Graph testCopy = new Graph(test);
+            
+            for (int i = 0; i < 200*200*Math.log(200); i++){
+                test = new Graph(testCopy);
+                
+                while (test.getAdjList().size() > 2){
+                    Integer randFirst = rand.nextInt(test.getAdjList().size());
+                    Integer randSecond = rand.nextInt(test.getAdjList().size());
+                    
+                    //make sure both numbers are not the same
+                    while (randFirst.equals( randSecond))
+                        randSecond = rand.nextInt(test.getAdjList().size());
+                    
+                    test.contract(randFirst, randSecond);
+                }
+                
+                minCut = Math.min(minCut, test.cutDegree());
+                System.out.println(minCut);
+                    
+            }
+            
+            System.out.println(minCut);
+            
+        }catch(FileNotFoundException fnfe){
+            System.out.println("no file found");
+        }
     }
     
     public static void testLocalMin(){
@@ -185,5 +215,21 @@ public class Main {
     public static void reverseArray(Object[] a){
         for (int i = 0; i < a.length/2; i++)
             swap(a, i, a.length-i-1);
+    }
+    
+    public static void testWeightedMedian(){
+        Doublet[] a = new Doublet[] { new Doublet(9, 2),
+                                      new Doublet(8, 2),
+                                      new Doublet(6,15),
+                                      new Doublet(2, 7),
+                                      new Doublet(0, 6),
+                                      new Doublet(5, 3),
+                                      new Doublet(4, 2),
+                                      new Doublet(1, 8),
+                                      new Doublet(7,10),
+                                      new Doublet(3, 1) };
+        
+        
+        Doublet ans = weightedMedian(a, 0, 9);
     }
 }
