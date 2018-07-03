@@ -26,21 +26,20 @@ package part1.week4;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import static part1.ch1.MergeSort.printList;
+import static part1.ch5.QuickSort.printArray;
 
 /**
  * Undirected general graph.
  * 
  * @author Nathan Nard
  */
-public class Graph {
+public class Graph implements Cloneable {
     private HashMap<Integer,ArrayList<Integer>> adjList;
     
     public Graph(){
         adjList = new HashMap<>();
-    }
-    //copy constructor
-    public Graph(Graph g){
-        adjList = (HashMap)g.getAdjList().clone();
     }
     
     public void addNode(Integer n, ArrayList<Integer> adjs){
@@ -54,19 +53,16 @@ public class Graph {
         return adjList.get((Integer)adjList.keySet().toArray()[0]).size();
     }
     
-    public void contract( Integer aIndex, Integer bIndex){
-        Integer a = (Integer)adjList.keySet().toArray()[aIndex];
-        Integer b = (Integer)adjList.keySet().toArray()[bIndex];
-        
+    public void contract( Integer a, Integer b){
         Iterator itrA = adjList.get(a).iterator();
         Iterator itrB = adjList.get(b).iterator();
         
         while (itrA.hasNext())
-            if (itrA.next() == b)
+            if (itrA.next().equals(b))
                 itrA.remove();
         
         while (itrB.hasNext())
-            if (itrB.next() == a)
+            if (itrB.next().equals(a))
                 itrB.remove();
         
         //find min(a,b)
@@ -80,7 +76,6 @@ public class Graph {
         
         for (int i = 0; i < adjMax.size(); i++){
             adjI = adjList.get(adjMax.get(i));
-            System.out.println(i + ": ");
             for (int j = 0; j < adjI.size(); j++){
                 //If see larger value in adjs, convert to smaller value.
                 if (adjI.get(j).equals(maximum))
@@ -99,7 +94,9 @@ public class Graph {
         return adjList;
     }
 
-    
+    public int size(){
+        return adjList.keySet().size();
+    }
     @Override
     public String toString() {
         String result = "";
@@ -112,6 +109,18 @@ public class Graph {
             result += "\n";
         }
         
+        return result;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Graph result = new Graph();
+        for (Integer k : adjList.keySet())
+            result.addNode(k, (ArrayList)adjList.get(k).clone());
+        
+        Integer shit = 8;
+        
+        Integer fuck = (Integer)shit.clone();
         return result;
     }
     
