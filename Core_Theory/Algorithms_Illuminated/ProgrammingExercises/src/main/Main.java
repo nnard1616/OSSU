@@ -39,7 +39,6 @@ import static part1.ch6.Selection.dselect;
 import static part1.ch6.Selection.rselect;
 import static part1.ch6.WeightedMedian.weightedMedian;
 import part1.week4.Graph;
-import part1.week4.Graph2;
 
 /**
  *
@@ -52,8 +51,9 @@ public class Main {
      * @throws java.lang.CloneNotSupportedException
      */
     public static void main(String[] args) throws CloneNotSupportedException{
-        Graph2 test = new Graph2("../../Algorithms-Roughgarden/Part1/week4/kargerMinCut.txt");
-        System.out.println(test.minCut());
+//        testMinCut();
+        Graph g = new Graph("../../Algorithms-Roughgarden/Part1/week4/kargerMinCut.txt");
+        System.out.println(g.determineMinCut());
     }
     
     public static void testLocalMin(){
@@ -187,57 +187,57 @@ public class Main {
         Doublet ans = weightedMedian(a, 0, 9);
     }
     
-    public static void testMinCut() throws CloneNotSupportedException{
-        Graph test = new Graph();
-        ArrayList<Integer> adjs;
-        Integer n;
-        Scanner lineScanner;
-        Scanner intScanner;
-        
-        try{
-            lineScanner = new Scanner(new File("../../Algorithms-Roughgarden/Part1/week4/kargerMinCut.txt"));
-            
-            while (lineScanner.hasNextLine()){
-                
-                
-                adjs       = new ArrayList<>();
-                intScanner = new Scanner(lineScanner.nextLine());
-                n          = intScanner.nextInt();
-                
-                while (intScanner.hasNextInt())
-                    adjs.add(intScanner.nextInt());
-                
-                test.addNode(n, adjs);
-            }
-            
-            //determine min cut.
-            int minCut = Integer.MAX_VALUE;
-            Graph testCopy = (Graph)test.clone();
-            int gSize = test.size();
-            
-            for (int i = 0; i < gSize*(gSize-1)*Math.log(gSize)/2; i++){
-                
-                
-                while (test.getAdjList().size() > 2){
-                    Integer randFirst = rand.nextInt(test.getAdjList().size());
-                    Integer a = (Integer)test.getAdjList().keySet().toArray()[randFirst];
-                    
-                    Integer randSecond = rand.nextInt(test.getAdjList().get(a).size());
-                    Integer b = test.getAdjList().get(a).get(randSecond);
-                    
-                    test.contract(a, b);
-                }
-                
-                minCut = Math.min(minCut, test.cutDegree());
-//                System.out.println("minCut: " + minCut);
-//                System.out.println(test);
-                test = (Graph)testCopy.clone();
-            }
-            
-            System.out.println(minCut);
-            
-        }catch(FileNotFoundException fnfe){
-            System.out.println("no file found");
-        }
-    }
+//    public static void testMinCut() throws CloneNotSupportedException{
+////        Graph test = new Graph();
+//        ArrayList<Integer> adjs;
+//        Integer n;
+//        Scanner lineScanner;
+//        Scanner intScanner;
+//        
+//        try{
+//            lineScanner = new Scanner(new File("../../Algorithms-Roughgarden/Part1/week4/kargerMinCut.txt"));
+//            
+//            while (lineScanner.hasNextLine()){
+//                
+//                
+//                adjs       = new ArrayList<>();
+//                intScanner = new Scanner(lineScanner.nextLine());
+//                n          = intScanner.nextInt();
+//                
+//                while (intScanner.hasNextInt())
+//                    adjs.add(intScanner.nextInt());
+//                
+//                test.addNode(n, adjs);
+//            }
+//            
+//            //determine min cut.
+//            int minCut = Integer.MAX_VALUE;
+//            Graph testCopy = (Graph)test.clone();
+//            int reps = 1000;
+//            
+//            for (int i = 0; i < reps; i++){
+//                
+//                
+//                while (test.getAdjList().size() > 2){
+//                    Integer randFirst = rand.nextInt(test.getAdjList().size());
+//                    Integer a = (Integer)test.getAdjList().keySet().toArray()[randFirst];
+//                    
+//                    Integer randSecond = rand.nextInt(test.getAdjList().get(a).size());
+//                    Integer b = test.getAdjList().get(a).get(randSecond);
+//                    
+//                    test.contract(a, b);
+//                }
+//                
+//                minCut = Math.min(minCut, test.cutDegree());
+////                System.out.println("minCut: " + minCut);
+////                System.out.println(test);
+//                test = (Graph)testCopy.clone();
+//            }
+//            
+//            System.out.println(minCut);
+//            
+//        }catch(FileNotFoundException fnfe){
+//            System.out.println("no file found");
+//        }
+//    }
 }
