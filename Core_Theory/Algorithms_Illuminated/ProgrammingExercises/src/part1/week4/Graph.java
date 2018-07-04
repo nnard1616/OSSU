@@ -117,10 +117,6 @@ public class Graph implements Cloneable {
         Graph result = new Graph();
         for (Integer k : adjList.keySet())
             result.addNode(k, (ArrayList)adjList.get(k).clone());
-        
-        Integer shit = 8;
-        
-        Integer fuck = (Integer)shit.clone();
         return result;
     }
     

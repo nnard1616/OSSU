@@ -39,6 +39,7 @@ import static part1.ch6.Selection.dselect;
 import static part1.ch6.Selection.rselect;
 import static part1.ch6.WeightedMedian.weightedMedian;
 import part1.week4.Graph;
+import part1.week4.Graph2;
 
 /**
  *
@@ -51,7 +52,8 @@ public class Main {
      * @throws java.lang.CloneNotSupportedException
      */
     public static void main(String[] args) throws CloneNotSupportedException{
-        testMinCut();
+        Graph2 test = new Graph2("../../Algorithms-Roughgarden/Part1/week4/kargerMinCut.txt");
+        System.out.println(test.minCut());
     }
     
     public static void testLocalMin(){
