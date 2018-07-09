@@ -37,8 +37,7 @@
 #include "Edge.h"
 #include "Node.h"
 
-using std::string;
-using std::vector;
+using namespace std;
 //
 //class UGraph {
 //public:

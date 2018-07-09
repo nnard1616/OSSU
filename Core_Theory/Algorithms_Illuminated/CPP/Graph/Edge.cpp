@@ -30,6 +30,8 @@
  */
 
 #include "Edge.h"
+#include <iostream>
+using namespace std;
 
 Edge::Edge() {
 }
@@ -40,9 +42,13 @@ Edge::Edge(const Edge& orig) {
 Edge::~Edge() {
 }
 
-Edge::Edge(Node& a, Node& b) {
-    first = &a;
-    second = &b;
+Edge::Edge(Node* a, Node* b) {
+    first = a;
+    second = b;
 }
 
+ostream& operator<<(ostream& os, const Edge& e) {
+    os << *e.first << ' ' << *e.second;
+    return os;
+}
 

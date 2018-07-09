@@ -33,27 +33,26 @@
 
 #include "Node.h"
 #include "Edge.h"
+#include "DirectedGraph.h"
+#include "StaticFunctions.h"
 #include <iostream>
+#include <map>
+#include <stack>
 
 using namespace std;
 
 /*
  * 
  */
+
+
+
 int main(int argc, char** argv) {
 
-//    UGraph g("../../Algorithms-Roughgarden/Part1/week4/testSmall.txt");
-//    
-//    std::cout << g;
-    Node n(7);
-    Node m(8);
+    DirectedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week1/SCC.txt");
     
-    Node* nptr = &n;
-    Node* mptr = &m;
+    g.SCCcount();
     
-    Edge e(n, m);
-    
-//    cout << e << endl;
     return 0;
 }
 

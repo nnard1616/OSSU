@@ -35,8 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/DAGraph.o \
+	${OBJECTDIR}/DGraph.o \
+	${OBJECTDIR}/DirectedGraph.o \
 	${OBJECTDIR}/Edge.o \
 	${OBJECTDIR}/Node.o \
+	${OBJECTDIR}/StaticFunctions.o \
 	${OBJECTDIR}/UGraph.o \
 	${OBJECTDIR}/main.o
 
@@ -65,6 +69,21 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/graph: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/graph ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/DAGraph.o: DAGraph.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DAGraph.o DAGraph.cpp
+
+${OBJECTDIR}/DGraph.o: DGraph.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DGraph.o DGraph.cpp
+
+${OBJECTDIR}/DirectedGraph.o: DirectedGraph.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DirectedGraph.o DirectedGraph.cpp
+
 ${OBJECTDIR}/Edge.o: Edge.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -74,6 +93,11 @@ ${OBJECTDIR}/Node.o: Node.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Node.o Node.cpp
+
+${OBJECTDIR}/StaticFunctions.o: StaticFunctions.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/StaticFunctions.o StaticFunctions.cpp
 
 ${OBJECTDIR}/UGraph.o: UGraph.cpp
 	${MKDIR} -p ${OBJECTDIR}

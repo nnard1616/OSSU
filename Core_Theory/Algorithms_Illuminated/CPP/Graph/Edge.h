@@ -37,7 +37,7 @@ class Edge {
 public:
     Edge();
     Edge(const Edge& orig);
-    Edge(Node& a, Node& b);
+    Edge(Node* a, Node* b);
     virtual ~Edge();
     
     friend ostream& operator<< (ostream& os, const Edge& e);

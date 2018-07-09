@@ -32,12 +32,21 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <vector>
 #include <ostream>
+#include <set>
+#include <iostream>
 
-using std::vector;
-using std::ostream;
+using namespace std;
 
+//for sorting Node pointers in the neighbors set.
+template <class T> struct ptrLess {
+    bool operator() (const T* x, const T* y) const {return *x<*y;}
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+    typedef bool result_type;
+};
+    
+    
 class Node{
 public:
     
@@ -46,24 +55,36 @@ public:
     Node();
     Node(int value);
     Node(const Node& orig);
-//    Node(int value, vector<Edge> edges);
     
     virtual ~Node();
     
-    int getValue () const ;
-//    vector<Edge>& getEdges () const;
+    int getValue () const;
+    void setValue (int i) ;
+    bool isVisited() const { return visited;}
+    void setVisited( bool b){visited = b;}
+    set<Node*, ptrLess<Node>>* getNeighbors();
+    bool allNeighborsVisited();
+    
+    void addNeighbor(Node* n) ;
+    Node* selectNeighbor(set<Node*>& alreadyVisited);
     
 
     //Operators
-    bool operator<   (const Node &n1);
+    bool operator<   (const Node &n1) const;
     bool operator==  (const Node &n1);
     bool operator!=  (const Node &n1);
     friend ostream& operator<<  (ostream& os, const Node& n);
     
 private:
+    
     //Attributes
     int value;
-//    vector<Edge> edges;
+    bool visited;
+    set<Node*, ptrLess<Node>> neighbors;
+    
+    
 };
+
+
 #endif /* NODE_H */
 

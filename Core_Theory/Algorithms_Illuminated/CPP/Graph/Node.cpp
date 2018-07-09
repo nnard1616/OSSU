@@ -34,11 +34,12 @@
 using std::endl;
 
 /******************************************************************************/
-/*  Node Implementation                                                       */
+/*  Constructors/Destructor                                                   */
 /******************************************************************************/
 
 Node::Node() {
     value = 0;
+    visited = false;
 }
 
 Node::Node(int value){
@@ -49,12 +50,56 @@ Node::Node(const Node& orig) {
     this->value = orig.getValue();
 }
 
+Node::~Node() {
+}
+
+
+/******************************************************************************/
+/*  Neighbor Methods                                                          */
+/******************************************************************************/
+
+void Node::addNeighbor(Node* n)  {
+    neighbors.insert(n);
+}
+
+Node* Node::selectNeighbor(set<Node*>& alreadyVisited) {
+    for (auto n : neighbors)
+        //if n was not already visited, return it
+        if (alreadyVisited.find(n) == alreadyVisited.end())
+            return n;
+    
+    //otherwise all neighbors have already been visited, return null
+    return nullptr;
+}
+
+
+/******************************************************************************/
+/*  Getters/Setters                                                           */
+/******************************************************************************/
+
 int Node::getValue() const {
     return value;
 }
 
-Node::~Node() {
+void Node::setValue(int i) {
+    value = i;
 }
+
+set<Node*, ptrLess<Node> >* Node::getNeighbors() {
+    return &neighbors;
+}
+
+bool Node::allNeighborsVisited() {
+    for (auto& i : neighbors)
+        if ( ! i->isVisited())
+            return false;
+    return true;
+}
+
+
+/******************************************************************************/
+/*  Operators                                                                 */
+/******************************************************************************/
 
 bool Node::operator==(const Node& n1) {
     return n1.getValue() == getValue();
@@ -64,11 +109,15 @@ bool Node::operator!=(const Node& n1) {
     return ! (n1.getValue() == getValue());
 }
 
-bool Node::operator<(const Node& n1) {
+bool Node::operator<(const Node& n1) const {
     return getValue() < n1.getValue();
 }
 
 ostream& operator<<(ostream& os, const Node& n) {
-    os << n.value << endl;
+    os << n.value << ' ';
+    
+    for (auto i : n.neighbors)
+        os << i->value << ' ';
+    
     return os;
 }
