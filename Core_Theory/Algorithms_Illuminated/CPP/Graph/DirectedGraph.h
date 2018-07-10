@@ -41,11 +41,11 @@ using namespace std;
 
 class DirectedGraph {
 public:
+    //Constructors & Destructor
     DirectedGraph(string filename);
     DirectedGraph(const DirectedGraph& orig);
     virtual ~DirectedGraph();
     
-//    map<int, set<int>> getAdjacencyList() const;
     int getEdges() const;
     int getNodes() const;
     
@@ -56,33 +56,20 @@ public:
 
     
     void readInData(string filename);
-    void SCCcount();//TODO
-    
-    
+    void findSCCs();
     
     friend ostream& operator<< (ostream& os, const DirectedGraph& g);
+    
 private:
     int edges;
     int nodes;
     map<int, Node*> nodeList;
-    
     map<int, int> nToFinishTime;
     
-    
     map<int, Node*> reverseArcsAndTransform(const map<int, Node*>& al);
-    
-    //orders nodes by finish times.
     void DFS(Node* n, int& counter);
     void DFSOnOriginal();
     priority_queue<int> DFSOnReversedTransform();
-//    void postOrder(int n, vector<int>& v, set<int>& s, map<int, set<int>>& m);
-    
-//    int DFScount(map<int, set<int>>& m);
-    
-    
-    
-    
-    
 };
 
 #endif /* DIRECTEDGRAPH_H */

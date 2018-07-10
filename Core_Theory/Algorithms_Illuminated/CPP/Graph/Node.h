@@ -49,26 +49,25 @@ template <class T> struct ptrLess {
     
 class Node{
 public:
-    
 
-    //Constructors
+    //Constructors & Destructor
     Node();
     Node(int value);
     Node(const Node& orig);
-    
     virtual ~Node();
     
+    //Getters & Setters
     int getValue () const;
-    void setValue (int i) ;
-    bool isVisited() const { return visited;}
-    void setVisited( bool b){visited = b;}
     set<Node*, ptrLess<Node>>* getNeighbors();
+    
+    bool isVisited() const;
     bool allNeighborsVisited();
     
-    void addNeighbor(Node* n) ;
-    Node* selectNeighbor(set<Node*>& alreadyVisited);
+    void setValue (int i) ;
+    void setVisited( bool b);
     
-
+    void addNeighbor(Node* n) ;
+    
     //Operators
     bool operator<   (const Node &n1) const;
     bool operator==  (const Node &n1);
@@ -81,8 +80,6 @@ private:
     int value;
     bool visited;
     set<Node*, ptrLess<Node>> neighbors;
-    
-    
 };
 
 

@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
 
     DirectedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week1/SCC.txt");
     
-    g.SCCcount();
+    g.findSCCs();
     
     return 0;
 }

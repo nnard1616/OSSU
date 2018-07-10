@@ -97,7 +97,7 @@ void DirectedGraph::readInData(string filename) {
     
 }
 
-void DirectedGraph::SCCcount() {
+void DirectedGraph::findSCCs() {
     cout << "Performing DFS on original..." << endl;
     
     //side affect: 'nToFinishTime' contains mapping from original nodes to 

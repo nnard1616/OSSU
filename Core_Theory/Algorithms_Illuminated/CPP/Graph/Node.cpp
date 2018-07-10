@@ -62,16 +62,6 @@ void Node::addNeighbor(Node* n)  {
     neighbors.insert(n);
 }
 
-Node* Node::selectNeighbor(set<Node*>& alreadyVisited) {
-    for (auto n : neighbors)
-        //if n was not already visited, return it
-        if (alreadyVisited.find(n) == alreadyVisited.end())
-            return n;
-    
-    //otherwise all neighbors have already been visited, return null
-    return nullptr;
-}
-
 
 /******************************************************************************/
 /*  Getters/Setters                                                           */
@@ -94,6 +84,14 @@ bool Node::allNeighborsVisited() {
         if ( ! i->isVisited())
             return false;
     return true;
+}
+
+bool Node::isVisited() const { 
+    return visited;
+}
+
+void Node::setVisited( bool b){
+    visited = b;
 }
 
 
