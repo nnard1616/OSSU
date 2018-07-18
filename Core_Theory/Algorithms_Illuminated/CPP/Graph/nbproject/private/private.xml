@@ -7,13 +7,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/Node.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DirectedGraph.h</file>
+            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DirectedWeightedGraph.h</file>
             <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/main.cpp</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/StaticFunctions.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DAGraph.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DGraph.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/UGraph.h</file>
+            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/WeightedNode.cpp</file>
+            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DirectedWeightedGraph.cpp</file>
+            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DistanceComparator.h</file>
+            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/WeightedNode.h</file>
         </group>
     </open-files>
 </project-private>

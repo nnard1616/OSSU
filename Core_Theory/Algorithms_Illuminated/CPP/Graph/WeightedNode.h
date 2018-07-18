@@ -23,56 +23,60 @@
  */
 
 /* 
- * File:   DirectedGraph.h
+ * File:   WeightedNode.h
  * Author: Nathan Nard
  *
- * Created on July 8, 2018, 1:09 PM
+ * Created on July 10, 2018, 4:08 PM
  */
 
-#ifndef DIRECTEDGRAPH_H
-#define DIRECTEDGRAPH_H
-#include "Node.h"
-#include "WeightedNode.h"
-#include <fstream>
-#include <string>
+#ifndef WEIGHTEDNODE_H
+#define WEIGHTEDNODE_H
+
 #include <map>
-#include <queue>
+#include <set>
+#include <iostream>
 
 using namespace std;
 
-class DirectedGraph {
+class WeightedNode{
 public:
-    //Constructors & Destructor
-    DirectedGraph(string filename);
-    DirectedGraph(const DirectedGraph& orig);
-    virtual ~DirectedGraph();
     
-    int getEdges() const;
-    int getNodes() const;
+    //constructors and destructor
+    WeightedNode():WeightedNode(0){}
+    WeightedNode(int value);
+    WeightedNode(const WeightedNode& orig);
+    virtual ~WeightedNode();
     
-    void setAllVisited();
-    void setAllNotVisited();
-    bool areAllVisited();
-    bool areAllNotVisited();
-
+    //Getters & Setters
+    unsigned int getValue () const;
+    int getDistance () const;
+    set<pair<WeightedNode*, int>*>* getNeighbors();
+    WeightedNode* getPreviousOptimalNeighbor();
     
+    bool isVisited() const;
+    bool allNeighborsVisited();
     
-    void findSCCs();
+    void setValue (int i) ;
+    void setVisited( bool b);
+    void setDistance(int i);
     
-    friend ostream& operator<< (ostream& os, const DirectedGraph& g);
+    void setPreviousOptimalNeighbor(WeightedNode* p);
+    
+    void addNeighbor(pair<WeightedNode*, int>* n);
+    
+    //Operators
+    bool operator==  (const WeightedNode &n1);
+    friend ostream& operator<<  (ostream& os, const WeightedNode& n);
     
 private:
-    int edges;
-    int nodes;
-    map<int, Node*> nodeList;
-    map<int, int> nToFinishTime;
+    unsigned int value;
+    bool visited;
     
-    void readInData(string filename);
-    map<int, Node*> reverseArcsAndTransform(const map<int, Node*>& al);
-    void DFS(Node* n, int& counter);
-    void DFSOnOriginal();
-    priority_queue<int> DFSOnReversedTransform();
+    set<pair<WeightedNode*, int>*> neighborWeights;
+    unsigned int distance = 1000000;
+    
+    WeightedNode* previousOptimalNeighbor;
+
 };
 
-#endif /* DIRECTEDGRAPH_H */
-
+#endif /* WEIGHTEDNODE_H */

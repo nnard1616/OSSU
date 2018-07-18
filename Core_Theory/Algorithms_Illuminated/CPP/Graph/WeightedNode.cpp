@@ -23,40 +23,28 @@
  */
 
 /* 
- * File:   Node.cpp
+ * File:   WeightedNode.cpp
  * Author: Nathan Nard
  * 
- * Created on July 4, 2018, 11:22 AM
+ * Created on July 10, 2018, 4:08 PM
  */
 
-#include "Node.h"
+#include "WeightedNode.h"
 
-using std::endl;
 
 /******************************************************************************/
 /*  Constructors/Destructor                                                   */
 /******************************************************************************/
 
-Node::Node(int value){
-    this->value = value;
-    this->visited = false;
+WeightedNode::WeightedNode(int value){
+    setValue(value);
+    setVisited(false);
 }
 
-Node::Node(const Node& orig) {
-    this->value = orig.getValue();
-    this->visited = orig.isVisited();
+WeightedNode::WeightedNode(const WeightedNode& orig) {
 }
 
-Node::~Node() {
-}
-
-
-/******************************************************************************/
-/*  Neighbor Methods                                                          */
-/******************************************************************************/
-
-void Node::addNeighbor(Node* n)  {
-    neighbors.insert(n);
+WeightedNode::~WeightedNode() {
 }
 
 
@@ -64,31 +52,51 @@ void Node::addNeighbor(Node* n)  {
 /*  Getters/Setters                                                           */
 /******************************************************************************/
 
-int Node::getValue() const {
+unsigned int WeightedNode::getValue() const {
     return value;
 }
 
-void Node::setValue(int i) {
+void WeightedNode::setValue(int i) {
     value = i;
 }
 
-set<Node*, ptrLess<Node> >* Node::getNeighbors() {
-    return &neighbors;
+set<pair<WeightedNode*, int>*>* WeightedNode::getNeighbors() {
+    return &neighborWeights;
 }
 
-bool Node::allNeighborsVisited() {
-    for (auto& i : neighbors)
-        if ( ! i->isVisited())
+bool WeightedNode::allNeighborsVisited() {
+    for (auto& i : neighborWeights)
+        if ( ! i->first->isVisited())
             return false;
     return true;
 }
 
-bool Node::isVisited() const { 
+bool WeightedNode::isVisited() const { 
     return visited;
 }
 
-void Node::setVisited( bool b){
+void WeightedNode::setVisited( bool b){
     visited = b;
+}
+
+int WeightedNode::getDistance() const {
+    return distance;
+}
+
+void WeightedNode::setDistance(int i) {
+    distance = i;
+}
+
+WeightedNode* WeightedNode::getPreviousOptimalNeighbor() {
+    return previousOptimalNeighbor;
+}
+
+void WeightedNode::setPreviousOptimalNeighbor(WeightedNode* p) {
+    previousOptimalNeighbor = p;
+}
+
+void WeightedNode::addNeighbor(pair<WeightedNode*, int>* n){
+    neighborWeights.insert(n);
 }
 
 
@@ -96,23 +104,14 @@ void Node::setVisited( bool b){
 /*  Operators                                                                 */
 /******************************************************************************/
 
-bool Node::operator==(const Node& n1) {
-    return n1.getValue() == getValue();
+bool WeightedNode::operator==(const WeightedNode& n1) {
+    return value == n1.getValue();
 }
 
-bool Node::operator!=(const Node& n1) {
-    return ! (n1.getValue() == getValue());
-}
-
-bool Node::operator<(const Node& n1) const {
-    return getValue() < n1.getValue();
-}
-
-ostream& operator<<(ostream& os, const Node& n) {
-    os << n.value << ' ';
-    
-    for (auto i : n.neighbors)
-        os << i->value << ' ';
+ostream& operator<<(ostream& os, const WeightedNode& n) {
+    os << n.getValue() << ' ';
+    for (auto i : n.neighborWeights)
+        os << i->first->getValue() << ',' << i->second << ' ';
     
     return os;
 }

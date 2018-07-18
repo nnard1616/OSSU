@@ -56,6 +56,10 @@ DirectedGraph::~DirectedGraph() {
 /*  Public Graph Methods                                                      */
 /******************************************************************************/
 
+/**
+ * Assumes file is a list of edges: Value1 Value2
+ * @param filename
+ */
 void DirectedGraph::readInData(string filename) {
     cout << "reading data..." << endl;
     nodeList.clear();
@@ -153,10 +157,6 @@ map<int, Node*> DirectedGraph::reverseArcsAndTransform(
             
             //reverse arc
             rtal[nInt]->addNeighbor(rtal[mInt]);
-            
-            //ensure visited parameter is set to false.
-            rtal[mInt]->setVisited(false);
-            rtal[nInt]->setVisited(false);
         }
     }
     

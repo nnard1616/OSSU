@@ -23,56 +23,24 @@
  */
 
 /* 
- * File:   DirectedGraph.h
+ * File:   DistanceComparator.h
  * Author: Nathan Nard
  *
- * Created on July 8, 2018, 1:09 PM
+ * Created on July 16, 2018, 9:29 AM
  */
 
-#ifndef DIRECTEDGRAPH_H
-#define DIRECTEDGRAPH_H
-#include "Node.h"
+#ifndef DISTANCECOMPARATOR_H
+#define DISTANCECOMPARATOR_H
 #include "WeightedNode.h"
-#include <fstream>
-#include <string>
-#include <map>
-#include <queue>
 
 using namespace std;
 
-class DirectedGraph {
-public:
-    //Constructors & Destructor
-    DirectedGraph(string filename);
-    DirectedGraph(const DirectedGraph& orig);
-    virtual ~DirectedGraph();
-    
-    int getEdges() const;
-    int getNodes() const;
-    
-    void setAllVisited();
-    void setAllNotVisited();
-    bool areAllVisited();
-    bool areAllNotVisited();
-
-    
-    
-    void findSCCs();
-    
-    friend ostream& operator<< (ostream& os, const DirectedGraph& g);
-    
-private:
-    int edges;
-    int nodes;
-    map<int, Node*> nodeList;
-    map<int, int> nToFinishTime;
-    
-    void readInData(string filename);
-    map<int, Node*> reverseArcsAndTransform(const map<int, Node*>& al);
-    void DFS(Node* n, int& counter);
-    void DFSOnOriginal();
-    priority_queue<int> DFSOnReversedTransform();
+struct DistanceComparator {
+    bool operator() (const WeightedNode* x, const WeightedNode* y ) {
+        return x->getDistance() < y->getDistance();
+    }
+    typedef bool result_type;
 };
 
-#endif /* DIRECTEDGRAPH_H */
+#endif /* DISTANCECOMPARATOR_H */
 

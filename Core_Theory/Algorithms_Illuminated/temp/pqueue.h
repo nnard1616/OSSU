@@ -23,56 +23,43 @@
  */
 
 /* 
- * File:   DirectedGraph.h
+ * File:   pqueue.h
  * Author: Nathan Nard
  *
- * Created on July 8, 2018, 1:09 PM
+ * Created on July 16, 2018, 12:54 PM
  */
 
-#ifndef DIRECTEDGRAPH_H
-#define DIRECTEDGRAPH_H
-#include "Node.h"
-#include "WeightedNode.h"
-#include <fstream>
-#include <string>
-#include <map>
-#include <queue>
+#ifndef PQUEUE_H
+#define PQUEUE_H
+#include <vector>
+#include <iostream>
+#include <iterator>
 
 using namespace std;
 
-class DirectedGraph {
-public:
-    //Constructors & Destructor
-    DirectedGraph(string filename);
-    DirectedGraph(const DirectedGraph& orig);
-    virtual ~DirectedGraph();
-    
-    int getEdges() const;
-    int getNodes() const;
-    
-    void setAllVisited();
-    void setAllNotVisited();
-    bool areAllVisited();
-    bool areAllNotVisited();
 
+template <typename Comparable> class pqueue {
+public:
     
+    pqueue();
+    pqueue(vector<Comparable> objects);
     
-    void findSCCs();
+    vector<Comparable> getObjects();
     
-    friend ostream& operator<< (ostream& os, const DirectedGraph& g);
+    void push(Comparable object);
+    void pop();
+    Comparable top();
+    
+    //todo private
+    typename vector<Comparable>::iterator binarySearch(Comparable object);
     
 private:
-    int edges;
-    int nodes;
-    map<int, Node*> nodeList;
-    map<int, int> nToFinishTime;
+
+    vector<Comparable> objects;
     
-    void readInData(string filename);
-    map<int, Node*> reverseArcsAndTransform(const map<int, Node*>& al);
-    void DFS(Node* n, int& counter);
-    void DFSOnOriginal();
-    priority_queue<int> DFSOnReversedTransform();
+    
 };
 
-#endif /* DIRECTEDGRAPH_H */
+#include "pqueue.tpp"
+#endif /* PQUEUE_H */
 

@@ -33,12 +33,17 @@
 
 #include "Node.h"
 #include "Edge.h"
-#include "DirectedGraph.h"
+#include "DirectedWeightedGraph.h"
 #include "StaticFunctions.h"
+#include "WeightedNode.h"
+#include <sys/types.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <iostream>
 #include <map>
 #include <stack>
-
+#include <queue>
 using namespace std;
 
 /*
@@ -47,12 +52,100 @@ using namespace std;
 
 
 
-int main(int argc, char** argv) {
 
-    DirectedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week1/SCC.txt");
+int main(int argc, char** argv) {
+    DirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week2/dijkstraData2.txt");
     
-    g.findSCCs();
+    priority_queue<int> pq;
     
+    
+    g.dijkstra(1);
+    
+    cout << g.getAnswer() << endl;
+    
+    //other test cases
+    
+    string testCaseDirectory = "/home/nathan/Extracts/stanford-algs/testCases/course2/assignment2Dijkstra/";
+    
+    DIR* dir = opendir(testCaseDirectory.c_str());
+    
+    struct dirent* entry;
+    while((entry = readdir(dir))){
+        
+        struct stat entryinfo;
+        string entryName = entry->d_name;
+        string entryPath = testCaseDirectory + entryName;
+        
+        if (!stat(entryPath.c_str(), &entryinfo )){
+            if (! S_ISDIR(entryinfo.st_mode)){
+                
+                if (entryName.find("input", 0) == 0){
+                    DirectedWeightedGraph g(entryPath);
+                    g.dijkstra(1);
+                    string answer = g.getAnswer();
+                    
+                    string answerFile = testCaseDirectory + entryName.replace(0,5,"output");
+                    ifstream infile(answerFile);
+                    string actualAnswer;
+                    getline(infile, actualAnswer);
+                    infile.close();
+                    
+                    if (answer != actualAnswer){
+                        cout << entryName << endl;
+                        cout << "Computed: " << answer << endl;
+                        cout << "Beaunus:  " << actualAnswer << endl;
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    closedir(dir);
+    
+    
+//    cout << endl;
+//    
+//    for (int i = 1; i < 201; i++){
+//        cout << i << ": " << g.getNodeList()[i]->getDistance() << endl;
+//    } 
+    //12875,18782,12478,19093,2367,3620,2029,10758,10728,8068
+    //12875,18782,12478,19093,2367,3620,2029,10758,10728,8068
+    //12875,18782,12478,19093,2367,3620,2029,10758,10728,8068
+    //3024,3684,2947,2052,2367,2399,2937,2442,2610,3068
+    //3024,3684,2947,2052,2367,2399,2937,2442,2610,3068
+    
+    //3024,3920,2947,2660,2367,2399,2937,2442,4477,3068
+    
+    //correct:
+    //2599,2610,2947,2052,2367,2399,2029,2442,2505,3068
+    
+    //bft
+    // wrong   bft: 561210,512598,559247,674810,485338,534807,364902,307456,511454,453935
+    // correct bft: 561210,512598,559247,660768,485338,534807,364902,307456,511454,453935
+    
+    
+    //medTest
+//    0 0
+//    1 1000000
+//    2 4
+//    3 1000000
+//    4 1000000
+//    5 11
+//    6 21
+//    7 14
+    
+    //medTest2
+//    0 0
+//    1 6
+//    2 6
+//    3 5
+//    4 1000000
+//    5 13
+//    6 13
+//    7 15
+
+
     return 0;
 }
 

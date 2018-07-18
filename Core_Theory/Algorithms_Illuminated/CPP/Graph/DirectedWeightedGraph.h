@@ -23,16 +23,21 @@
  */
 
 /* 
- * File:   DirectedGraph.h
+ * File:   DirectedWeightedGraph.h
  * Author: Nathan Nard
  *
- * Created on July 8, 2018, 1:09 PM
+ * Created on July 13, 2018, 10:51 AM
  */
 
-#ifndef DIRECTEDGRAPH_H
-#define DIRECTEDGRAPH_H
-#include "Node.h"
+#ifndef DIRECTEDWEIGHTEDGRAPH_H
+#define DIRECTEDWEIGHTEDGRAPH_H
+
 #include "WeightedNode.h"
+#include "StaticFunctions.h"
+#include "DistanceComparator.h"
+#include "../datastructures/pqueue.h"
+
+#include <vector>
 #include <fstream>
 #include <string>
 #include <map>
@@ -40,39 +45,43 @@
 
 using namespace std;
 
-class DirectedGraph {
+class DirectedWeightedGraph {
 public:
-    //Constructors & Destructor
-    DirectedGraph(string filename);
-    DirectedGraph(const DirectedGraph& orig);
-    virtual ~DirectedGraph();
     
+    //Constructors & Destructor
+    DirectedWeightedGraph(string filename);
+    DirectedWeightedGraph(const DirectedWeightedGraph& orig);
+    virtual ~DirectedWeightedGraph();
+    
+    //getters and setters
     int getEdges() const;
     int getNodes() const;
+    int numberOfEdges();
+    
+    string getOptimalPath(int n);
+    string getAnswer();
+    
+    map<int, WeightedNode*> getNodeList();
     
     void setAllVisited();
     void setAllNotVisited();
     bool areAllVisited();
     bool areAllNotVisited();
-
     
+    void printPathScores();
     
-    void findSCCs();
+    //shortest paths solver, n is starting point node
+    void dijkstra(int n);
     
-    friend ostream& operator<< (ostream& os, const DirectedGraph& g);
+    friend ostream& operator<< (ostream& os, const DirectedWeightedGraph& g);
     
 private:
     int edges;
     int nodes;
-    map<int, Node*> nodeList;
-    map<int, int> nToFinishTime;
+    map<int, WeightedNode*> nodeList;
     
     void readInData(string filename);
-    map<int, Node*> reverseArcsAndTransform(const map<int, Node*>& al);
-    void DFS(Node* n, int& counter);
-    void DFSOnOriginal();
-    priority_queue<int> DFSOnReversedTransform();
 };
 
-#endif /* DIRECTEDGRAPH_H */
+#endif /* DIRECTEDWEIGHTEDGRAPH_H */
 

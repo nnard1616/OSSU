@@ -7,10 +7,14 @@
       <itemPath>DAGraph.h</itemPath>
       <itemPath>DGraph.h</itemPath>
       <itemPath>DirectedGraph.h</itemPath>
+      <itemPath>DirectedWeightedGraph.h</itemPath>
+      <itemPath>DistanceComparator.h</itemPath>
       <itemPath>Edge.h</itemPath>
       <itemPath>Node.h</itemPath>
       <itemPath>StaticFunctions.h</itemPath>
       <itemPath>UGraph.h</itemPath>
+      <itemPath>WeightComparator.h</itemPath>
+      <itemPath>WeightedNode.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -22,10 +26,12 @@
       <itemPath>DAGraph.cpp</itemPath>
       <itemPath>DGraph.cpp</itemPath>
       <itemPath>DirectedGraph.cpp</itemPath>
+      <itemPath>DirectedWeightedGraph.cpp</itemPath>
       <itemPath>Edge.cpp</itemPath>
       <itemPath>Node.cpp</itemPath>
       <itemPath>StaticFunctions.cpp</itemPath>
       <itemPath>UGraph.cpp</itemPath>
+      <itemPath>WeightedNode.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -65,6 +71,12 @@
       </item>
       <item path="DirectedGraph.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="DirectedWeightedGraph.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="DirectedWeightedGraph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="DistanceComparator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Edge.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Edge.h" ex="false" tool="3" flavor2="0">
@@ -80,6 +92,12 @@
       <item path="UGraph.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="UGraph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WeightComparator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WeightedNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WeightedNode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -116,6 +134,12 @@
       </item>
       <item path="DirectedGraph.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="DirectedWeightedGraph.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="DirectedWeightedGraph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="DistanceComparator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Edge.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Edge.h" ex="false" tool="3" flavor2="0">
@@ -131,6 +155,12 @@
       <item path="UGraph.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="UGraph.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WeightComparator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WeightedNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WeightedNode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

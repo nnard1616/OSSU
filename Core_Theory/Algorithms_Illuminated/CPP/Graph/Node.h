@@ -51,7 +51,7 @@ class Node{
 public:
 
     //Constructors & Destructor
-    Node();
+    Node():Node(0){}
     Node(int value);
     Node(const Node& orig);
     virtual ~Node();
