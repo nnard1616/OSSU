@@ -50,10 +50,7 @@ using namespace std;
  * 
  */
 
-
-
-
-int main(int argc, char** argv) {
+void solvePart2Week2PA(){
     DirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week2/dijkstraData2.txt");
     
     priority_queue<int> pq;
@@ -103,8 +100,7 @@ int main(int argc, char** argv) {
     
     closedir(dir);
     
-    
-//    cout << endl;
+    //    cout << endl;
 //    
 //    for (int i = 1; i < 201; i++){
 //        cout << i << ": " << g.getNodeList()[i]->getDistance() << endl;
@@ -144,7 +140,33 @@ int main(int argc, char** argv) {
 //    5 13
 //    6 13
 //    7 15
+}
 
+
+int main(int argc, char** argv) {
+    
+    pqueue<int> Q;
+    
+    ifstream infile("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week3/Median.txt");
+    
+    string line;
+    int number;
+    int result = 0;
+    
+    while (getline(infile, line)){
+        number = stoi(line);
+        Q.push(number);
+        
+        if (Q.size() % 2 == 0) //is even
+            result += Q[Q.size()/2 - 1];
+        else //is odd
+            result += Q[(Q.size()+1)/2 - 1];
+        
+        result = result % 10000;
+    }
+
+    cout << result << endl;
+    
 
     return 0;
 }
