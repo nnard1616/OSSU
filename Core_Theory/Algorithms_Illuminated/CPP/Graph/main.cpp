@@ -41,9 +41,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <stack>
 #include <queue>
+#include <climits>
+#include <math.h>
 using namespace std;
 
 /*
@@ -142,9 +144,7 @@ void solvePart2Week2PA(){
 //    7 15
 }
 
-
-int main(int argc, char** argv) {
-    
+void solvePart2Week3PA(){
     pqueue<int> Q;
     
     ifstream infile("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week3/Median.txt");
@@ -167,7 +167,14 @@ int main(int argc, char** argv) {
 
     cout << result << endl;
     
-
+    infile.close();
+}
+int main(int argc, char** argv) {
+    set<long> numbers;
+    
+    ifstream infile("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week4/algo1-programming_prob-2sum.txt");
+    
+    
     return 0;
 }
 

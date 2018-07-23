@@ -38,7 +38,7 @@ import part1.ch6.Doublet;
 import static part1.ch6.Selection.dselect;
 import static part1.ch6.Selection.rselect;
 import static part1.ch6.WeightedMedian.weightedMedian;
-import part1.week4.Graph;
+import part2.week4.TwoSum;
 
 /**
  *
@@ -50,10 +50,8 @@ public class Main {
      * @param args the command line arguments
      * @throws java.lang.CloneNotSupportedException
      */
-    public static void main(String[] args) throws CloneNotSupportedException{
-//        testMinCut();
-        Graph g = new Graph("../../Algorithms-Roughgarden/Part1/week4/kargerMinCut.txt");
-        System.out.println(g.determineMinCut());
+    public static void main(String[] args)throws FileNotFoundException{
+        TwoSum.solve();
     }
     
     public static void testLocalMin(){
