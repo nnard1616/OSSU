@@ -23,31 +23,24 @@
  */
 
 /* 
- * File:   Edge.h
+ * File:   StringFunctions.h
  * Author: Nathan Nard
  *
- * Created on July 4, 2018, 3:29 PM
+ * Created on July 27, 2018, 12:33 PM
  */
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+#ifndef STRINGFUNCTIONS_H
+#define STRINGFUNCTIONS_H
+#include <vector>
+#include <string>
+#include <sstream>
 
-class Edge {
-public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
-    
-    friend ostream& operator<< (ostream& os, const Edge& e);
-    
-    
-private:
-    Node* first;
-    Node* second;
-    int weight;
-};
 
-#endif /* EDGE_H */
+namespace CommonFunctions{
+    std::vector<std::string> split(const std::string& s, char delim);
+    std::vector<int> strings_to_ints(std::vector<std::string> in);
+}
+
+
+#endif /* STRINGFUNCTIONS_H */
 

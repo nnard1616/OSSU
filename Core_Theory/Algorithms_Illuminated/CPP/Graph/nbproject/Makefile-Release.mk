@@ -41,8 +41,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/DirectedWeightedGraph.o \
 	${OBJECTDIR}/Edge.o \
 	${OBJECTDIR}/Node.o \
+	${OBJECTDIR}/PrimEdge.o \
+	${OBJECTDIR}/PrimNode.o \
 	${OBJECTDIR}/StaticFunctions.o \
 	${OBJECTDIR}/UGraph.o \
+	${OBJECTDIR}/UndirectedWeightedGraph.o \
 	${OBJECTDIR}/WeightedNode.o \
 	${OBJECTDIR}/main.o
 
@@ -101,6 +104,16 @@ ${OBJECTDIR}/Node.o: Node.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Node.o Node.cpp
 
+${OBJECTDIR}/PrimEdge.o: PrimEdge.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PrimEdge.o PrimEdge.cpp
+
+${OBJECTDIR}/PrimNode.o: PrimNode.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PrimNode.o PrimNode.cpp
+
 ${OBJECTDIR}/StaticFunctions.o: StaticFunctions.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -110,6 +123,11 @@ ${OBJECTDIR}/UGraph.o: UGraph.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UGraph.o UGraph.cpp
+
+${OBJECTDIR}/UndirectedWeightedGraph.o: UndirectedWeightedGraph.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UndirectedWeightedGraph.o UndirectedWeightedGraph.cpp
 
 ${OBJECTDIR}/WeightedNode.o: WeightedNode.cpp
 	${MKDIR} -p ${OBJECTDIR}

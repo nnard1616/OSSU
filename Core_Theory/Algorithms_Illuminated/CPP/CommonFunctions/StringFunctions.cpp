@@ -22,32 +22,27 @@
  * THE SOFTWARE.
  */
 
-/* 
- * File:   Edge.h
- * Author: Nathan Nard
- *
- * Created on July 4, 2018, 3:29 PM
- */
+#include "StringFunctions.h"
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+namespace CommonFunctions{
+    std::vector<std::string> split(const std::string& s, char delim){
+        std::stringstream ss;
+        ss.str(s);
 
-class Edge {
-public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
-    
-    friend ostream& operator<< (ostream& os, const Edge& e);
-    
-    
-private:
-    Node* first;
-    Node* second;
-    int weight;
-};
+        std::string item;
+        std::vector<std::string> items;
 
-#endif /* EDGE_H */
+        while (std::getline(ss, item, delim))
+          items.push_back(item);  // populate items
+        return items;
+    }
 
+
+    std::vector<int> strings_to_ints(std::vector<std::string> in){
+        std::vector<int> ints;
+        for (auto it = in.begin(); it != in.end(); ++it)
+          ints.push_back(std::stoi(*it));
+        return ints;
+
+    }
+}

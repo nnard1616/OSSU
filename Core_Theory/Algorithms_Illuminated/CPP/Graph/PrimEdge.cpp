@@ -23,31 +23,53 @@
  */
 
 /* 
- * File:   Edge.h
+ * File:   PrimEdge.cpp
  * Author: Nathan Nard
- *
- * Created on July 4, 2018, 3:29 PM
+ * 
+ * Created on July 26, 2018, 3:47 PM
  */
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+#include "PrimEdge.h"
 
-class Edge {
-public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
-    
-    friend ostream& operator<< (ostream& os, const Edge& e);
-    
-    
-private:
-    Node* first;
-    Node* second;
-    int weight;
-};
+PrimEdge::PrimEdge(PrimNode* first, PrimNode* second, int weight) {
+    this->first = first;
+    this->second = second;
+    this->weight = weight;
+}
 
-#endif /* EDGE_H */
+PrimNode* PrimEdge::getFirst() const {
+    return first;
+}
 
+PrimNode* PrimEdge::getSecond() const {
+    return second;
+}
+
+int PrimEdge::getWeight() const{
+    return weight;
+}
+
+bool PrimEdge::operator<( PrimEdge& e) {
+    if (oneVisited() && ! e.oneVisited())
+        return true;
+    if (! oneVisited() && e.oneVisited())
+        return false;
+    return getWeight() < e.getWeight();
+}
+
+bool PrimEdge::bothVisited() {
+    return first->isVisited() && second->isVisited();
+}
+
+bool PrimEdge::oneVisited() {
+    return first->isVisited() != second->isVisited();
+}
+
+bool PrimEdge::noneVisited() {
+    return  (! first->isVisited()) && (! second->isVisited());
+}
+
+ostream& operator<< (ostream& os, const PrimEdge& e){
+    os << e.getWeight();
+    return os;
+}

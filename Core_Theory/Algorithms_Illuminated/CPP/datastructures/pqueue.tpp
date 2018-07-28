@@ -63,6 +63,16 @@ int pqueue<Comparable, Compare>::size() {
     return objects.size();
 }
 
+template<class Comparable, class Compare>
+typename vector<Comparable>::iterator pqueue<Comparable, Compare>::begin() {
+    return objects.begin();
+}
+
+template<class Comparable, class Compare>
+typename vector<Comparable>::iterator pqueue<Comparable, Compare>::end() {
+    return objects.end();
+}
+
 
 /******************************************************************************/
 /*  Container Operations                                                      */
@@ -99,11 +109,11 @@ binarySearch(Comparable object) {
         return objects.begin();
     
     // if object is smaller than first item in array
-    if (compare(object, *objects.begin()))
+    if (compare(object, *low))
         return objects.begin();
     
     // if object is greater than last item in array
-    if ( ! compare(object, *(--objects.end()) ) )
+    if (compare(*high, object))
         return objects.end();
     
     // object is between low and high bounds, search for it...
@@ -111,9 +121,9 @@ binarySearch(Comparable object) {
         
         mid = low + std::distance(low, high)/2 ;
         
-        if (*mid < object)
+        if (compare(*mid, object))
             low = mid+1;
-        else if (*mid > object)
+        else if (compare(object, *mid))
             high = mid-1;
         else
             return mid;

@@ -23,31 +23,43 @@
  */
 
 /* 
- * File:   Edge.h
+ * File:   PrimEdge.h
  * Author: Nathan Nard
  *
- * Created on July 4, 2018, 3:29 PM
+ * Created on July 26, 2018, 3:47 PM
  */
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+#ifndef PRIMEDGE_H
+#define PRIMEDGE_H
+#include "PrimNode.h"
+#include <fstream>
 
-class Edge {
+using namespace std;
+
+class PrimNode;
+
+class PrimEdge {
 public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
+    PrimEdge(PrimNode* first, PrimNode* second, int weight);
     
-    friend ostream& operator<< (ostream& os, const Edge& e);
+    PrimNode* getFirst() const;
+    PrimNode* getSecond() const;
     
+    bool bothVisited();
+    bool oneVisited();
+    bool noneVisited();
     
+    int getWeight() const;
+    
+    bool operator< ( PrimEdge &e);
+    
+    friend ostream& operator<< (ostream& os, const PrimEdge& e);
 private:
-    Node* first;
-    Node* second;
-    int weight;
-};
 
-#endif /* EDGE_H */
+    PrimNode* first;
+    PrimNode* second;
+    int weight;
+    
+};
+#endif /* PRIMEDGE_H */
 

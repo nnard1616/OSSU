@@ -34,6 +34,7 @@
 #include "Node.h"
 #include "Edge.h"
 #include "DirectedWeightedGraph.h"
+#include "UndirectedWeightedGraph.h"
 #include "StaticFunctions.h"
 #include "WeightedNode.h"
 #include <sys/types.h>
@@ -170,11 +171,9 @@ void solvePart2Week3PA(){
     infile.close();
 }
 int main(int argc, char** argv) {
-    set<long> numbers;
     
-    ifstream infile("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week4/algo1-programming_prob-2sum.txt");
-    
-    
+    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week1/edges.txt");
+    cout << g.prim() << endl;
     return 0;
 }
 

@@ -23,31 +23,65 @@
  */
 
 /* 
- * File:   Edge.h
+ * File:   PrimNode.cpp
  * Author: Nathan Nard
- *
- * Created on July 4, 2018, 3:29 PM
+ * 
+ * Created on July 26, 2018, 3:47 PM
  */
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+#include "PrimNode.h"
 
-class Edge {
-public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
-    
-    friend ostream& operator<< (ostream& os, const Edge& e);
-    
-    
-private:
-    Node* first;
-    Node* second;
-    int weight;
-};
+PrimNode::PrimNode(int value) {
+    this->value = value;
+    this->visited = false;
+}
 
-#endif /* EDGE_H */
+void PrimNode::addNeighbor(PrimNode* n, PrimEdge* p) {
+    neighbors[p] = n;
+}
+
+PrimEdge* PrimNode::getMinEdge() const {
+    auto itr = neighbors.begin();
+    
+    while (itr != neighbors.end()){
+        if ( ! itr->second->isVisited())
+            return itr->first;
+        itr++;
+    }
+    
+    return nullptr;
+}
+
+bool PrimNode::isVisited() {
+    return visited;
+}
+
+void PrimNode::setVisited(bool b) {
+    visited = b;
+}
+
+int PrimNode::getValue() const {
+    return value;
+}
+
+map<PrimEdge*, PrimNode*, EdgeComparator<PrimEdge>> PrimNode::getNeighbors() const {
+    return neighbors;
+}
+
+PrimNode* PrimNode::getNeighbor(PrimEdge* e) {
+    try{
+        return neighbors.at(e);
+    } catch (out_of_range){
+        return nullptr;
+    }
+}
+
+ostream& operator<< (ostream& os, const PrimNode& n){
+    os << n.getValue() << ' ';
+    for (auto& i : n.getNeighbors()){
+        os << i.second->getValue() << ',' << *i.first << ' ';
+    }
+    return os;
+}
+
 

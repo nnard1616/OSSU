@@ -23,31 +23,51 @@
  */
 
 /* 
- * File:   Edge.h
+ * File:   PrimNode.h
  * Author: Nathan Nard
  *
- * Created on July 4, 2018, 3:29 PM
+ * Created on July 26, 2018, 3:47 PM
  */
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+#ifndef PRIMNODE_H
+#define PRIMNODE_H
+#include <map>
+#include <fstream>
+#include "PrimEdge.h"
+#include "EdgeComparator.h"
 
-class Edge {
+using namespace std;
+
+class PrimEdge;
+//for sorting Node pointers in the neighbors set.
+
+
+class PrimNode {
 public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
+    PrimNode(int value);
     
-    friend ostream& operator<< (ostream& os, const Edge& e);
+    //make edge in imp
+    void addNeighbor(PrimNode* n, PrimEdge* p);
     
     
+    int getValue() const;
+    map<PrimEdge*, PrimNode*, EdgeComparator<PrimEdge>> getNeighbors() const;
+    
+    PrimNode* getNeighbor(PrimEdge* e);
+    
+    PrimEdge* getMinEdge() const;
+    
+    bool isVisited();
+    void setVisited(bool b);
+    
+    friend ostream& operator<< (ostream& os, const PrimNode& n);
 private:
-    Node* first;
-    Node* second;
-    int weight;
+
+    bool visited;
+    int value;
+    map<PrimEdge*, PrimNode*, EdgeComparator<PrimEdge>> neighbors;
+    
 };
 
-#endif /* EDGE_H */
+#endif /* PRIMNODE_H */
 

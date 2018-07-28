@@ -23,31 +23,24 @@
  */
 
 /* 
- * File:   Edge.h
+ * File:   EdgeComparator.h
  * Author: Nathan Nard
  *
- * Created on July 4, 2018, 3:29 PM
+ * Created on July 26, 2018, 5:21 PM
  */
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+#ifndef EDGECOMPARATOR_H
+#define EDGECOMPARATOR_H
+#include "PrimEdge.h"
 
-class Edge {
-public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
-    
-    friend ostream& operator<< (ostream& os, const Edge& e);
-    
-    
-private:
-    Node* first;
-    Node* second;
-    int weight;
+class PrimEdge;
+
+template <class T> struct EdgeComparator {
+    bool operator() ( T* x,  T* y) {
+        return *x < *y;
+    }
+    typedef bool result_type;
 };
 
-#endif /* EDGE_H */
+#endif /* EDGECOMPARATOR_H */
 

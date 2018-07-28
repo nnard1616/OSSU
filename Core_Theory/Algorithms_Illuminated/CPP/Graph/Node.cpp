@@ -72,7 +72,7 @@ void Node::setValue(int i) {
     value = i;
 }
 
-set<Node*, ptrLess<Node> >* Node::getNeighbors() {
+set<Node*, ptrLess<Node>>* Node::getNeighbors() {
     return &neighbors;
 }
 

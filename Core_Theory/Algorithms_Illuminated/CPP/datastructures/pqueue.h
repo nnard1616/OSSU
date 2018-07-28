@@ -61,6 +61,9 @@ public:
     //needed by push operation
     typename vector<Comparable>::iterator binarySearch(Comparable object);
     
+    typename vector<Comparable>::iterator begin();
+    typename vector<Comparable>::iterator end();
+    
     const Comparable& operator[](unsigned int i) const {return objects[i];}
 private:
     

@@ -30,14 +30,19 @@
  */
 
 #include <cstdlib>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <set>
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include "../datastructures/pqueue.h"
+#include "StringFunctions.h"
+#include "JobsComparator.h"
 
 using namespace std;
+
 
 void twoSum(){
     vector<long long> numbers;
@@ -78,7 +83,80 @@ void twoSum(){
     
 }
 
+
+
+void solvePt3Wk1PA1(){
+    pqueue<pair<int, int>, BadJobsComparator<int>> Q;
+    vector<int> readin;
+    vector<string> shit;
+    pair<int, int> job;
+    
+    ifstream infile("/home/nathan/Programming/OSSU/Core_Theory/"
+    "Algorithms-Roughgarden/Part3/Week1/jobs.txt");
+    
+    string line;
+    
+    int numberOfJobs;
+    
+    getline(infile, line);
+    numberOfJobs = stoi(line);
+    
+    while (getline(infile, line)){
+        shit = CommonFunctions::split(line, ' ');
+        readin = CommonFunctions::strings_to_ints(shit);
+        job = *(new pair<int, int>(readin[0], readin[1]));
+        Q.push(job);
+    }
+    
+    long long sum = 0;
+    long long timeSum = 0;
+    
+    for (auto& i : Q.getObjects()){
+        timeSum += i.second;
+        sum += i.first*timeSum;
+    }
+    
+    
+    cout << sum << endl;
+}
+
+void solvePt3Wk1PA2(){
+    pqueue<pair<int, int>, GoodJobsComparator<int>> Q;
+    vector<int> readin;
+    vector<string> shit;
+    pair<int, int> job;
+    
+    ifstream infile("/home/nathan/Programming/OSSU/Core_Theory/"
+    "Algorithms-Roughgarden/Part3/Week1/jobs.txt");
+    
+    string line;
+    
+    int numberOfJobs;
+    
+    getline(infile, line);
+    numberOfJobs = stoi(line);
+    
+    while (getline(infile, line)){
+        shit = CommonFunctions::split(line, ' ');
+        readin = CommonFunctions::strings_to_ints(shit);
+        job = *(new pair<int, int>(readin[0], readin[1]));
+        Q.push(job);
+    }
+    
+    long long sum = 0;
+    long long timeSum = 0;
+    
+    for (auto& i : Q.getObjects()){
+        timeSum += i.second;
+        sum += i.first*timeSum;
+    }
+    
+    
+    cout << sum << endl;
+}
+
 int main(int argc, char** argv) {
-    twoSum();
+    solvePt3Wk1PA1();
+    solvePt3Wk1PA2();
     return 0;
 }

@@ -4,7 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>JobsComparator.h</itemPath>
+      <itemPath>StringFunctions.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,7 +13,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>main.cpp</itemPath>
+      <itemPath>StringFunctions.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -29,7 +29,7 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Debug" type="3">
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -38,26 +38,16 @@
       <compileType>
         <ccTool>
           <standard>11</standard>
-          <incDir>
-            <pElem>../CommonFunctions</pElem>
-          </incDir>
-          <useLinkerLibraries>false</useLinkerLibraries>
         </ccTool>
-        <linkerTool>
-          <linkerAddLib>
-            <pElem>../CommonFunctions/dist/Debug/GNU-Linux</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibLibItem>commonfunctions</linkerLibLibItem>
-          </linkerLibItems>
-        </linkerTool>
+        <archiverTool>
+        </archiverTool>
       </compileType>
-      <item path="JobsComparator.h" ex="false" tool="3" flavor2="0">
+      <item path="StringFunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="StringFunctions.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Release" type="3">
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -76,10 +66,12 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <archiverTool>
+        </archiverTool>
       </compileType>
-      <item path="JobsComparator.h" ex="false" tool="3" flavor2="0">
+      <item path="StringFunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="StringFunctions.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

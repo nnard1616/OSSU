@@ -44,4 +44,5 @@ vector<int> strings_to_ints(vector<string> in){
     for (auto it = in.begin(); it != in.end(); ++it)
       ints.push_back(std::stoi(*it));
     return ints;
+    
 }

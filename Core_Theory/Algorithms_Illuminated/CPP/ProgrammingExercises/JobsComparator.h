@@ -23,31 +23,37 @@
  */
 
 /* 
- * File:   Edge.h
+ * File:   JobsComparator.h
  * Author: Nathan Nard
  *
- * Created on July 4, 2018, 3:29 PM
+ * Created on July 25, 2018, 3:33 PM
  */
 
-#ifndef EDGE_H
-#define EDGE_H
-#include "Node.h"
+#ifndef JOBSCOMPARATOR_H
+#define JOBSCOMPARATOR_H
+using namespace std;
 
-class Edge {
-public:
-    Edge();
-    Edge(const Edge& orig);
-    Edge(Node* a, Node* b);
-    virtual ~Edge();
-    
-    friend ostream& operator<< (ostream& os, const Edge& e);
-    
-    
-private:
-    Node* first;
-    Node* second;
-    int weight;
+template <class T> struct BadJobsComparator {
+    bool operator() (const pair<T, T> x, 
+                     const pair<T, T> y ) {
+        int firstDifference = x.first - x.second;
+        int secondDifference = y.first - y.second;
+        
+        if (firstDifference != secondDifference)
+            return firstDifference > secondDifference;
+        else
+            return x.first > y.first;
+    }
+    typedef bool result_type;
 };
 
-#endif /* EDGE_H */
+template <class T> struct GoodJobsComparator {
+    bool operator() (const pair<T, T> x, 
+                     const pair<T, T> y ) {
+        return x.first/(x.second + 0.0) > y.first/(y.second + 0.0);
+    }
+    typedef bool result_type;
+};
+
+#endif /* JOBSCOMPARATOR_H */
 
