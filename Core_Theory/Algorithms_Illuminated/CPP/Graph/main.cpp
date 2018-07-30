@@ -172,8 +172,9 @@ void solvePart2Week3PA(){
 }
 int main(int argc, char** argv) {
     
-    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week1/edges.txt");
+    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week1/input_random_17_100.txt");
     cout << g.prim() << endl;
+    g.printMinTree();
     return 0;
 }
 

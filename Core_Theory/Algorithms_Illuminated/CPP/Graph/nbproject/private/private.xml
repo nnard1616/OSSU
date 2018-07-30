@@ -9,19 +9,11 @@
         <group>
             <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/PrimEdge.h</file>
             <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/PrimEdge.cpp</file>
+            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/UndirectedWeightedGraph.h</file>
             <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/EdgeComparator.h</file>
             <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/main.cpp</file>
             <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/UndirectedWeightedGraph.cpp</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/StaticFunctions.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/Node.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/PrimNode.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DirectedWeightedGraph.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/UndirectedWeightedGraph.h</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/WeightedNode.cpp</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/StaticFunctions.cpp</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/DirectedWeightedGraph.cpp</file>
             <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/PrimNode.cpp</file>
-            <file>file:/home/nathan/Programming/OSSU/Core_Theory/Algorithms_Illuminated/CPP/Graph/WeightedNode.h</file>
         </group>
     </open-files>
 </project-private>

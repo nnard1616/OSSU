@@ -105,31 +105,38 @@ bool UndirectedWeightedGraph::areAllVisited() {
 
 int UndirectedWeightedGraph::prim() {
     PrimEdge* nextPath = nullptr;
-    PrimNode* examinee = unvisitdedNodeList.begin()->second;
-    auto edgeItr = edgeList.begin(); //TODO need better way to select an edge based on weight and whether it touches a visited and unvisited node.
+    PrimNode* currentNode = unvisitdedNodeList.begin()->second;
     
-    unvisitdedNodeList.erase(unvisitdedNodeList.begin());
-    visitedNodeList[examinee->getValue()] = examinee;
-    examinee->setVisited(true);
-    edgeList.update();
-    
-    
-    while (! unvisitdedNodeList.empty()){
-        nextPath = edgeList.top();
-        minCostEdgeList.push(nextPath);
+    while ( ! unvisitdedNodeList.empty()) {
         
-        if (! nextPath->getFirst()->isVisited())
-            examinee = nextPath->getFirst();
-        else
-            examinee = nextPath->getSecond();
+        //erase current node from unvisitedNodeList map structure.
+        unvisitdedNodeList.erase(currentNode->getValue());
         
-        examinee->setVisited(true);
-        unvisitdedNodeList.erase(examinee->getValue());
-        visitedNodeList[examinee->getValue()] = examinee;
+        //add current node to visitedNodeList map structure.
+        visitedNodeList[currentNode->getValue()] = currentNode;
+        
+        //mark current node as visited
+        currentNode->setVisited(true);
+        
+        //have pqueue structures re-order edges.
         edgeList.update();
         minCostEdgeList.update();
+        
+        //get next path to add to our minCostEdgeList, a pqueue
+        nextPath = edgeList.top();
+        
+        //prevent duplicate of least cost edge
+        if (nextPath->oneVisited())
+            
+            //add nextPath to MST
+            minCostEdgeList.push(nextPath);
+        
+        //assign currentNode to the other unvisited node of this edge
+        if ( ! nextPath->getFirst()->isVisited())
+            currentNode = nextPath->getFirst();
+        else
+            currentNode = nextPath->getSecond();
     }
-    
     return sumMin();
 }
 
