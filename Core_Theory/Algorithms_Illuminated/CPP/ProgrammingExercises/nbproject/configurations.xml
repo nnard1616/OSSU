@@ -40,15 +40,18 @@
           <standard>11</standard>
           <incDir>
             <pElem>../CommonFunctions</pElem>
+            <pElem>../Graph</pElem>
           </incDir>
           <useLinkerLibraries>false</useLinkerLibraries>
         </ccTool>
         <linkerTool>
           <linkerAddLib>
             <pElem>../CommonFunctions/dist/Debug/GNU-Linux</pElem>
+            <pElem>../Graph/dist/Debug/GNU-Linux</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>commonfunctions</linkerLibLibItem>
+            <linkerLibLibItem>graph</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

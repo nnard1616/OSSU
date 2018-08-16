@@ -34,6 +34,7 @@
 PrimNode::PrimNode(int value) {
     this->value = value;
     this->visited = false;
+    this->leader = this;
 }
 
 void PrimNode::addNeighbor(PrimNode* n, PrimEdge* p) {
@@ -64,7 +65,16 @@ int PrimNode::getValue() const {
     return value;
 }
 
-map<PrimEdge*, PrimNode*, EdgeComparator<PrimEdge>> PrimNode::getNeighbors() const {
+PrimNode* PrimNode::getLeader() {
+    return leader;
+}
+
+void PrimNode::setLeader(PrimNode* p) {
+    leader = p;
+}
+
+
+map<PrimEdge*, PrimNode*, PrimEdgeComparator<PrimEdge>> PrimNode::getNeighbors() const {
     return neighbors;
 }
 

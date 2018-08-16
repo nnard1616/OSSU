@@ -14,9 +14,9 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=clang
+CCC=clang++
+CXX=clang++
 FC=gfortran
 AS=as
 
@@ -35,20 +35,21 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/pqueue.o \
-	${OBJECTDIR}/pqueue.o
+	${OBJECTDIR}/unionFind.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
-	${TESTDIR}/TestFiles/f1
+	${TESTDIR}/TestFiles/f1 \
+	${TESTDIR}/TestFiles/f2
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/tests/pqueue_Test.o
+	${TESTDIR}/tests/pqueue_Test.o \
+	${TESTDIR}/tests/unionFindtest.o
 
 # C Compiler Flags
 CFLAGS=
@@ -68,26 +69,23 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/datastructures
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/datastructures: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/datastructures ${OBJECTFILES} ${LDLIBSOPTIONS}
-
-${OBJECTDIR}/main.o: main.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a
+	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a ${OBJECTFILES} 
+	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a
 
 ${OBJECTDIR}/pqueue.o: pqueue.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pqueue.o pqueue.cpp
 
-${OBJECTDIR}/pqueue.o: pqueue.tpp
+${OBJECTDIR}/unionFind.o: unionFind.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pqueue.o pqueue.tpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/unionFind.o unionFind.cpp
 
 # Subprojects
 .build-subprojects:
@@ -100,25 +98,22 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/pqueue_Test.o ${OBJECTFILES:%.o=%_noma
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
 
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/unionFindtest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
 
-${TESTDIR}/tests/pqueue_Test.o: tests/pqueue_Test.c++ 
+
+${TESTDIR}/tests/pqueue_Test.o: tests/pqueue_Test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/pqueue_Test.o tests/pqueue_Test.c++
+	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/pqueue_Test.o tests/pqueue_Test.cpp
 
 
-${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/main.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
-	fi
+${TESTDIR}/tests/unionFindtest.o: tests/unionFindtest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/unionFindtest.o tests/unionFindtest.cpp
+
 
 ${OBJECTDIR}/pqueue_nomain.o: ${OBJECTDIR}/pqueue.o pqueue.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -133,17 +128,17 @@ ${OBJECTDIR}/pqueue_nomain.o: ${OBJECTDIR}/pqueue.o pqueue.cpp
 	    ${CP} ${OBJECTDIR}/pqueue.o ${OBJECTDIR}/pqueue_nomain.o;\
 	fi
 
-${OBJECTDIR}/pqueue_nomain.o: ${OBJECTDIR}/pqueue.o pqueue.tpp 
+${OBJECTDIR}/unionFind_nomain.o: ${OBJECTDIR}/unionFind.o unionFind.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/pqueue.o`; \
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/unionFind.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pqueue_nomain.o pqueue.tpp;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/unionFind_nomain.o unionFind.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/pqueue.o ${OBJECTDIR}/pqueue_nomain.o;\
+	    ${CP} ${OBJECTDIR}/unionFind.o ${OBJECTDIR}/unionFind_nomain.o;\
 	fi
 
 # Run Test Targets
@@ -151,6 +146,7 @@ ${OBJECTDIR}/pqueue_nomain.o: ${OBJECTDIR}/pqueue.o pqueue.tpp
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
+	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

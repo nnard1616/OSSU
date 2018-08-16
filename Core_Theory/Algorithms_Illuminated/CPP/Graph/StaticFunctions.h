@@ -45,7 +45,7 @@ template <typename ForwardIterator>
 void print_container(ForwardIterator first, ForwardIterator last)
 {
   while (first != last)
-    cout << *first++ << ' ';
+    cout << **first++ << endl;
   cout << endl;
 }
 

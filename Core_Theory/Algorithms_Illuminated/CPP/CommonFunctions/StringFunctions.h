@@ -34,11 +34,28 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <iostream>
+using std::cout;
+using std::endl;
 
 
 namespace CommonFunctions{
     std::vector<std::string> split(const std::string& s, char delim);
     std::vector<int> strings_to_ints(std::vector<std::string> in);
+}
+
+template <typename ForwardIterator>
+void print_container(ForwardIterator first, ForwardIterator last)
+{
+  while (first != last)
+    cout << *first++ << endl;
+  cout << endl;
+}
+
+template <typename Container>
+void print_container(Container in)
+{
+  print_container(in.begin(), in.end());
 }
 
 

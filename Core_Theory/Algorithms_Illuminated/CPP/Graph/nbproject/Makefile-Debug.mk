@@ -14,9 +14,9 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=clang
+CCC=clang++
+CXX=clang++
 FC=gfortran
 AS=as
 
@@ -64,7 +64,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-L../datastructures/dist/Debug/GNU-Linux -L../CommonFunctions/dist/Debug/GNU-Linux -ldatastructures -lcommonfunctions
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

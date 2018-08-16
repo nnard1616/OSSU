@@ -50,10 +50,6 @@ int PrimEdge::getWeight() const{
 }
 
 bool PrimEdge::operator<( PrimEdge& e) {
-    if (oneVisited() && ! e.oneVisited())
-        return true;
-    if (! oneVisited() && e.oneVisited())
-        return false;
     return getWeight() < e.getWeight();
 }
 
@@ -69,7 +65,16 @@ bool PrimEdge::noneVisited() {
     return  (! first->isVisited()) && (! second->isVisited());
 }
 
+bool PrimEdge::sameLeaderNodes() {
+    return first->getLeader() == second->getLeader();
+}
+
+bool PrimEdge::differentLeaderNodes() {
+    return ! sameLeaderNodes();
+}
+
+
 ostream& operator<< (ostream& os, const PrimEdge& e){
-    os << e.getWeight();
+    os << e.first->getValue() << ' ' << e.second->getValue() << ' ' << e.getWeight();
     return os;
 }

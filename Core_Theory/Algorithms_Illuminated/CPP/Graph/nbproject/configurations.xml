@@ -10,7 +10,7 @@
       <itemPath>DirectedWeightedGraph.h</itemPath>
       <itemPath>DistanceComparator.h</itemPath>
       <itemPath>Edge.h</itemPath>
-      <itemPath>EdgeComparator.h</itemPath>
+      <itemPath>EdgeComparators.h</itemPath>
       <itemPath>Node.h</itemPath>
       <itemPath>PrimEdge.h</itemPath>
       <itemPath>PrimNode.h</itemPath>
@@ -65,6 +65,16 @@
         <ccTool>
           <standard>11</standard>
         </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../datastructures/dist/Debug/GNU-Linux</pElem>
+            <pElem>../CommonFunctions/dist/Debug/GNU-Linux</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>datastructures</linkerLibLibItem>
+            <linkerLibLibItem>commonfunctions</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="DAGraph.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -88,7 +98,7 @@
       </item>
       <item path="Edge.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="EdgeComparator.h" ex="false" tool="3" flavor2="0">
+      <item path="EdgeComparators.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Node.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -165,7 +175,7 @@
       </item>
       <item path="Edge.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="EdgeComparator.h" ex="false" tool="3" flavor2="0">
+      <item path="EdgeComparators.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Node.cpp" ex="false" tool="1" flavor2="0">
       </item>

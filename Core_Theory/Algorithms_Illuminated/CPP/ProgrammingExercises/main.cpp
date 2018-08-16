@@ -40,6 +40,7 @@
 #include "../datastructures/pqueue.h"
 #include "StringFunctions.h"
 #include "JobsComparator.h"
+#include "../Graph/UndirectedWeightedGraph.h"
 
 using namespace std;
 
@@ -155,8 +156,12 @@ void solvePt3Wk1PA2(){
     cout << sum << endl;
 }
 
+void solvePart3Week1(){
+    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week1/input_random_17_100.txt");
+    cout << g.prim() << endl;
+}
+
 int main(int argc, char** argv) {
-    solvePt3Wk1PA1();
-    solvePt3Wk1PA2();
+    solvePart3Week1();
     return 0;
 }

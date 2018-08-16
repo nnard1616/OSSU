@@ -5,19 +5,19 @@
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>datastructures</name>
             <c-extensions/>
-            <cpp-extensions>c++,cpp,tpp</cpp-extensions>
-            <header-extensions>h</header-extensions>
+            <cpp-extensions>cpp</cpp-extensions>
+            <header-extensions>h,hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>
             <confList>
                 <confElem>
                     <name>Debug</name>
-                    <type>1</type>
+                    <type>3</type>
                 </confElem>
                 <confElem>
                     <name>Release</name>
-                    <type>1</type>
+                    <type>3</type>
                 </confElem>
             </confList>
             <formatting>

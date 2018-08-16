@@ -35,7 +35,7 @@
 #include "PrimNode.h"
 #include "PrimEdge.h"
 #include "StaticFunctions.h"
-#include "EdgeComparator.h"
+#include "EdgeComparators.h"
 #include "../datastructures/pqueue.h"
 
 #include <vector>
@@ -54,28 +54,17 @@ public:
     //Constructors & Destructor
     UndirectedWeightedGraph(string filename);
     
-    
-    
-//    //getters and setters
-//    int getEdges() const;
-//    int getNodes() const;
-//    int numberOfEdges();
-//    
-//    string getOptimalPath(int n);
-//    string getAnswer();
-//    
-//    map<int, WeightedNode*> getNodeList();
-//    
-//    void setAllVisited();
-//    void setAllNotVisited();
     bool areAllVisited();
-//    bool areAllNotVisited();
-//    
-//    void printPathScores();
+    
+    //for debugging
+    map<int, PrimNode*> getNodeList();
     
     int prim();
+    int kspacing(int k);
+    int findKWithSpacingOfThree();
+    
     int sumMin();
-    PrimEdge* findNextMinEdge(set<PrimEdge*, EdgeComparator<PrimEdge>>::iterator itr);
+    PrimEdge* findNextMinEdge(set<PrimEdge*, PrimEdgeComparator<PrimEdge>>::iterator itr);
     void printMinTree();
     
     friend ostream& operator<< (ostream& os, const UndirectedWeightedGraph& g);
@@ -86,8 +75,8 @@ private:
     map<int, PrimNode*> nodeList;
     map<int, PrimNode*> visitedNodeList;
     map<int, PrimNode*> unvisitdedNodeList;
-    pqueue<PrimEdge*, EdgeComparator<PrimEdge>> edgeList;
-    pqueue<PrimEdge*, EdgeComparator<PrimEdge>> minCostEdgeList;
+    pqueue<PrimEdge*, PrimEdgeComparator<PrimEdge>> edgeList;
+    pqueue<PrimEdge*, PrimEdgeComparator<PrimEdge>> minCostEdgeList;
     
     void readInData(string filename);
 };

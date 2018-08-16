@@ -170,11 +170,30 @@ void solvePart2Week3PA(){
     
     infile.close();
 }
-int main(int argc, char** argv) {
-    
+
+void solvePart3Week1(){
     UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week1/input_random_17_100.txt");
     cout << g.prim() << endl;
-    g.printMinTree();
+}
+// 106 in 1.5 minutes
+void solvePart3Week2Q1(){
+    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week2/clustering1.txt");
+//    UndirectedWeightedGraph g("/home/nathan/Extracts/stanford-algs/testCases/course3/assignment2Clustering/question1/input_completeRandom_1_8.txt");
+    
+    cout << g.kspacing(4) << endl;
+}
+
+// 6118 in 2.5 minutes
+void solvePart3Week2Q2(){
+    UndirectedWeightedGraph g("/home/nathan/Extracts/stanford-algs/testCases/course3/assignment2Clustering/question2/input_random_45_512_24.txt");
+//    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week2/clustering_big.txt");
+    
+    
+    cout << g.findKWithSpacingOfThree() << endl;
+}
+
+int main(int argc, char** argv) {
+    solvePart3Week2Q2();
     return 0;
 }
 

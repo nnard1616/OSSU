@@ -34,13 +34,15 @@
 #include <map>
 #include <fstream>
 #include "PrimEdge.h"
-#include "EdgeComparator.h"
+#include "EdgeComparators.h"
 
 using namespace std;
 
-class PrimEdge;
-//for sorting Node pointers in the neighbors set.
 
+
+
+
+class PrimEdge;
 
 class PrimNode {
 public:
@@ -51,9 +53,11 @@ public:
     
     
     int getValue() const;
-    map<PrimEdge*, PrimNode*, EdgeComparator<PrimEdge>> getNeighbors() const;
+    map<PrimEdge*, PrimNode*, PrimEdgeComparator<PrimEdge>> getNeighbors() const;
     
     PrimNode* getNeighbor(PrimEdge* e);
+    PrimNode* getLeader();
+    void setLeader(PrimNode* p);
     
     PrimEdge* getMinEdge() const;
     
@@ -63,9 +67,10 @@ public:
     friend ostream& operator<< (ostream& os, const PrimNode& n);
 private:
 
+    PrimNode* leader;
     bool visited;
     int value;
-    map<PrimEdge*, PrimNode*, EdgeComparator<PrimEdge>> neighbors;
+    map<PrimEdge*, PrimNode*, PrimEdgeComparator<PrimEdge>> neighbors;
     
 };
 

@@ -49,6 +49,9 @@ public:
     bool oneVisited();
     bool noneVisited();
     
+    bool sameLeaderNodes();
+    bool differentLeaderNodes();
+    
     int getWeight() const;
     
     bool operator< ( PrimEdge &e);
