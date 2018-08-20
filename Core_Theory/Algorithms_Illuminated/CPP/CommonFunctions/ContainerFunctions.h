@@ -23,25 +23,32 @@
  */
 
 /* 
- * File:   WeightComparator.h
+ * File:   ContainerFunctions.h
  * Author: Nathan Nard
  *
- * Created on July 13, 2018, 11:31 AM
+ * Created on August 17, 2018, 11:11 PM
  */
 
-#ifndef WEIGHTCOMPARATOR_H
-#define WEIGHTCOMPARATOR_H
-#include "WeightedNode.h"
+#ifndef CONTAINERFUNCTIONS_H
+#define CONTAINERFUNCTIONS_H
 
-using namespace std;
-
-template <class T> struct WeightComparator {
-    bool operator() (const pair<T*, int>* x, 
-                     const pair<T*, int>* y ) {
-        return x->second < y->second;
+namespace CommonFunctions{
+    template <typename ForwardIterator>
+    unsigned long long sum_items(ForwardIterator first, ForwardIterator last)
+    {
+        unsigned long long result = 0;
+        while (first != last)
+            result += *first++;
+        return result;
     }
-    typedef bool result_type;
-};
 
-#endif /* WEIGHTCOMPARATOR_H */
+    template <typename Container>
+    unsigned long long sum_items(Container in)
+    {
+      return sum_items(in.begin(), in.end());
+    }
+
+}
+
+#endif /* CONTAINERFUNCTIONS_H */
 

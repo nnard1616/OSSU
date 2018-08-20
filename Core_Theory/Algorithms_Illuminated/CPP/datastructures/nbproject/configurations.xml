@@ -4,6 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>WeightComparator.h</itemPath>
+      <itemPath>WeightedTreeNode.h</itemPath>
+      <itemPath>heapp.hpp</itemPath>
       <itemPath>pqueue.h</itemPath>
       <itemPath>unionFind.hpp</itemPath>
     </logicalFolder>
@@ -14,6 +17,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>WeightedTreeNode.cpp</itemPath>
+      <itemPath>heapp.cpp</itemPath>
       <itemPath>pqueue.cpp</itemPath>
       <itemPath>unionFind.cpp</itemPath>
     </logicalFolder>
@@ -45,12 +50,14 @@
   <confs>
     <conf name="Debug" type="3">
       <toolsSet>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>11</standard>
+          <commandlineTool>clang++</commandlineTool>
           <incDir>
             <pElem>../Graph</pElem>
           </incDir>
@@ -63,6 +70,12 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="WeightComparator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WeightedTreeNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WeightedTreeNode.h" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -93,6 +106,10 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <item path="heapp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="heapp.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="pqueue.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pqueue.h" ex="false" tool="3" flavor2="0">
@@ -128,6 +145,12 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="WeightComparator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WeightedTreeNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WeightedTreeNode.h" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -158,6 +181,10 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <item path="heapp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="heapp.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="pqueue.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pqueue.h" ex="false" tool="3" flavor2="0">

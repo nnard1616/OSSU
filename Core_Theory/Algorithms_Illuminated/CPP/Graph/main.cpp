@@ -47,6 +47,9 @@
 #include <queue>
 #include <climits>
 #include <math.h>
+#include "../datastructures/WeightedTreeNode.h"
+#include "../datastructures/heapp.hpp"
+#include "../datastructures/WeightComparator.h"
 using namespace std;
 
 /*
@@ -177,8 +180,8 @@ void solvePart3Week1(){
 }
 // 106 in 1.5 minutes
 void solvePart3Week2Q1(){
-    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week2/clustering1.txt");
-//    UndirectedWeightedGraph g("/home/nathan/Extracts/stanford-algs/testCases/course3/assignment2Clustering/question1/input_completeRandom_1_8.txt");
+//    UndirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week2/clustering1.txt");
+    UndirectedWeightedGraph g("/home/nathan/Extracts/stanford-algs/testCases/course3/assignment2Clustering/question1/input_completeRandom_1_8.txt");
     
     cout << g.kspacing(4) << endl;
 }
@@ -192,8 +195,169 @@ void solvePart3Week2Q2(){
     cout << g.findKWithSpacingOfThree() << endl;
 }
 
+void solvePart3Week3Q12(){
+    //    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course3/assignment3HuffmanAndMWIS/question1And2/input_random_1_10.txt";
+    
+    string filename = "/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week3/huffman.txt";
+    
+    ifstream infile(filename);
+    
+    string line;
+    
+    getline(infile, line);
+    
+    int numberOfNodes = stoi(line);
+    ull readWeight;
+    int nodeValue = 1;
+    pqueue<WeightedTreeNode*, WeightedTreeNodeComparator<WeightedTreeNode> > nodes;
+    
+    while (getline(infile, line)){
+        readWeight = stoull(line);
+        nodes.push(new WeightedTreeNode(nodeValue, readWeight));
+        nodeValue++;
+    }
+//    cout << nodes << endl << endl;
+    
+    WeightedTreeNode* n1;
+    WeightedTreeNode* n2;
+    
+    WeightedTreeNode* combined;
+    
+    //assumes more than 1 node at start.
+    while (nodes.size() > 1){
+        n1 = nodes.top();
+        nodes.pop();
+        
+        n2 = nodes.top();
+        nodes.pop();
+        
+        combined = new WeightedTreeNode(0, n1, n2);
+        nodes.push(combined);
+    }
+    
+    
+    int maxDepth = INT32_MIN;
+    int minDepth = INT32_MAX;
+    
+    vector<WeightedTreeNode*> dfs;
+    
+    dfs.push_back(nodes.top());
+    WeightedTreeNode* current;
+    
+    while ( ! dfs.empty()){
+        current = dfs.back();
+        if(current->getValue() == 0 ){
+            dfs.pop_back();
+            dfs.push_back(current->getLeft());
+            dfs.push_back(current->getRght());
+        } else {
+            maxDepth = max(current->getDepth(), maxDepth);
+            minDepth = min(current->getDepth(), minDepth);
+            dfs.pop_back();
+        }
+    }
+    
+    
+    cout << maxDepth << endl << minDepth << endl;
+    infile.close();
+    
+    //    heapp<WeightedTreeNode*, WeightedTreeNodeComparator<WeightedTreeNode> > nodes;
+    //    
+    //    nodes.insert(new WeightedTreeNode(1, 10));
+    //    nodes.insert(new WeightedTreeNode(2, 15));
+    //    
+    //    WeightedTreeNode* n1 = nodes.top();
+    //    nodes.pop();
+    //    WeightedTreeNode* n2 = nodes.top();
+    //    nodes.pop();
+    //    
+    //    WeightedTreeNode* combined  = new WeightedTreeNode(0, n1, n2);
+    //    
+    //    WeightedTreeNode* n3 = new WeightedTreeNode(3, 20);
+    //    
+    //    combined = new WeightedTreeNode(0, n3, combined);
+    //    
+    //    cout << combined->getDepth() << endl;
+    //    cout << n1->getDepth() << endl;
+    //    cout << n2->getDepth() << endl;
+    //    cout << n3->getDepth() << endl;
+}
+
+ull sum_weights(vector<WeightedTreeNode*>& nodes){
+    ull result = 0;
+    for (auto& i : nodes){
+        result += i->getWeight();
+    }
+    return result;
+}
+
+void solvePart3Week3Q3(){
+    //    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course3/assignment3HuffmanAndMWIS/question3/input_random_1_10.txt";
+    
+    string filename = "/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week3/mwis.txt";
+    
+    ifstream infile(filename);
+    
+    string line;
+    
+    getline(infile, line);
+    
+    int numberOfNodes = stoi(line);
+    ull readWeight;
+    int nodeValue = 1;
+    vector<WeightedTreeNode*> nodes;
+    
+    while (getline(infile, line)){
+        readWeight = stoull(line);
+        nodes.push_back(new WeightedTreeNode(nodeValue, readWeight));
+        nodeValue++;
+    }
+    
+    map<int, vector<WeightedTreeNode*>> mwis;
+    
+    mwis[0].clear();
+    mwis[1].push_back(nodes[0]);
+    
+    vector<WeightedTreeNode*> vim2, vim1;
+    ull swim2, swim1;
+    
+    for (int i = 2; i <= nodes.size(); i++){
+        vim2.clear();
+        vim1.clear();
+        
+        vim2.insert(vim2.end(), mwis[i-2].begin(), mwis[i-2].end());
+        vim1.insert(vim1.end(), mwis[i-1].begin(), mwis[i-1].end());
+        
+        vim2.push_back(nodes[i-1]);
+        
+        swim2 = sum_weights(vim2);
+        swim1 = sum_weights(vim1);
+        
+        if (swim2 > swim1)
+            mwis[i] = vim2;
+        else
+            mwis[i] = vim1;
+    }
+
+    int targets[8] = {1, 2, 3, 4, 17, 117, 517, 997};
+    
+    char present = '0';
+    
+    for (auto& i : targets){
+        for (auto& j : mwis[numberOfNodes]){
+            if (j->getValue() == i)
+                present = '1';
+        }
+        cout << present;
+        present = '0';
+    }
+    
+    infile.close();
+}
+
+
 int main(int argc, char** argv) {
-    solvePart3Week2Q2();
+
     return 0;
 }
 

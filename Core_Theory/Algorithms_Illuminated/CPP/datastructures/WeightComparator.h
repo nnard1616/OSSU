@@ -23,58 +23,33 @@
  */
 
 /* 
- * File:   PrimEdge.cpp
+ * File:   WeightComparator.h
  * Author: Nathan Nard
- * 
- * Created on July 26, 2018, 3:47 PM
+ *
+ * Created on July 13, 2018, 11:31 AM
  */
 
-#include "PrimEdge.h"
+#ifndef WEIGHTCOMPARATOR_H
+#define WEIGHTCOMPARATOR_H
 
-PrimEdge::PrimEdge(PrimNode* first, PrimNode* second, int weight) {
-    this->first = first;
-    this->second = second;
-    this->weight = weight;
-}
+using namespace std;
 
-PrimNode* PrimEdge::getFirst() const {
-    return first;
-}
+template <class T> struct WeightComparator {
+    bool operator() (const pair<T*, int>* x, 
+                     const pair<T*, int>* y ) {
+        return x->second < y->second;
+    }
+    typedef bool result_type;
+};
 
-PrimNode* PrimEdge::getSecond() const {
-    return second;
-}
-
-int PrimEdge::getWeight() const{
-    return weight;
-}
-
-bool PrimEdge::operator<( PrimEdge& e) {
-    return getWeight() < e.getWeight();
-}
-
-bool PrimEdge::bothVisited() {
-    return first->isVisited() && second->isVisited();
-}
-
-bool PrimEdge::oneVisited() {
-    return first->isVisited() != second->isVisited();
-}
-
-bool PrimEdge::noneVisited() {
-    return  (! first->isVisited()) && (! second->isVisited());
-}
-
-bool PrimEdge::sameLeaderNodes() {
-    return first->getLeader() == second->getLeader();
-}
-
-bool PrimEdge::differentLeaderNodes() {
-    return ! sameLeaderNodes();
-}
-
-
-ostream& operator<< (ostream& os, const PrimEdge& e){
-    os << '(' << e.first->getValue() << ", " << e.second->getValue() << ") : " << e.getWeight();
-    return os;
-}
+template <class T> struct WeightedTreeNodeComparator {
+    bool operator() ( T* x,  T* y) {
+        if (strcmp ( typeid(T).name(), "WeightedTreeNode")){
+            return x->getWeight() < y->getWeight();
+            
+        }
+        else
+            throw std::string("WeightedTreeNodeComparator may only be used with WeightedTreeNode objects!");
+    }
+};
+#endif /* WEIGHTCOMPARATOR_H */

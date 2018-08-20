@@ -35,6 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/WeightedTreeNode.o \
+	${OBJECTDIR}/heapp.o \
 	${OBJECTDIR}/pqueue.o \
 	${OBJECTDIR}/unionFind.o
 
@@ -77,15 +79,25 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a
 
+${OBJECTDIR}/WeightedTreeNode.o: WeightedTreeNode.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode.o WeightedTreeNode.cpp
+
+${OBJECTDIR}/heapp.o: heapp.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/heapp.o heapp.cpp
+
 ${OBJECTDIR}/pqueue.o: pqueue.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pqueue.o pqueue.cpp
+	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pqueue.o pqueue.cpp
 
 ${OBJECTDIR}/unionFind.o: unionFind.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/unionFind.o unionFind.cpp
+	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/unionFind.o unionFind.cpp
 
 # Subprojects
 .build-subprojects:
@@ -106,14 +118,40 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/unionFindtest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/pqueue_Test.o: tests/pqueue_Test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Graph -I. -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/pqueue_Test.o tests/pqueue_Test.cpp
+	$(COMPILE.cc) -g -I../Graph -I. -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/pqueue_Test.o tests/pqueue_Test.cpp
 
 
 ${TESTDIR}/tests/unionFindtest.o: tests/unionFindtest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Graph -I. -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/unionFindtest.o tests/unionFindtest.cpp
+	$(COMPILE.cc) -g -I../Graph -I. -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/unionFindtest.o tests/unionFindtest.cpp
 
+
+${OBJECTDIR}/WeightedTreeNode_nomain.o: ${OBJECTDIR}/WeightedTreeNode.o WeightedTreeNode.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/WeightedTreeNode.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode_nomain.o WeightedTreeNode.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/WeightedTreeNode.o ${OBJECTDIR}/WeightedTreeNode_nomain.o;\
+	fi
+
+${OBJECTDIR}/heapp_nomain.o: ${OBJECTDIR}/heapp.o heapp.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/heapp.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/heapp_nomain.o heapp.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/heapp.o ${OBJECTDIR}/heapp_nomain.o;\
+	fi
 
 ${OBJECTDIR}/pqueue_nomain.o: ${OBJECTDIR}/pqueue.o pqueue.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -123,7 +161,7 @@ ${OBJECTDIR}/pqueue_nomain.o: ${OBJECTDIR}/pqueue.o pqueue.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pqueue_nomain.o pqueue.cpp;\
+	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pqueue_nomain.o pqueue.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/pqueue.o ${OBJECTDIR}/pqueue_nomain.o;\
 	fi
@@ -136,7 +174,7 @@ ${OBJECTDIR}/unionFind_nomain.o: ${OBJECTDIR}/unionFind.o unionFind.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/unionFind_nomain.o unionFind.cpp;\
+	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/unionFind_nomain.o unionFind.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/unionFind.o ${OBJECTDIR}/unionFind_nomain.o;\
 	fi

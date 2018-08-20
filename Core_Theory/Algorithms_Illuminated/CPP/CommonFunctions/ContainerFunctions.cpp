@@ -23,58 +23,12 @@
  */
 
 /* 
- * File:   PrimEdge.cpp
+ * File:   ContainerFunctions.cpp
  * Author: Nathan Nard
  * 
- * Created on July 26, 2018, 3:47 PM
+ * Created on August 17, 2018, 11:11 PM
  */
 
-#include "PrimEdge.h"
-
-PrimEdge::PrimEdge(PrimNode* first, PrimNode* second, int weight) {
-    this->first = first;
-    this->second = second;
-    this->weight = weight;
-}
-
-PrimNode* PrimEdge::getFirst() const {
-    return first;
-}
-
-PrimNode* PrimEdge::getSecond() const {
-    return second;
-}
-
-int PrimEdge::getWeight() const{
-    return weight;
-}
-
-bool PrimEdge::operator<( PrimEdge& e) {
-    return getWeight() < e.getWeight();
-}
-
-bool PrimEdge::bothVisited() {
-    return first->isVisited() && second->isVisited();
-}
-
-bool PrimEdge::oneVisited() {
-    return first->isVisited() != second->isVisited();
-}
-
-bool PrimEdge::noneVisited() {
-    return  (! first->isVisited()) && (! second->isVisited());
-}
-
-bool PrimEdge::sameLeaderNodes() {
-    return first->getLeader() == second->getLeader();
-}
-
-bool PrimEdge::differentLeaderNodes() {
-    return ! sameLeaderNodes();
-}
+#include "ContainerFunctions.h"
 
 
-ostream& operator<< (ostream& os, const PrimEdge& e){
-    os << '(' << e.first->getValue() << ", " << e.second->getValue() << ") : " << e.getWeight();
-    return os;
-}

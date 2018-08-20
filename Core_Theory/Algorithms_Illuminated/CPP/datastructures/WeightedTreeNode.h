@@ -23,58 +23,45 @@
  */
 
 /* 
- * File:   PrimEdge.cpp
+ * File:   WeightedTreeNode.hpp
  * Author: Nathan Nard
- * 
- * Created on July 26, 2018, 3:47 PM
+ *
+ * Created on August 19, 2018, 5:02 PM
  */
 
-#include "PrimEdge.h"
+#ifndef WEIGHTEDTREENODE_HPP
+#define WEIGHTEDTREENODE_HPP
 
-PrimEdge::PrimEdge(PrimNode* first, PrimNode* second, int weight) {
-    this->first = first;
-    this->second = second;
-    this->weight = weight;
-}
+#include "WeightComparator.h"
+#include <iostream>
+#include <vector>
 
-PrimNode* PrimEdge::getFirst() const {
-    return first;
-}
+typedef unsigned long long ull;
 
-PrimNode* PrimEdge::getSecond() const {
-    return second;
-}
+class WeightedTreeNode {
+public:
+    WeightedTreeNode();
+    WeightedTreeNode(int value, ull weight);
+    WeightedTreeNode(int value, WeightedTreeNode* n1, WeightedTreeNode* n2);
+    WeightedTreeNode(int value, ull weight, WeightedTreeNode* n1, WeightedTreeNode* n2);
+    
+    ull getWeight();
+    WeightedTreeNode* getLeft();
+    WeightedTreeNode* getRght();
+    int getValue();
+    int getDepth() const;
+    void incDepths();
+    void incDepth();
+    
+    friend ostream& operator<< (ostream& os, const WeightedTreeNode& w);
+    friend ostream& operator<< (ostream& os, const WeightedTreeNode* w);
+private:
+    int value;
+    int depth = 0;
+    ull weight;
+    WeightedTreeNode* left = nullptr;
+    WeightedTreeNode* rght = nullptr;
+};
 
-int PrimEdge::getWeight() const{
-    return weight;
-}
+#endif /* WEIGHTEDTREENODE_HPP */
 
-bool PrimEdge::operator<( PrimEdge& e) {
-    return getWeight() < e.getWeight();
-}
-
-bool PrimEdge::bothVisited() {
-    return first->isVisited() && second->isVisited();
-}
-
-bool PrimEdge::oneVisited() {
-    return first->isVisited() != second->isVisited();
-}
-
-bool PrimEdge::noneVisited() {
-    return  (! first->isVisited()) && (! second->isVisited());
-}
-
-bool PrimEdge::sameLeaderNodes() {
-    return first->getLeader() == second->getLeader();
-}
-
-bool PrimEdge::differentLeaderNodes() {
-    return ! sameLeaderNodes();
-}
-
-
-ostream& operator<< (ostream& os, const PrimEdge& e){
-    os << '(' << e.first->getValue() << ", " << e.second->getValue() << ") : " << e.getWeight();
-    return os;
-}

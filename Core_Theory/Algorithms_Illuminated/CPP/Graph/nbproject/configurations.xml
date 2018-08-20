@@ -17,7 +17,6 @@
       <itemPath>StaticFunctions.h</itemPath>
       <itemPath>UGraph.h</itemPath>
       <itemPath>UndirectedWeightedGraph.h</itemPath>
-      <itemPath>WeightComparator.h</itemPath>
       <itemPath>WeightedNode.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -124,8 +123,6 @@
       </item>
       <item path="UndirectedWeightedGraph.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="WeightComparator.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="WeightedNode.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="WeightedNode.h" ex="false" tool="3" flavor2="0">
@@ -200,8 +197,6 @@
       <item path="UndirectedWeightedGraph.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="UndirectedWeightedGraph.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="WeightComparator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="WeightedNode.cpp" ex="false" tool="1" flavor2="0">
       </item>

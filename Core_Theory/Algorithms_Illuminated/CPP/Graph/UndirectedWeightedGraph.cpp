@@ -43,64 +43,6 @@ UndirectedWeightedGraph::UndirectedWeightedGraph(string filename) {
 }
 
 
-//void UndirectedWeightedGraph::readInData(string filename) {
-//    
-//    ifstream infile(filename);
-//    
-//    string line;
-//    
-//    getline(infile, line);
-//    
-//    vector<int> stats = strings_to_ints(split(line, ' '));
-//    int numberOfNodes = stats[0];
-//    int numberOfEdges = stats[1];
-//    int node1;
-//    int node2;
-//    int weight;
-//    PrimEdge* pEdge;
-//    int minWeight = INT16_MAX;
-//    
-//    while(getline(infile, line)){
-//        stats = strings_to_ints(split(line, ' '));
-//        node1 = stats[0];
-//        node2 = stats[1];
-//        weight = stats[2];
-//        minWeight = min(minWeight, weight);
-//        
-//        try{
-//            nodeList.at(node1);
-//        }catch (out_of_range){
-//            nodeList[node1] = new PrimNode(node1);
-//            unvisitdedNodeList[node1] = nodeList[node1];
-//            nodes++;
-//        }
-//        
-//        try{
-//            nodeList.at(node2);
-//        }catch (out_of_range){
-//            nodeList[node2] = new PrimNode(node2);
-//            unvisitdedNodeList[node2] = nodeList[node2];
-//            nodes++;
-//        }
-//        
-//        pEdge = new PrimEdge(nodeList[node1], nodeList[node2], weight);
-//        edgeList.push(pEdge);
-//        edges++;
-//        
-//        nodeList[node1]->addNeighbor(nodeList[node2], pEdge);
-//        nodeList[node2]->addNeighbor(nodeList[node1], pEdge);
-//        
-//        
-//        
-//    }
-//    
-////    cout << numberOfEdges << ' ' << edges <<  ' ' << edgeList.size() << endl;
-////    cout << numberOfNodes << ' ' << nodes << endl;
-////    cout << (*edgeList.begin())->getWeight() <<  ' ' << minWeight << endl;
-//    infile.close();
-//}
-
-
 void UndirectedWeightedGraph::readInData(string filename) {
     
     ifstream infile(filename);
@@ -111,39 +53,97 @@ void UndirectedWeightedGraph::readInData(string filename) {
     
     vector<int> stats = strings_to_ints(split(line, ' '));
     int numberOfNodes = stats[0];
-    int numberOfBits = stats[1];
-    int nodeValue;
+    int numberOfEdges = stats[1];
+    int node1;
+    int node2;
+    int weight;
+    PrimEdge* pEdge;
+    int minWeight = INT16_MAX;
     
     while(getline(infile, line)){
-        //remove the ' ' characters from the line
-        auto new_end_iterator = remove_if(line.begin(), line.end(),
-                                          [] (char x) {
-                                              return (x == ' ');
-                                          }
-                                                                    );
-        //trim end of line string
-        line.erase(new_end_iterator, line.end());
-        
-        //convert from string to binary representation
-        bitset<24> binaryValue(line);
-        
-        //convert from binary representation to int
-        nodeValue = (int)binaryValue.to_ulong();
+        stats = strings_to_ints(split(line, ' '));
+        node1 = stats[0];
+        node2 = stats[1];
+        weight = stats[2];
+        minWeight = min(minWeight, weight);
         
         try{
-            nodeList.at(nodeValue);
+            nodeList.at(node1);
         }catch (out_of_range){
-            nodeList[nodeValue] = new PrimNode(nodeValue);
-            unvisitdedNodeList[nodeValue] = nodeList[nodeValue];
+            nodeList[node1] = new PrimNode(node1);
+            unvisitdedNodeList[node1] = nodeList[node1];
             nodes++;
         }
+        
+        try{
+            nodeList.at(node2);
+        }catch (out_of_range){
+            nodeList[node2] = new PrimNode(node2);
+            unvisitdedNodeList[node2] = nodeList[node2];
+            nodes++;
+        }
+        
+        pEdge = new PrimEdge(nodeList[node1], nodeList[node2], weight);
+        edgeList.push(pEdge);
+        edges++;
+        
+        nodeList[node1]->addNeighbor(nodeList[node2], pEdge);
+        nodeList[node2]->addNeighbor(nodeList[node1], pEdge);
+        
+        
+        
     }
     
 //    cout << numberOfEdges << ' ' << edges <<  ' ' << edgeList.size() << endl;
-    cout << numberOfNodes << ' ' << nodes << endl;
+//    cout << numberOfNodes << ' ' << nodes << endl;
 //    cout << (*edgeList.begin())->getWeight() <<  ' ' << minWeight << endl;
     infile.close();
 }
+
+
+//void UndirectedWeightedGraph::readInData(string filename) {
+//    
+//    ifstream infile(filename);
+//    
+//    string line;
+//    
+//    getline(infile, line);
+//    
+//    vector<int> stats = strings_to_ints(split(line, ' '));
+//    int numberOfNodes = stats[0];
+//    int numberOfBits = stats[1];
+//    int nodeValue;
+//    
+//    while(getline(infile, line)){
+//        //remove the ' ' characters from the line
+//        auto new_end_iterator = remove_if(line.begin(), line.end(),
+//                                          [] (char x) {
+//                                              return (x == ' ');
+//                                          }
+//                                                                    );
+//        //trim end of line string
+//        line.erase(new_end_iterator, line.end());
+//        
+//        //convert from string to binary representation
+//        bitset<24> binaryValue(line);
+//        
+//        //convert from binary representation to int
+//        nodeValue = (int)binaryValue.to_ulong();
+//        
+//        try{
+//            nodeList.at(nodeValue);
+//        }catch (out_of_range){
+//            nodeList[nodeValue] = new PrimNode(nodeValue);
+//            unvisitdedNodeList[nodeValue] = nodeList[nodeValue];
+//            nodes++;
+//        }
+//    }
+//    
+////    cout << numberOfEdges << ' ' << edges <<  ' ' << edgeList.size() << endl;
+//    cout << numberOfNodes << ' ' << nodes << endl;
+////    cout << (*edgeList.begin())->getWeight() <<  ' ' << minWeight << endl;
+//    infile.close();
+//}
 
 bool UndirectedWeightedGraph::areAllVisited() {
     for (auto i : nodeList)
@@ -193,7 +193,7 @@ int UndirectedWeightedGraph::kspacing(int k) {
     unionFind uf(nodeList);
     pqueue<PrimEdge*, KruskalEdgeComparator<PrimEdge>> kEdgeList;
     
-    //copy over edges to new pqueue with appropriate comparator for the algo.
+//    //copy over edges to new pqueue with appropriate comparator for the algo.
     kEdgeList.insert(kEdgeList.begin(), edgeList.begin(), edgeList.end());
     
     int cluster1;

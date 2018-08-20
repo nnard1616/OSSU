@@ -35,6 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/WeightedTreeNode.o \
+	${OBJECTDIR}/heapp.o \
 	${OBJECTDIR}/pqueue.o \
 	${OBJECTDIR}/unionFind.o
 
@@ -77,6 +79,16 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libdatastructures.a
 
+${OBJECTDIR}/WeightedTreeNode.o: WeightedTreeNode.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode.o WeightedTreeNode.cpp
+
+${OBJECTDIR}/heapp.o: heapp.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/heapp.o heapp.cpp
+
 ${OBJECTDIR}/pqueue.o: pqueue.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -114,6 +126,32 @@ ${TESTDIR}/tests/unionFindtest.o: tests/unionFindtest.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/unionFindtest.o tests/unionFindtest.cpp
 
+
+${OBJECTDIR}/WeightedTreeNode_nomain.o: ${OBJECTDIR}/WeightedTreeNode.o WeightedTreeNode.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/WeightedTreeNode.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode_nomain.o WeightedTreeNode.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/WeightedTreeNode.o ${OBJECTDIR}/WeightedTreeNode_nomain.o;\
+	fi
+
+${OBJECTDIR}/heapp_nomain.o: ${OBJECTDIR}/heapp.o heapp.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/heapp.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/heapp_nomain.o heapp.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/heapp.o ${OBJECTDIR}/heapp_nomain.o;\
+	fi
 
 ${OBJECTDIR}/pqueue_nomain.o: ${OBJECTDIR}/pqueue.o pqueue.cpp 
 	${MKDIR} -p ${OBJECTDIR}
