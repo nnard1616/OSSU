@@ -47,6 +47,8 @@
 #include <queue>
 #include <climits>
 #include <math.h>
+#include <set>
+#include <c++/7/stdexcept>
 #include "../datastructures/WeightedTreeNode.h"
 #include "../datastructures/heapp.hpp"
 #include "../datastructures/WeightComparator.h"
@@ -355,9 +357,123 @@ void solvePart3Week3Q3(){
     infile.close();
 }
 
+//2493893
+void solvePart3Week4Q1(){
+
+//    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course3/assignment4Knapsack/input_random_1_4_4.txt";
+    
+    string filename = "/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week4/knapsack1.txt";
+    
+    ifstream infile(filename);
+    
+    string line;
+    
+    getline(infile, line);
+    vector<int> lineNumbers = strings_to_ints(split(line, ' '));
+    
+    int capacity      = lineNumbers[0]; 
+    int numberOfNodes = lineNumbers[1];
+    
+    int weight;
+    int value;
+    int itemNumber = 1;
+    
+    map<int, pair<int, int> > items;
+    
+    while (getline(infile, line)){
+        lineNumbers = strings_to_ints(split(line, ' '));
+        
+        value      = lineNumbers[0];
+        weight     = lineNumbers[1];
+        
+        items[itemNumber] = pair<int, int>(value, weight);
+        itemNumber++;
+        
+    }
+    
+    cout << items.size() << " : " << numberOfNodes << endl;
+    
+    
+    //implement the algo
+    long long A[numberOfNodes+1][capacity+1];
+    
+    for (int x = 0; x <= capacity; x++){
+        A[0][x] = 0;
+    }
+    
+    for (int i = 1; i < numberOfNodes+1; i++){
+        for (int x = 0; x < capacity+1; x++){
+            if (x-items[i].second >= 0)
+                A[i][x] = max(A[i-1][x], A[i-1][x-items[i].second]+items[i].first);
+            else
+                A[i][x] = A[i-1][x];
+        }
+    }
+    
+    
+    cout << A[numberOfNodes][capacity] << endl;
+    
+    
+}
+
+int rec (int i, int x, map<pair<int,int>,int>& tab, map<int, pair<int, int>>& items){
+    if (i == 0)
+        return 0;
+    try{
+        return tab.at(pair<int, int>(i,x));
+    }catch (std::out_of_range){
+        if (x - items[i].second >= 0)
+            tab[pair<int, int>(i,x)] = max(rec(i-1, x, tab, items), rec(i-1, x - items[i].second, tab, items) + items[i].first);
+        else
+            tab[pair<int, int>(i,x)] = rec(i-1, x, tab, items);
+        return tab[pair<int, int>(i,x)];
+    }
+}
+
+void solvePart3Week4Q2(){
+    
+//    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course3/assignment4Knapsack/input_random_1_4_4.txt";
+    
+    string filename = "/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part3/Week4/knapsack_big.txt";
+    
+    ifstream infile(filename);
+    
+    string line;
+    
+    getline(infile, line);
+    vector<int> lineNumbers = strings_to_ints(split(line, ' '));
+    
+    int capacity      = lineNumbers[0]; 
+    int numberOfNodes = lineNumbers[1];
+    
+    int weight;
+    int value;
+    int itemNumber = 1;
+    
+    map<int, pair<int, int> > items;
+    
+    while (getline(infile, line)){
+        lineNumbers = strings_to_ints(split(line, ' '));
+        
+        value      = lineNumbers[0];
+        weight     = lineNumbers[1];
+        
+        items[itemNumber] = pair<int, int>(value, weight);
+        itemNumber++;
+        
+    }
+    
+    cout << items.size() << " : " << numberOfNodes << endl;
+    
+    map <pair<int, int>, int> tab;
+    
+    cout << rec(numberOfNodes, capacity, tab, items) << endl;
+    
+    infile.close();
+    
+}
 
 int main(int argc, char** argv) {
-
     return 0;
 }
 
