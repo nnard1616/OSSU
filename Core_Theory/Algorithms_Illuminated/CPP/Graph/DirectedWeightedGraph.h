@@ -59,7 +59,12 @@ public:
     int numberOfEdges();
     
     string getOptimalPath(int n);
-    string getAnswer();
+    string getAnswerPT2WK2();
+    
+    int getMinPath();
+    void printMinPath(int end);
+    void printMinPath2(int start);
+    void computeMinPath(int start);
     
     map<int, WeightedNode*> getNodeList();
     
@@ -67,20 +72,34 @@ public:
     void setAllNotVisited();
     bool areAllVisited();
     bool areAllNotVisited();
+    void resetAllOptimalPreviousNeighbors();
     
     void printPathScores();
     
     //shortest paths solver, n is starting point node
     void dijkstra(int n);
+    bool bellmanford(int n);
+    bool johnsonSimplified();
+    bool johnson();
+    void flloydwarshall();
     
     friend ostream& operator<< (ostream& os, const DirectedWeightedGraph& g);
     
+    void readInDataPT2WK2();
+    void readInDataPT4WK1();
+    
+    void printDistances(int start);
+    void resetDistances();
 private:
     int edges;
     int nodes;
+    int minPath = INT32_MAX;
+    bool negativeEdgeWeightsPresent = false;
+    string filename;
     map<int, WeightedNode*> nodeList;
     
-    void readInData(string filename);
+    
+    
 };
 
 #endif /* DIRECTEDWEIGHTEDGRAPH_H */

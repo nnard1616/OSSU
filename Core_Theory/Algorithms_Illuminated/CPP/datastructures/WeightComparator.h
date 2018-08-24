@@ -31,6 +31,7 @@
 
 #ifndef WEIGHTCOMPARATOR_H
 #define WEIGHTCOMPARATOR_H
+#include <string.h>
 
 using namespace std;
 

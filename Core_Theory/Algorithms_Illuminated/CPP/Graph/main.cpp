@@ -48,7 +48,10 @@
 #include <climits>
 #include <math.h>
 #include <set>
+#include <sstream>
+#include <string.h>
 #include <c++/7/stdexcept>
+#include <c++/7/iosfwd>
 #include "../datastructures/WeightedTreeNode.h"
 #include "../datastructures/heapp.hpp"
 #include "../datastructures/WeightComparator.h"
@@ -63,50 +66,50 @@ void solvePart2Week2PA(){
     
     priority_queue<int> pq;
     
-    
+    g.readInDataPT2WK2();
     g.dijkstra(1);
     
-    cout << g.getAnswer() << endl;
+    cout << g.getAnswerPT2WK2() << endl;
     
-    //other test cases
-    
-    string testCaseDirectory = "/home/nathan/Extracts/stanford-algs/testCases/course2/assignment2Dijkstra/";
-    
-    DIR* dir = opendir(testCaseDirectory.c_str());
-    
-    struct dirent* entry;
-    while((entry = readdir(dir))){
-        
-        struct stat entryinfo;
-        string entryName = entry->d_name;
-        string entryPath = testCaseDirectory + entryName;
-        
-        if (!stat(entryPath.c_str(), &entryinfo )){
-            if (! S_ISDIR(entryinfo.st_mode)){
-                
-                if (entryName.find("input", 0) == 0){
-                    DirectedWeightedGraph g(entryPath);
-                    g.dijkstra(1);
-                    string answer = g.getAnswer();
-                    
-                    string answerFile = testCaseDirectory + entryName.replace(0,5,"output");
-                    ifstream infile(answerFile);
-                    string actualAnswer;
-                    getline(infile, actualAnswer);
-                    infile.close();
-                    
-                    if (answer != actualAnswer){
-                        cout << entryName << endl;
-                        cout << "Computed: " << answer << endl;
-                        cout << "Beaunus:  " << actualAnswer << endl;
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    closedir(dir);
+//    //other test cases
+//    
+//    string testCaseDirectory = "/home/nathan/Extracts/stanford-algs/testCases/course2/assignment2Dijkstra/";
+//    
+//    DIR* dir = opendir(testCaseDirectory.c_str());
+//    
+//    struct dirent* entry;
+//    while((entry = readdir(dir))){
+//        
+//        struct stat entryinfo;
+//        string entryName = entry->d_name;
+//        string entryPath = testCaseDirectory + entryName;
+//        
+//        if (!stat(entryPath.c_str(), &entryinfo )){
+//            if (! S_ISDIR(entryinfo.st_mode)){
+//                
+//                if (entryName.find("input", 0) == 0){
+//                    DirectedWeightedGraph g(entryPath);
+//                    g.dijkstra(1);
+//                    string answer = g.getAnswer();
+//                    
+//                    string answerFile = testCaseDirectory + entryName.replace(0,5,"output");
+//                    ifstream infile(answerFile);
+//                    string actualAnswer;
+//                    getline(infile, actualAnswer);
+//                    infile.close();
+//                    
+//                    if (answer != actualAnswer){
+//                        cout << entryName << endl;
+//                        cout << "Computed: " << answer << endl;
+//                        cout << "Beaunus:  " << actualAnswer << endl;
+//                    }
+//                    
+//                }
+//            }
+//        }
+//    }
+//    
+//    closedir(dir);
     
     //    cout << endl;
 //    
@@ -473,7 +476,161 @@ void solvePart3Week4Q2(){
     
 }
 
+void testHeapp(){
+    heapp<WeightedNode*, DistanceComparator> h;
+    if (h.size() != 0){
+        cout << "Problem initializing heapp" << endl;
+        return;
+    }
+    
+
+//    void insert(Comparable object);  inserting new items in order.
+    WeightedNode* n = new WeightedNode(1);
+    n->setDistance(4);
+    h.insert(n);
+    if (h.size() != 1){
+        cout << "Problem inserting into heapp" << endl;
+        return;
+    }
+    
+    int weights[8] = {4,8,9,4,12,9,11,13};
+    
+    for (int i = 0; i < 8; i++){
+        n = new WeightedNode(i+2);
+        n->setDistance(weights[i]);
+        h.insert(n);
+    }
+    
+    if (h.size() != 9){
+        cout << "Problem inserting multiples into heapp" << endl;
+        return;
+    }
+    
+    std::stringstream ss;
+    ss << h << endl;
+    
+    string expected = "4 \n4 8 \n9 4 12 9 \n11 13 \n";
+    
+    if (strcmp(ss.str().c_str(), expected.c_str()) != 0){
+        cout << "Problem printing heapp" << endl;
+        return;
+    }
+        
+//    Comparable top();
+    n = h.top();
+    
+    if (n->getValue() != 1){
+        cout << "Problem getting top of heapp" << endl;
+        return;
+    }
+    
+//    void pop();
+    h.pop();
+    
+    if (h.size() != 8){
+        cout << "Problem with pop of heapp, not being removed or improper resizing" << endl;
+        return;
+    }
+    
+    std::stringstream ss2;
+    ss2 << h << endl;
+    
+    expected = "4 \n4 8 \n9 13 12 9 \n11 \n";
+    
+    if (strcmp(ss2.str().c_str(), expected.c_str()) != 0){
+        cout << "Problem popping and re-heappifying heapp" << endl;
+        return;
+    }
+    
+    //inserting items out of order.
+    
+    int weights2[3] = {7, 10, 5};
+    
+    for (int i = 0; i < 3; i++){
+        n = new WeightedNode(i+h.size());
+        n->setDistance(weights2[i]);
+        h.insert(n);
+    }
+    
+    std::stringstream ss3;
+    ss3 << h << endl;
+    
+    expected = "4 \n4 8 \n7 5 12 9 \n11 9 13 10 \n";
+    
+    if (strcmp(ss3.str().c_str(), expected.c_str()) != 0){
+        cout << "Problem inserting out of order and reordering items in heapp" << endl;
+        return;
+    }
+    
+//    void update(Comparable object);
+    n->setDistance(20);
+    h.update(n);
+    
+    std::stringstream ss4;
+    ss4 << h << endl;
+    
+    expected = "4 \n4 8 \n7 10 12 9 \n11 9 13 20 \n";
+    
+    if (strcmp(ss4.str().c_str(), expected.c_str()) != 0){
+        cout << "Problem modifying (make larger) and reordering items in heapp" << endl;
+        return;
+    }
+    
+    n = h.at(5);
+    n->setDistance(1);
+    h.update(n);
+    
+    std::stringstream ss5;
+    ss5 << h << endl;
+    
+    expected = "1 \n4 4 \n7 10 8 9 \n11 9 13 20 \n";
+    
+    if (strcmp(ss5.str().c_str(), expected.c_str()) != 0){
+        cout << "Problem modifying (make smaller) and reordering items in heapp" << endl;
+        return;
+    }
+    
+    cout << "all tests passed for heapp" << endl;
+    
+}
+
+
+void solvePart4Week1Q1(){
+//    solvePart2Week2PA();
+//    cout << "2599,2610,2947,2052,2367,2399,2029,2442,2505,3068" << endl;
+//    DirectedWeightedGraph g1("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part4/Week1/g1.txt");
+//    DirectedWeightedGraph g2("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part4/Week1/g2.txt");
+//    DirectedWeightedGraph g3("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part4/Week1/g3.txt");
+    
+    DirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part4/Week1/smallEx.txt");
+//    DirectedWeightedGraph g("/home/nathan/Extracts/stanford-algs/testCases/course4/assignment1AllPairsShortestPath/input_random_40_1024.txt");
+    
+//    g1.readInDataPT4WK1();
+//    g2.readInDataPT4WK1();
+//    g3.readInDataPT4WK1();
+//    
+//    if (g1.johnson())
+//        cout << g1.getMinPath() << endl;
+//    if (g2.johnson())
+//        cout << g2.getMinPath() << endl;
+//    if (g3.johnson())
+//        cout << g3.getMinPath() << endl;
+    
+    
+    g.readInDataPT4WK1();
+    
+    if (g.johnsonSimplified())
+        cout << g.getMinPath() << endl;
+    
+}
+
 int main(int argc, char** argv) {
+    DirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part4/Week1/smallEx4.txt");
+    
+    g.readInDataPT4WK1();
+    
+    g.flloydwarshall();
+
     return 0;
 }
 

@@ -35,7 +35,7 @@
 #include <map>
 #include <set>
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
 class WeightedNode{
@@ -50,6 +50,8 @@ public:
     //Getters & Setters
     unsigned int getValue () const;
     int getDistance () const;
+    int getBF0Distance() const;
+    int getWeight(WeightedNode* n);
     set<pair<WeightedNode*, int>*>* getNeighbors();
     WeightedNode* getPreviousOptimalNeighbor();
     
@@ -59,6 +61,8 @@ public:
     void setValue (int i) ;
     void setVisited( bool b);
     void setDistance(int i);
+    void setBF0Distance(int i);
+    void createBFWeights();
     
     void setPreviousOptimalNeighbor(WeightedNode* p);
     
@@ -67,14 +71,22 @@ public:
     //Operators
     bool operator==  (const WeightedNode &n1);
     friend ostream& operator<<  (ostream& os, const WeightedNode& n);
+    friend ostream& operator<<  (ostream& os, const WeightedNode* n);
     
+    void addToPath(WeightedNode* n);
+    
+    vector<WeightedNode*> getPath();
+    int sumPath();
 private:
     unsigned int value;
     bool visited;
     
     set<pair<WeightedNode*, int>*> neighborWeights;
-    unsigned int distance = 1000000;
+    map<WeightedNode*, int> neighborToWeightMap;
+    int distance = INT32_MAX;
+    int BF0Distance = 0;
     
+    vector<WeightedNode*> path;
     WeightedNode* previousOptimalNeighbor;
 
 };

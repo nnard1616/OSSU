@@ -38,6 +38,12 @@ using std::ostream;
 using std::endl;
 using std::pair;
 
+#include <map>
+using std::map;
+
+#include <vector>
+using std::vector;
+
 template <class Comparable, class Compare = std::less<Comparable> >
 class heapp {
 public:
@@ -47,7 +53,11 @@ public:
     Comparable top();
     void pop();
     void insert(Comparable object);
-    int size();
+    int size() const;
+    void update(Comparable object);
+    Comparable at(int i);
+    int index(Comparable object);
+    bool empty();
     
     template<class AnyComparable, class AnyCompare>
     friend ostream& operator<< (ostream& os, const heapp<AnyComparable, AnyCompare>& h);
@@ -55,9 +65,10 @@ private:
     pair<int, int> children(int i);
     int parent(int i);
     void swap (int i, int j);
+    void swapIndices(Comparable i, Comparable j);
     
-    int end = 0;
-    Comparable objects[1000000];
+    vector<Comparable> objects;
+    map<Comparable, int> indices;
 };
 
 
@@ -68,17 +79,23 @@ private:
 
 template <class Comparable, class Compare>
 Comparable heapp<Comparable, Compare>::top(){
-    return objects[0];
+    try{
+        return objects.at(0);
+    } catch (std::out_of_range) {
+        cout << "Vector is empty!" << endl;
+        throw;
+    }
 }
 
 template <class Comparable, class Compare>
 void heapp<Comparable, Compare>::pop(){
     
-    if (end > 0){
-        swap(0, end-1);
-        end--;
+    if ( ! objects.empty() ){
+        swap(0, objects.size()-1);
+        indices.erase(objects.back());
+        objects.erase(objects.end()-1);
     } else {
-        end--;
+        cout << "Vector is empty! Nothing to pop." << endl;
         return;
     }
     
@@ -91,13 +108,13 @@ void heapp<Comparable, Compare>::pop(){
     int child2 = cs.second;
     
     
-    while ((i < end) && (compare(objects[child1], objects[i]) || 
-                         compare(objects[child2], objects[i])   )  ){
+    while ((i < objects.size()) && (compare(objects[child1], objects[i]) || 
+                                    compare(objects[child2], objects[i])   )  ){
         cs = children(i);
         child1 = cs.first;
         child2 = cs.second;
         
-        if (child1 >= end || child2 >= end)
+        if (child1 >= objects.size() || child2 >= objects.size()) //maybe bug?
             break;
         
         if (compare(objects[child1], objects[child2])){
@@ -115,16 +132,15 @@ void heapp<Comparable, Compare>::insert(Comparable object){
     Compare compare = Compare();
     
     //put object in at end.
-    objects[end] = object;
+    objects.push_back(object);
+    indices[object] = objects.size()-1;
     
-    if (end == 0){
-        end++;
+    if (objects.size() == 1)
         return;
-    }
     
     
-    int c  = end;
-    int p = parent(end);
+    int c  = objects.size() - 1;
+    int p = parent(c);
     
     //while child is less than parent...
     while (  compare(objects[c], objects[p])){
@@ -134,16 +150,14 @@ void heapp<Comparable, Compare>::insert(Comparable object){
         p = parent(p);
         
         //check if both p and c pointers are at the top of the array.
-        if (p == 0 && c == 0)
+        if (p == 0 && c == 0)//maybe bug??
             break;
     }
-    
-    end++;    
 }
 
 template <class Comparable, class Compare>
-int heapp<Comparable, Compare>::size(){
-    return end;
+int heapp<Comparable, Compare>::size() const{
+    return objects.size();
 }
 
 
@@ -165,13 +179,14 @@ void heapp<Comparable, Compare>::swap(int i, int j){
     Comparable temp = objects[i];
     objects[i] = objects[j];
     objects[j] = temp;
+    swapIndices(objects[i], objects[j]);
 }
 
 
 template <class Comparable, class Compare>
 ostream& operator<< (ostream& os, const heapp<Comparable, Compare>& h){
     int c = 1;
-    for (int i = 0 ; i < h.end; i++){
+    for (int i = 0 ; i < h.size(); i++){
         os << h.objects[i] << ' ';
         if  (i+2 == pow(2,c)){
             os << endl;
@@ -182,6 +197,130 @@ ostream& operator<< (ostream& os, const heapp<Comparable, Compare>& h){
     return os;
 }
 
+template <class Comparable, class Compare>
+void heapp<Comparable, Compare>::swapIndices(Comparable i, Comparable j){
+    try{
+        int temp1 = indices.at(i);
+        int temp2 = indices.at(j);
+        
+        if (objects[temp1] != j){
+            cout << "Mismatch of first indices!" << endl;
+            return;
+        }
+        if (objects[temp2] != i){
+            cout << "Mismatch of second indices!" << endl;
+            return;
+        } 
+        
+        indices[j] = temp1;
+        indices[i] = temp2;
+    } catch (std::out_of_range) {
+        cout << "Can't swap indices of items that don't exist!" << endl;
+        cout << i << " " << j << endl;
+    } 
+}
 
+
+template <class Comparable, class Compare>
+void heapp<Comparable, Compare>::update(Comparable object){
+    
+    Compare compare = Compare();
+    int index = indices[object];
+    // case where object became too small
+    
+    // while object is less than its parent, swap it with its parent.
+    while (compare(object, objects[parent(index)])){
+        
+        swap(index, parent(index));
+        index = indices[object];
+        
+    }
+    
+    //1 child
+    if (children(index).first == size()-1){
+        if (compare(objects[children(index).first], object)){
+            swap(index, children(index).first);
+            index = indices[object];
+        }
+        return;
+    }
+
+    //2 children
+    if (children(index).second == size() - 1){
+        if (compare(objects[children(index).first], object) || compare(objects[children(index).second], object) ){
+            if (compare(objects[children(index).first], objects[children(index).second]) ){
+                swap(index, children(index).first);
+            } else { // right child is less than left child.
+                swap(index, children(index).second);
+            }
+            index = indices[object];
+        }
+        return;
+    }
+
+    //0 children
+    if (children(index).first >= size()){
+        return;
+    }
+    
+    //case where object became too big
+    while (compare(objects[children(index).first], object) || compare(objects[children(index).second], object)){
+        //if left child is less than right child
+        if (compare(objects[children(index).first], objects[children(index).second]) ){
+            swap(index, children(index).first);
+        } else { // right child is less than left child.
+            swap(index, children(index).second);
+        }
+        index = indices[object];
+        
+        // check if near bottom of tree (0, 1 or 2 children)
+        
+        //1 child
+        if (children(index).first == size()-1){
+            if (compare(objects[children(index).first], object)){
+                swap(index, children(index).first);
+                index = indices[object];
+            }
+            break;
+        }
+        
+        //2 children
+        if (children(index).second == size() - 1){
+            if (compare(objects[children(index).first], object) || compare(objects[children(index).second], object) ){
+                if (compare(objects[children(index).first], objects[children(index).second]) ){
+                    swap(index, children(index).first);
+                } else { // right child is less than left child.
+                    swap(index, children(index).second);
+                }
+                index = indices[object];
+            }
+            break;
+        }
+        
+        //0 children
+        if (children(index).first >= size()){
+            break;
+        }
+    }
+}
+
+template <class Comparable, class Compare>
+Comparable heapp<Comparable, Compare>::at(int i){
+    return objects[i];
+}
+
+template <class Comparable, class Compare>
+int heapp<Comparable, Compare>::index(Comparable object){
+    try{
+        return indices.at(object);
+    } catch (std::out_of_range) {
+        return -1;
+    }
+}
+
+template <class Comparable, class Compare>
+bool heapp<Comparable, Compare>::empty(){
+    return objects.empty();
+}
 
 #endif
