@@ -32,6 +32,7 @@
 #include <cstdlib>
 
 #include "Node.h"
+#include <iomanip>
 #include "Edge.h"
 #include "DirectedWeightedGraph.h"
 #include "UndirectedWeightedGraph.h"
@@ -46,15 +47,18 @@
 #include <stack>
 #include <queue>
 #include <climits>
+#include <algorithm>
 #include <math.h>
 #include <set>
 #include <sstream>
 #include <string.h>
+#include <string>
 #include <c++/7/stdexcept>
 #include <c++/7/iosfwd>
 #include "../datastructures/WeightedTreeNode.h"
 #include "../datastructures/heapp.hpp"
 #include "../datastructures/WeightComparator.h"
+#include "../datastructures/dataPoint.h"
 using namespace std;
 
 /*
@@ -624,13 +628,251 @@ void solvePart4Week1Q1(){
     
 }
 
-int main(int argc, char** argv) {
-    DirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part4/Week1/smallEx4.txt");
+template <typename T>
+map< int, vector<vector<T>>>  generateChoicesOfS(vector<T> set){
+    map< int, vector<vector<T>>> result;
+    vector<T> s;
     
-    g.readInDataPT4WK1();
+    int n = set.size();
     
-    g.flloydwarshall();
+    for (int i = 0; i < (1<<n); i++){
+        s.clear();
+        
+        //cycle through possible number of elements
+        for (int j = 0; j < n; j++){
+            
+            if ((i & (1<<j)) > 0){
+                s.push_back(set[j]);
+            }
+        }
+        
+        //skip empty set
+        if (s.size() == 0)
+            continue;
+        
+        //only take those that contain first element.
+        if (s[0] == set[0]){
+            result[s.size()].push_back(s);
+        }
+    }
+    
+    return result;
+}
 
+template <class T>
+bool operator==(vector<T> v1, vector<T> v2){
+    if (v1.size() != v2.size())
+        return false;
+    for (int i = 0; i < v1.size(); i++)
+        if ( ! (v1[i] == v2[i]))
+            return false;
+    return true;
+}
+
+//26442
+void solvePart4Week2Q1(){
+    //Open up file of data point data
+    string filename = "/home/nathan/Programming/OSSU/Core_Theory/"
+            "Algorithms-Roughgarden/Part4/Week2/tsp.txt";
+    ifstream infile(filename);
+    string line;
+    
+    //read in number of nodes
+    getline(infile, line);
+    int numberOfNodes = stoi(line);
+    
+    //Array of data points
+    vector<dataPoint*> V;
+    
+    double x,y;
+    int id = 0;
+    
+    //Read in data point values and store in V.
+    while (getline(infile, line)){
+        
+        vector<string> coors = split(line, ' ');
+        
+        x = std::stod(coors[0]);
+        y = std::stod(coors[1]);
+        
+        V.push_back(new dataPoint(id, x, y));
+        
+        id++;
+    }
+    
+    
+    cout << setprecision(4) << fixed;
+    cout << "Size of V: " << V.size() << " Expected: " << numberOfNodes << endl;
+    cout << V[0]->getX() << ' ' << V[0]->getY() << endl;
+    
+    //Create Subsets of V that contain 1, mapped by length of subset.
+    
+    map< int, vector<vector<dataPoint*>>> subsets = generateChoicesOfS(V);
+    cout << "finished making sets" << endl;
+    
+    //Create mappings from subsets to corresponding index values of Subset by 
+    //Destination 2D array, A, which is initialized soon hereafter.
+    
+    unsigned int c = 0;
+    
+    //for quickest lookup of subset index, via subset pointer.
+    map<vector<dataPoint*>*, int> subsetIndexing;
+    
+    //for finding index of a difference of two subsets, much slower lookup
+    //differences are not easily mapped to a subset pointer (though a mapping 
+    //could probably be made...)
+    map<vector<dataPoint*>, int> diffIndexing;
+    
+    for (int m = 1; m <= numberOfNodes; m++){
+        for (auto& s : subsets[m]){
+            subsetIndexing[&s] = c;
+            diffIndexing[s]   = c++;
+        }
+    }
+    
+    cout << c << endl;
+    cout << "finished making subset to array index map, "
+            "now initializing 2D array...." << endl;
+
+    vector<vector<double>> A;
+    vector<double> t;
+    
+    //Initialize A[{1},1] to 0, all other A[S, 1] to +infinity, 
+    //where S is in subsets.
+    
+    for (int i = 0; i < c; i++){
+        t.clear();
+        for (int j = 0; j < numberOfNodes; j++){
+            if (i == 0 && j == 0)
+                t.push_back(0);
+            else
+                t.push_back(INT32_MAX);
+        }
+        A.push_back(t);
+    }
+    
+    //Initialize A[{1,x}, x] to C_1x as well.
+    
+    for (auto& subsetOfSize2 : subsets[2])
+        A[ subsetIndexing[ &subsetOfSize2 ] ][ subsetOfSize2[1]->getID() ] 
+                = subsetOfSize2[0]->distance(*subsetOfSize2[1]);
+    
+    cout << "Finished initializing A, now running the dynamic programming "
+            "algorithm..." << endl;
+    
+    vector<dataPoint*> diff;
+    int subsetIndex, diffIndex;
+    
+    //cycle through m = 2,3,4,...., n
+    for (int m = 3; m <= numberOfNodes; m++){
+        cout << m << "..." << endl;
+        
+        //cycle through each subset S ⊆ {1,2,3,...,n} of size m and containing 1
+        for (auto& S : subsets[m]){
+    
+            //cycle through j in S, skipping j = 1:
+            for (int j = 1; j < S.size(); j++){
+                
+                //cycle through k in S...
+                for (int k = 1; k < S.size(); k++){
+                    
+                    //... skipping k = j (since j = 1 was skipped above, 
+                    //k = 1 will be implicitly skipped as well):
+                    if ( j != k){
+                        
+                        diff = S;
+                        diff.erase(diff.begin() + j);
+                        subsetIndex = subsetIndexing [ &S ];
+                        diffIndex   = diffIndexing [ diff ];
+                        
+                        //A[S, j] = min(A[S, j], A[S-{j}, k] + C_kj)  
+                        //note: C_kj is distance from k to j.
+                        A[ subsetIndex ][ S[j]->getID() ] 
+                        = min( A[ subsetIndex ][ S[j]->getID() ], 
+                               A[ diffIndex ][ S[k]->getID() ]
+                               + S[k]->distance(*S[j]));
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    cout << "Finished the dynamic programming algorithm,"
+            " now searching for min value..." << endl;
+    
+    //initialize result to max value
+    int result = INT32_MAX;
+    
+    //cycle through j = 2,3,...,n
+    for (int j = 1; j < numberOfNodes; j++){
+        
+        //result = min(result, A[V, j] + C_j1])
+        result = min(result, (int)(A[c-1][j] + V[j]->distance(*V[0])));
+    }
+    
+    //print result
+    cout << "Answer: " << result << endl;
+}
+
+
+int main(int argc, char** argv) {
+    solvePart4Week2Q1();
+//    int n = 5;
+//    vector<int> v;
+//    
+//    for (int i = 1; i <= n; i++)
+//        v.push_back(i);
+//    
+//    cout << *binarySearch(v, 2) << endl;
+//    cout << binarySearch(v, 2) << endl;
+    
+    
+//    unsigned long long c = 0;
+//    
+//    map< int, vector<vector<int>>> vv = generateChoicesOfS(v, 1);
+//    cout << "finished making sets" << endl;
+//    
+//    
+//    map<vector<int>*, int> subsetIndexing;
+//    
+//    for (int m = 2; m <= n; m++){
+//        for (auto& s : vv[m]){
+//            subsetIndexing[&s] = c++;
+//        }
+//    }
+//    
+//    int A[c][n];
+//    
+//    for (int i = 0; i < c; i++){
+//        for (int j = 0; j < n; j++){
+//            if (i == subsetIndexing[&vv[1][0]] && j == 1)
+//                A[i][j] = 0;
+//            if (i != subsetIndexing[&vv[1][0]] && j == 1)
+//                A[i][j] = INT32_MAX;
+//            if (i != subsetIndexing[&vv[1][0]] && j == 1)
+//                A[i][j] = -1;
+//        }
+//    }
+//    
+//    c = 0;
+    
+//    vector<int> vtest;
+//    vtest.push_back(1);
+//    vtest.push_back(2);
+//    
+//    cout << (vtest == vv[2][0]) << endl;
+//    
+//    //counting number of stuff
+//    for (int m = 2; m <= n; m++){
+//        for (auto& s : vv[m]){
+//            for (auto& j : s){
+//                c++;
+//            }
+//        }
+//    }
+//
+//    cout << c << endl;
     return 0;
 }
 

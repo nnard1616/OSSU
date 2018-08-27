@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/WeightedTreeNode.o \
+	${OBJECTDIR}/dataPoint.o \
 	${OBJECTDIR}/heapp.o \
 	${OBJECTDIR}/pqueue.o \
 	${OBJECTDIR}/unionFind.o
@@ -83,6 +84,11 @@ ${OBJECTDIR}/WeightedTreeNode.o: WeightedTreeNode.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode.o WeightedTreeNode.cpp
+
+${OBJECTDIR}/dataPoint.o: dataPoint.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dataPoint.o dataPoint.cpp
 
 ${OBJECTDIR}/heapp.o: heapp.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -138,6 +144,19 @@ ${OBJECTDIR}/WeightedTreeNode_nomain.o: ${OBJECTDIR}/WeightedTreeNode.o Weighted
 	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode_nomain.o WeightedTreeNode.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/WeightedTreeNode.o ${OBJECTDIR}/WeightedTreeNode_nomain.o;\
+	fi
+
+${OBJECTDIR}/dataPoint_nomain.o: ${OBJECTDIR}/dataPoint.o dataPoint.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/dataPoint.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I../Graph -include ../Graph/PrimEdge.h -include ../Graph/PrimNode.h -include ../Graph/UndirectedWeightedGraph.h -std=c++14 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dataPoint_nomain.o dataPoint.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/dataPoint.o ${OBJECTDIR}/dataPoint_nomain.o;\
 	fi
 
 ${OBJECTDIR}/heapp_nomain.o: ${OBJECTDIR}/heapp.o heapp.cpp 

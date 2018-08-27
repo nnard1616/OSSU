@@ -23,37 +23,35 @@
  */
 
 /* 
- * File:   StaticFunctions.h
+ * File:   dataPoint.cpp
  * Author: Nathan Nard
- *
- * Created on July 5, 2018, 4:45 PM
+ * 
+ * Created on August 25, 2018, 8:10 PM
  */
 
-#ifndef STATICFUNCTIONS_H
-#define STATICFUNCTIONS_H
-#include <vector>
-#include <sstream>
-#include <string>
-#include <iostream>
-using namespace std;
+#include "dataPoint.h"
+#include <math.h>
 
-vector<string> split(const string& s, char delim);
-vector<int> strings_to_ints(vector<string> in);
-
-//assumes elements are non-pointers
-template <typename ForwardIterator>
-void print_container(ForwardIterator first, ForwardIterator last)
-{
-  while (first != last)
-    cout << *first++ << ' ';
-  cout << endl;
+dataPoint::dataPoint(int id, double x, double y) : ID(id), X(x), Y(y){
 }
 
-//assumes elements are non-pointers
-template <typename Container>
-void print_container(Container in)
-{
-  print_container(in.begin(), in.end());
+double dataPoint::distance(dataPoint other) {
+    return pow(pow((this->X - other.getX()), 2) + pow((this->Y - other.getY()), 2), 0.5);
 }
-#endif /* STATICFUNCTIONS_H */
+
+int dataPoint::getID() const {
+    return ID;
+}
+
+double dataPoint::getX() const {
+    return X;
+}
+
+double dataPoint::getY() const {
+    return Y;
+}
+
+bool dataPoint::operator==(const dataPoint& other) {
+    return getID() == other.getID();
+}
 
