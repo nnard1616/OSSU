@@ -38,7 +38,11 @@ public:
     dataPoint(int id, double x, double y);
     dataPoint(const dataPoint& d):dataPoint(d.getID(), d.getX(), d.getY()){}
     
-    double distance(dataPoint other);
+    double distance(dataPoint& other);
+    double squareDistance(dataPoint& other);
+    static void setPrevious(dataPoint* d);
+    static dataPoint* getPrevious();
+    
     int getID() const;
     double getX()  const;
     double getY()  const;
@@ -46,8 +50,9 @@ public:
     bool operator==(const dataPoint& other);
     
 private:
-    const int ID;
-    const double X, Y;
+    int ID;
+    double X, Y;
+    static dataPoint* previous;
     
 };
 

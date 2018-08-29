@@ -50,8 +50,10 @@
 #include <algorithm>
 #include <math.h>
 #include <set>
+#include <list>
 #include <sstream>
 #include <string.h>
+#include <float.h>
 #include <string>
 #include <c++/7/stdexcept>
 #include <c++/7/iosfwd>
@@ -815,64 +817,111 @@ void solvePart4Week2Q1(){
     cout << "Answer: " << result << endl;
 }
 
+void solvePart4Week3Q1(){
+    //Open up file of data point data
+    string filename = "/home/nathan/Programming/OSSU/Core_Theory/"
+            "Algorithms-Roughgarden/Part4/Week3/nn.txt";
+    ifstream infile(filename);
+    string line;
+    
+    //read in number of nodes
+    getline(infile, line);
+    int numberOfNodes = stoi(line);
+    
+    //create and populate array of data points
+    vector<dataPoint*> V;
+    
+    double x,y;
+    int id = 1;
+    
+    getline(infile, line);
+    
+    vector<string> coors = split(line, ' ');
+        
+    x = std::stod(coors[1]);
+    y = std::stod(coors[2]);
+    
+    dataPoint start(id, x, y);
+    id++;
+    
+    start.setPrevious(&start);
+    
+    //Read in data point values and store in V.
+    while (getline(infile, line) ){
+        
+        vector<string> coors = split(line, ' ');
+        
+        x = std::stod(coors[1]);
+        y = std::stod(coors[2]);
+        
+        V.push_back(new dataPoint(id, x, y));
+        
+        id++;
+    }
+    
+    
+    cout << setprecision(4) << fixed;
+    cout << "Size of V: " << V.size() 
+         << " Expected: " << numberOfNodes-1 << endl;
+    cout << start.getPrevious()->getID() << endl;
+    
+    //initialize distance, d
+    double totalPathDistance = 0;
+    double dx;
+    double minSD = 1000000000; //min square distance for current iteration
+    double tempMinSD;
+    
+    int currNodeComp = 0; //number of comparisons made with current node
+    int totalComparisons = 0; //counts total comparisons made.
+    int nodesProcessed =  0;
+    int nextIndex;
+    
+    
+    //while V is not empty
+    while(! V.empty()){
+        
+        currNodeComp=0;
+        
+        for (int i =0; i < V.size(); i++){
+            currNodeComp++;
+            tempMinSD = V[i]->squareDistance(*(start.getPrevious()));
+            
+            if ( tempMinSD < minSD){
+                minSD = tempMinSD;
+                nextIndex = i;
+            }
+            
+            //datapoints happen to be sorted by x coordinate...
+            dx = (V[i]->getX() - start.getPrevious()->getX());
+            
+            if (minSD < dx*dx){
+                break;
+            }
+        }
+        
+        totalComparisons += currNodeComp;
+        start.setPrevious(V[nextIndex]);
+        V.erase(V.begin()+nextIndex);
+        totalPathDistance+=pow(minSD,0.5);
+        
+        nodesProcessed++;
+        if (nodesProcessed % 1000 == 0)
+            cout << nodesProcessed << ": " <<  V.size() 
+                 << " remaining, with distance of " << totalPathDistance 
+                 << ", broken at " << currNodeComp << " when the minDN was at: " 
+                 << nextIndex << endl;
+        minSD = 1000000000;
+    }
+    
+    totalPathDistance += start.distance(*start.getPrevious());
+    //print d
+    cout << (int)totalPathDistance << endl;
+    cout << "total comparisons: " << totalComparisons << endl;
+}
 
 int main(int argc, char** argv) {
-    solvePart4Week2Q1();
-//    int n = 5;
-//    vector<int> v;
-//    
-//    for (int i = 1; i <= n; i++)
-//        v.push_back(i);
-//    
-//    cout << *binarySearch(v, 2) << endl;
-//    cout << binarySearch(v, 2) << endl;
+    solvePart4Week3Q1();
     
-    
-//    unsigned long long c = 0;
-//    
-//    map< int, vector<vector<int>>> vv = generateChoicesOfS(v, 1);
-//    cout << "finished making sets" << endl;
-//    
-//    
-//    map<vector<int>*, int> subsetIndexing;
-//    
-//    for (int m = 2; m <= n; m++){
-//        for (auto& s : vv[m]){
-//            subsetIndexing[&s] = c++;
-//        }
-//    }
-//    
-//    int A[c][n];
-//    
-//    for (int i = 0; i < c; i++){
-//        for (int j = 0; j < n; j++){
-//            if (i == subsetIndexing[&vv[1][0]] && j == 1)
-//                A[i][j] = 0;
-//            if (i != subsetIndexing[&vv[1][0]] && j == 1)
-//                A[i][j] = INT32_MAX;
-//            if (i != subsetIndexing[&vv[1][0]] && j == 1)
-//                A[i][j] = -1;
-//        }
-//    }
-//    
-//    c = 0;
-    
-//    vector<int> vtest;
-//    vtest.push_back(1);
-//    vtest.push_back(2);
-//    
-//    cout << (vtest == vv[2][0]) << endl;
-//    
-//    //counting number of stuff
-//    for (int m = 2; m <= n; m++){
-//        for (auto& s : vv[m]){
-//            for (auto& j : s){
-//                c++;
-//            }
-//        }
-//    }
-//
-//    cout << c << endl;
     return 0;
 }
 

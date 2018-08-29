@@ -35,8 +35,14 @@
 dataPoint::dataPoint(int id, double x, double y) : ID(id), X(x), Y(y){
 }
 
-double dataPoint::distance(dataPoint other) {
+double dataPoint::distance(dataPoint& other) {
     return pow(pow((this->X - other.getX()), 2) + pow((this->Y - other.getY()), 2), 0.5);
+}
+
+int dataPoint::squareDistance(dataPoint& other) {
+    double dx = (this->X - other.getX());
+    double dy = (this->Y - other.getY());
+    return dx*dx + dy*dy;
 }
 
 int dataPoint::getID() const {
@@ -54,4 +60,16 @@ double dataPoint::getY() const {
 bool dataPoint::operator==(const dataPoint& other) {
     return getID() == other.getID();
 }
+
+dataPoint* dataPoint::previous;
+
+dataPoint* dataPoint::getPrevious() {
+    return previous;
+}
+
+void dataPoint::setPrevious(dataPoint* d) {
+    previous = d;
+}
+
+
 
