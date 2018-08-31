@@ -38,8 +38,7 @@
 /*  Constructors/Destructor                                                   */
 /******************************************************************************/
 
-DirectedGraph::DirectedGraph(string filename) {
-    readInData(filename);
+DirectedGraph::DirectedGraph() {
 }
 
 DirectedGraph::DirectedGraph(const DirectedGraph& orig) {
@@ -81,11 +80,13 @@ void DirectedGraph::readInData(string filename) {
         
         if (nodeList.find(mInt) == nodeList.end()){
             nodeList[mInt] = new Node(mInt);
+            nodeValues.insert(mInt);
             nodes++;
         }
         
         if (nodeList.find(nInt) == nodeList.end()){
             nodeList[nInt] = new Node(nInt);
+            nodeValues.insert(nInt);
             nodes++;
         }
         
@@ -99,6 +100,73 @@ void DirectedGraph::readInData(string filename) {
     cout << "Data read. " << endl << "Nodes: "  << nodes 
                                   << " Edges: " << edges << endl;
     
+    infile.close();
+}
+
+void DirectedGraph::readInData2(string filename) {
+    cout << "reading data..." << endl;
+    nodeList.clear();
+    nToFinishTime.clear();
+    nodes = 0;
+    edges = 0;
+    
+    ifstream infile(filename);
+    string line;
+    
+    int numberOfClauses;
+    getline(infile,line);
+    numberOfClauses = stoi(line);
+    
+    vector<int> pair;
+    int mInt, nInt, mIntNeg, nIntNeg;
+    
+    while (getline(infile,line)){
+        pair = strings_to_ints(split(line, ' '));
+        
+        mInt = pair.at(0);
+        nInt = pair.at(1);
+        mIntNeg = -1*mInt;
+        nIntNeg = -1*nInt;
+        
+        
+        if (nodeList.find(mInt) == nodeList.end()){
+            nodeList[mInt] = new Node(mInt);
+            nodeValues.insert(mInt);
+            nodes++;
+        }
+        
+        if (nodeList.find(nInt) == nodeList.end()){
+            nodeList[nInt] = new Node(nInt);
+            nodeValues.insert(nInt);
+            nodes++;
+        }
+        
+        if (nodeList.find(mIntNeg) == nodeList.end()){
+            nodeList[mIntNeg] = new Node(mIntNeg);
+            nodeValues.insert(mIntNeg);
+            nodes++;
+        }
+        
+        if (nodeList.find(nIntNeg) == nodeList.end()){
+            nodeList[nIntNeg] = new Node(nIntNeg);
+            nodeValues.insert(nIntNeg);
+            nodes++;
+        }
+        
+        nodeList[mIntNeg]->addNeighbor(nodeList[nInt]);
+        edges++;
+        
+        nodeList[nIntNeg]->addNeighbor(nodeList[mInt]);
+        edges++;
+        
+        pair.clear();
+    }
+    
+    
+    cout << "Data read. " << endl << "Nodes: "  << nodes 
+                                  << " Edges: " << edges << endl;
+    cout << "Expected edges: " << numberOfClauses * 2 << endl; //not necessarily true...
+    infile.close();
 }
 
 void DirectedGraph::findSCCs() {
@@ -115,7 +183,7 @@ void DirectedGraph::findSCCs() {
     priority_queue<int> result = DFSOnReversedTransform();
      
     cout << "Done.  Here are the top 5 results: " << endl;
-    for(int i = 0; i < 5; i ++){
+    for(int i = 0; i < 20; i ++){
         if (result.size() > 0){
             cout << result.top() << ' ';
             result.pop();
@@ -211,16 +279,14 @@ void DirectedGraph::DFS(Node* n, int& counter) {
 
 void DirectedGraph::DFSOnOriginal() {
     int counter = 1;
-    int node = nodes;
+    auto nodeIter = nodeValues.begin();
     
     while (counter <= nodes){
-        
         //start at highest node, jump to next highest unvisited node after
         //a round of DFS.
-        while (nodeList[node]->isVisited())
-            node--;
-        
-        DFS(nodeList[node], counter);
+        while (nodeList[*nodeIter]->isVisited())
+            nodeIter++;
+        DFS(nodeList[*nodeIter], counter);
     }
 }
 

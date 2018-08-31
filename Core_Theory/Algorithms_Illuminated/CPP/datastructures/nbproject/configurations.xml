@@ -6,6 +6,8 @@
                    projectFiles="true">
       <itemPath>WeightComparator.h</itemPath>
       <itemPath>WeightedTreeNode.h</itemPath>
+      <itemPath>booleanFormula.h</itemPath>
+      <itemPath>clause.h</itemPath>
       <itemPath>dataPoint.h</itemPath>
       <itemPath>heapp.hpp</itemPath>
       <itemPath>pqueue.h</itemPath>
@@ -19,6 +21,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>WeightedTreeNode.cpp</itemPath>
+      <itemPath>booleanFormula.cpp</itemPath>
+      <itemPath>clause.cpp</itemPath>
       <itemPath>dataPoint.cpp</itemPath>
       <itemPath>heapp.cpp</itemPath>
       <itemPath>pqueue.cpp</itemPath>
@@ -77,6 +81,14 @@
       <item path="WeightedTreeNode.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="WeightedTreeNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="booleanFormula.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="booleanFormula.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="clause.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="clause.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dataPoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -156,6 +168,14 @@
       <item path="WeightedTreeNode.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="WeightedTreeNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="booleanFormula.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="booleanFormula.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="clause.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="clause.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="dataPoint.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -36,6 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/WeightedTreeNode.o \
+	${OBJECTDIR}/booleanFormula.o \
+	${OBJECTDIR}/clause.o \
 	${OBJECTDIR}/dataPoint.o \
 	${OBJECTDIR}/heapp.o \
 	${OBJECTDIR}/pqueue.o \
@@ -84,6 +86,16 @@ ${OBJECTDIR}/WeightedTreeNode.o: WeightedTreeNode.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode.o WeightedTreeNode.cpp
+
+${OBJECTDIR}/booleanFormula.o: booleanFormula.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/booleanFormula.o booleanFormula.cpp
+
+${OBJECTDIR}/clause.o: clause.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/clause.o clause.cpp
 
 ${OBJECTDIR}/dataPoint.o: dataPoint.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -144,6 +156,32 @@ ${OBJECTDIR}/WeightedTreeNode_nomain.o: ${OBJECTDIR}/WeightedTreeNode.o Weighted
 	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WeightedTreeNode_nomain.o WeightedTreeNode.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/WeightedTreeNode.o ${OBJECTDIR}/WeightedTreeNode_nomain.o;\
+	fi
+
+${OBJECTDIR}/booleanFormula_nomain.o: ${OBJECTDIR}/booleanFormula.o booleanFormula.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/booleanFormula.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/booleanFormula_nomain.o booleanFormula.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/booleanFormula.o ${OBJECTDIR}/booleanFormula_nomain.o;\
+	fi
+
+${OBJECTDIR}/clause_nomain.o: ${OBJECTDIR}/clause.o clause.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/clause.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/clause_nomain.o clause.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/clause.o ${OBJECTDIR}/clause_nomain.o;\
 	fi
 
 ${OBJECTDIR}/dataPoint_nomain.o: ${OBJECTDIR}/dataPoint.o dataPoint.cpp 

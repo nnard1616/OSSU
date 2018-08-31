@@ -43,7 +43,7 @@ using namespace std;
 class DirectedGraph {
 public:
     //Constructors & Destructor
-    DirectedGraph(string filename);
+    DirectedGraph();
     DirectedGraph(const DirectedGraph& orig);
     virtual ~DirectedGraph();
     
@@ -55,7 +55,8 @@ public:
     bool areAllVisited();
     bool areAllNotVisited();
 
-    
+    void readInData(string filename);
+    void readInData2(string filename);
     
     void findSCCs();
     
@@ -66,8 +67,9 @@ private:
     int nodes;
     map<int, Node*> nodeList;
     map<int, int> nToFinishTime;
+    set<int, greater<int>> nodeValues;
     
-    void readInData(string filename);
+    
     map<int, Node*> reverseArcsAndTransform(const map<int, Node*>& al);
     void DFS(Node* n, int& counter);
     void DFSOnOriginal();

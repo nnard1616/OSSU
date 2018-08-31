@@ -61,11 +61,26 @@
 #include "../datastructures/heapp.hpp"
 #include "../datastructures/WeightComparator.h"
 #include "../datastructures/dataPoint.h"
+#include "DirectedGraph.h"
 using namespace std;
 
 /*
  * 
  */
+
+//434821 968 459 313 211 
+void solvePart2Week1Q1(){
+//    string filename = "/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week1/SCC.txt";
+    
+//    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course2/assignment1SCC/input_mostlyCycles_68_320000.txt";
+    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course2/assignment1SCC/input_mostlyCycles_39_3200.txt";
+    
+    DirectedGraph g;
+    g.readInData(filename);
+    g.findSCCs();
+    
+}
+
 
 void solvePart2Week2PA(){
     DirectedWeightedGraph g("/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part2/Week2/dijkstraData2.txt");
@@ -919,8 +934,24 @@ void solvePart4Week3Q1(){
     cout << "total comparisons: " << totalComparisons << endl;
 }
 
+//101100
+void solvePart4Week4Q1(){
+    //Open up file of data point data
+    string filename = "/home/nathan/Programming/OSSU/Core_Theory/Algorithms-Roughgarden/Part4/Week4/2sat6.txt";
+    
+//    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course4/assignment4TwoSat/input_beaunus_32_10000.txt";
+    
+    DirectedGraph g;
+    
+    g.readInData2(filename);
+    g.findSCCs();
+    
+//    cout << g << endl;
+}
+
+
 int main(int argc, char** argv) {
-    solvePart4Week3Q1();
+    solvePart4Week4Q1();
     
     return 0;
 }

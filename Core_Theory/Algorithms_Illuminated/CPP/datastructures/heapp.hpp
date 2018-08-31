@@ -204,11 +204,11 @@ void heapp<Comparable, Compare>::swapIndices(Comparable i, Comparable j){
         int temp2 = indices.at(j);
         
         if (objects[temp1] != j){
-            cout << "Mismatch of first indices!" << endl;
+//            cout << "Mismatch of first indices!" << endl;
             return;
         }
         if (objects[temp2] != i){
-            cout << "Mismatch of second indices!" << endl;
+//            cout << "Mismatch of second indices!" << endl;
             return;
         } 
         
