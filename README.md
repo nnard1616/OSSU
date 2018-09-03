@@ -9,7 +9,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 
 [Specialization Certificate](https://www.coursera.org/account/accomplishments/specialization/46W7PGSGMZKC)
 
-~~~
+----
 ### Part 1: Divide and Conquer, Sorting and Searching, and Randomized Algorithms
 [Course website](https://www.coursera.org/learn/algorithms-divide-conquer/)
 
