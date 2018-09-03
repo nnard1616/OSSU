@@ -7,7 +7,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 
 ## Algorithms Specialization with Tim Roughgarden from Stanford University
 
-### Divide and Conquer, Sorting and Searching, and Randomized Algorithms
+### Part 1: Divide and Conquer, Sorting and Searching, and Randomized Algorithms
 [Course website](https://www.coursera.org/learn/algorithms-divide-conquer/)
 
 [Certificate](https://www.coursera.org/account/accomplishments/verify/PD8BZ36GPUWW)
@@ -24,7 +24,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 [Min Cut of Undirected Graph](https://nnard1616.github.io/2018/06/30/Coursera-Roughgarden-Algorithms-Pt-1-Wk-4)
 
 ---
-### Graph Search, Shortest Paths, and Data Structures
+### Part 2: Graph Search, Shortest Paths, and Data Structures
 [Course website](https://www.coursera.org/learn/algorithms-graphs-data-structures)
 
 [Certificate](https://www.coursera.org/account/accomplishments/verify/WL667G3ES9PD)
@@ -39,7 +39,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 [Determine Distinct Sums of Two Integers in Set of Integers](https://nnard1616.github.io/2018/07/19/Coursera-Roughgarden-Algorithms-Pt-2-Wk-4)
 
 ---
-### Greedy Algorithms, Minimum Spanning Trees, and Dynamic Programming
+### Part 3: Greedy Algorithms, Minimum Spanning Trees, and Dynamic Programming
 [Course website](https://www.coursera.org/learn/algorithms-greedy/)
 
 [Certificate](https://www.coursera.org/account/accomplishments/verify/PCCS29MCX6AJ)
@@ -54,7 +54,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 [Knapsack Problem](https://nnard1616.github.io/2018/08/20/Coursera-Roughgarden-Algorithms-Pt-3-Wk-4)
 
 ---
-### Shortest Paths Revisited, NP-Complete Problems and What To Do About Them
+### Part 4: Shortest Paths Revisited, NP-Complete Problems and What To Do About Them
 [Course website](https://www.coursera.org/learn/algorithms-npcomplete/)
 
 [Certificate](https://www.coursera.org/account/accomplishments/verify/JK9HRKUSU7KS)
