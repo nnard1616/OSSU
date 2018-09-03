@@ -23,6 +23,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 
 [Min Cut of Undirected Graph](https://nnard1616.github.io/2018/06/30/Coursera-Roughgarden-Algorithms-Pt-1-Wk-4)
 
+---
 ### Graph Search, Shortest Paths, and Data Structures
 [Course website](https://www.coursera.org/learn/algorithms-graphs-data-structures)
 
@@ -37,6 +38,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 
 [Determine Distinct Sums of Two Integers in Set of Integers](https://nnard1616.github.io/2018/07/19/Coursera-Roughgarden-Algorithms-Pt-2-Wk-4)
 
+---
 ### Greedy Algorithms, Minimum Spanning Trees, and Dynamic Programming
 [Course website](https://www.coursera.org/learn/algorithms-greedy/)
 
@@ -45,12 +47,13 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 #### Projects and Exercises
 [Prim's Algorithm](https://nnard1616.github.io/2018/07/27/Coursera-Roughgarden-Algorithms-Pt-3-Wk-1)
 
-[Kruskal's Algorithm(https://nnard1616.github.io/2018/08/16/Coursera-Roughgarden-Algorithms-Pt-3-Wk-2)
+[Kruskal's Algorithm](https://nnard1616.github.io/2018/08/16/Coursera-Roughgarden-Algorithms-Pt-3-Wk-2)
 
 [Huffman Codes and Max Weight Independent Set](https://nnard1616.github.io/2018/08/17/Coursera-Roughgarden-Algorithms-Pt-3-Wk-3)
 
 [Knapsack Problem](https://nnard1616.github.io/2018/08/20/Coursera-Roughgarden-Algorithms-Pt-3-Wk-4)
 
+---
 ### Shortest Paths Revisited, NP-Complete Problems and What To Do About Them
 [Course website](https://www.coursera.org/learn/algorithms-npcomplete/)
 
