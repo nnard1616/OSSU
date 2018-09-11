@@ -39,7 +39,7 @@ My progress can be viewed here: https://trello.com/b/61dDVl8m
 
 [Determine Median of Dynammically Growing List of Integers](https://nnard1616.github.io/2018/07/19/Coursera-Roughgarden-Algorithms-Pt-2-Wk-3)
 
-[Determine Distinct Sums of Two Integers in Set of Integers](https://nnard1616.github.io/2018/07/19/Coursera-Roughgarden-Algorithms-Pt-2-Wk-4)
+[Determine Distinct Sums of Two Integers in Set of Integers](https://nnard1616.github.io/2018/07/23/Coursera-Roughgarden-Algorithms-Pt-2-Wk-4)
 
 ---
 ### Part 3: Greedy Algorithms, Minimum Spanning Trees, and Dynamic Programming
