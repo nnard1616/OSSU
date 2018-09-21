@@ -183,15 +183,19 @@ void solvePart2Week3PA(){
     int number;
     int result = 0;
     
+    //read in the values into Q, the pqueue
     while (getline(infile, line)){
         number = stoi(line);
-        Q.push(number);
+        Q.push(number); //O(nlogn)
         
-        if (Q.size() % 2 == 0) //is even
+        //add median of current Q, median is found at index half of Q's size.
+        //(Round to the floor for even number of values)
+        if (Q.size() % 2 == 0) //Even number of values
             result += Q[Q.size()/2 - 1];
-        else //is odd
+        else //Odd number of values
             result += Q[(Q.size()+1)/2 - 1];
         
+        //instructions only want the last 4 digits of the sum of medians.
         result = result % 10000;
     }
 
@@ -221,6 +225,7 @@ void solvePart3Week2Q2(){
     cout << g.findKWithSpacingOfThree() << endl;
 }
 
+//huffman codes
 void solvePart3Week3Q12(){
     //    string filename = "/home/nathan/Extracts/stanford-algs/testCases/course3/assignment3HuffmanAndMWIS/question1And2/input_random_1_10.txt";
     
@@ -237,19 +242,21 @@ void solvePart3Week3Q12(){
     int nodeValue = 1;
     pqueue<WeightedTreeNode*, WeightedTreeNodeComparator<WeightedTreeNode> > nodes;
     
+    //read in value weights and create a WeightedTreeNode for each.
+    //Nodes are sorted in ascending order of weight
     while (getline(infile, line)){
         readWeight = stoull(line);
-        nodes.push(new WeightedTreeNode(nodeValue, readWeight));
+        nodes.push(new WeightedTreeNode(nodeValue, readWeight)); //O(nlogn)
         nodeValue++;
     }
-//    cout << nodes << endl << endl;
+ 
     
     WeightedTreeNode* n1;
     WeightedTreeNode* n2;
     
     WeightedTreeNode* combined;
     
-    //assumes more than 1 node at start.
+    //assumes more than 1 node at start, create the encoding tree
     while (nodes.size() > 1){
         n1 = nodes.top();
         nodes.pop();
@@ -258,14 +265,15 @@ void solvePart3Week3Q12(){
         nodes.pop();
         
         combined = new WeightedTreeNode(0, n1, n2);
-        nodes.push(combined);
-    }
+        nodes.push(combined); //O(nlogn)
+    } //end of creating encoding tree
     
     
+    //now determine min and max code lengths, via depth first search
     int maxDepth = INT32_MIN;
     int minDepth = INT32_MAX;
     
-    vector<WeightedTreeNode*> dfs;
+    vector<WeightedTreeNode*> dfs; //depth first search, facilitated by stack
     
     dfs.push_back(nodes.top());
     WeightedTreeNode* current;
@@ -286,27 +294,6 @@ void solvePart3Week3Q12(){
     
     cout << maxDepth << endl << minDepth << endl;
     infile.close();
-    
-    //    heapp<WeightedTreeNode*, WeightedTreeNodeComparator<WeightedTreeNode> > nodes;
-    //    
-    //    nodes.insert(new WeightedTreeNode(1, 10));
-    //    nodes.insert(new WeightedTreeNode(2, 15));
-    //    
-    //    WeightedTreeNode* n1 = nodes.top();
-    //    nodes.pop();
-    //    WeightedTreeNode* n2 = nodes.top();
-    //    nodes.pop();
-    //    
-    //    WeightedTreeNode* combined  = new WeightedTreeNode(0, n1, n2);
-    //    
-    //    WeightedTreeNode* n3 = new WeightedTreeNode(3, 20);
-    //    
-    //    combined = new WeightedTreeNode(0, n3, combined);
-    //    
-    //    cout << combined->getDepth() << endl;
-    //    cout << n1->getDepth() << endl;
-    //    cout << n2->getDepth() << endl;
-    //    cout << n3->getDepth() << endl;
 }
 
 ull sum_weights(vector<WeightedTreeNode*>& nodes){
@@ -339,19 +326,24 @@ void solvePart3Week3Q3(){
         nodeValue++;
     }
     
-    map<int, vector<WeightedTreeNode*>> mwis;
+    //Main Algorithm
+    
+    map<int, vector<WeightedTreeNode*>> mwis; //log
     
     mwis[0].clear();
     mwis[1].push_back(nodes[0]);
     
-    vector<WeightedTreeNode*> vim2, vim1;
-    ull swim2, swim1;
+    vector<WeightedTreeNode*> vim2, vim1; //potential sets
+    ull swim2, swim1; //working sums of pathways's weights
     
     for (int i = 2; i <= nodes.size(); i++){
         vim2.clear();
         vim1.clear();
         
+        //recall set from two iterations ago
         vim2.insert(vim2.end(), mwis[i-2].begin(), mwis[i-2].end());
+        
+        //recall set from last iteration
         vim1.insert(vim1.end(), mwis[i-1].begin(), mwis[i-1].end());
         
         vim2.push_back(nodes[i-1]);

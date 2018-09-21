@@ -42,6 +42,7 @@ class WeightedTreeNode {
 public:
     WeightedTreeNode();
     WeightedTreeNode(int value, ull weight);
+    //next constructor is for creating a fork node
     WeightedTreeNode(int value, WeightedTreeNode* n1, WeightedTreeNode* n2);
     WeightedTreeNode(int value, ull weight, WeightedTreeNode* n1, WeightedTreeNode* n2);
     
@@ -57,7 +58,7 @@ public:
     friend ostream& operator<< (ostream& os, const WeightedTreeNode* w);
 private:
     int value;
-    int depth = 0;
+    int depth = 0; //keeps track of how deep into tree the node is
     ull weight;
     WeightedTreeNode* left = nullptr;
     WeightedTreeNode* rght = nullptr;

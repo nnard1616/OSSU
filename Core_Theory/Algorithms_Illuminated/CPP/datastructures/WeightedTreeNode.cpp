@@ -36,14 +36,19 @@ WeightedTreeNode::WeightedTreeNode() {
     this->weight = -1;
 }
 
-WeightedTreeNode::WeightedTreeNode(int value, ull weight, WeightedTreeNode* n1, WeightedTreeNode* n2) {
+WeightedTreeNode::WeightedTreeNode(int value, 
+                                   ull weight, 
+                                   WeightedTreeNode* n1, 
+                                   WeightedTreeNode* n2) {
     this->value = value;
     this->weight = weight;
     this->left = n1;
     this->rght = n2;
 }
 
-WeightedTreeNode::WeightedTreeNode(int value, WeightedTreeNode* n1, WeightedTreeNode* n2) {
+WeightedTreeNode::WeightedTreeNode(int value, 
+                                   WeightedTreeNode* n1, 
+                                   WeightedTreeNode* n2) {
     this->left = n1;
     this->rght = n2;
     this->weight = n1->getWeight() + n2->getWeight();
